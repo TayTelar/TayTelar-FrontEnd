@@ -1,0 +1,138 @@
+.contactUs {
+    &_container {
+        font-family: "Red Hat Display", sans-serif;
+
+        &_map {
+            margin-bottom: 3vw;
+            overflow: hidden;
+        }
+
+        &_section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            &_contact {
+                width: 90%;
+                display: flex;
+                justify-content: center;
+                align-items: baseline;
+                .contact_details {
+                    width: 50%;
+
+                    .heading {
+                        color: #1a1a1a;
+                        font-size: 16px;
+                    }
+
+                    .details {
+                        .fas {
+                            color: #444444;
+                        }
+
+                        .title {
+                            display: inline;
+                            color: #444444;
+                            margin: 0 0 10px 10px;
+                        }
+
+                        .content {
+                            display: block;
+                            text-decoration: none;
+                            color: #444444;
+                        }
+                        .social_media{
+                            h3{
+                                margin-top: 2vw;
+                            }
+                            a{
+                                color: #1a1a1a;
+                                margin: 2vw 2vw 0 0;
+                            }
+                        }
+                    }
+                }
+
+                .input_form {
+                    width: 50%;
+
+                    form {
+                        margin: 5vw 0;
+
+                        h1 {
+                            font-size: 39px;
+                            letter-spacing: 0px;
+                            color: #383838;
+                            font-weight: 800;
+                            margin-bottom: 0;
+                            margin-top: 0;
+                            line-height: 1.2;
+                            text-align: center;
+                        }
+
+                        P {
+                            font-size: 19px;
+                            font-style: normal;
+                            letter-spacing: 0px;
+                            color: #747474;
+                            margin-top: 10px;
+                            line-height: 1.7;
+                            text-align: center;
+                        }
+
+                        input,
+                        textarea {
+                            border-radius: 2px;
+                            -webkit-border-radius: 2px;
+                            width: 93%;
+                            display: block;
+                            padding: 19px 22px;
+                            font-size: 15px;
+                            color: #4e4e4e;
+                            background-color: #fff;
+                            border: 1px solid #e1e1e1;
+                            margin-bottom: 2vw;
+                        }
+
+                        .form-group {
+                            position: relative;
+                        }
+
+                        .error {
+                            font-size: 12px;
+                            position: absolute;
+                            bottom: -20px;
+                            left: 0;
+                            color: #e53d34;
+                        }
+
+                        textarea {
+                            height: 120px;
+                        }
+
+                        button {
+                            background-color: #1a1a1a;
+                            width: 100%;
+                            color: #fff;
+                            border-width: 0;
+                            border-style: solid;
+                            cursor: pointer;
+                            font-size: 13px;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                            letter-spacing: 0.8px;
+                            padding: 19px 22px;
+                            display: inline-block;
+                            -webkit-appearance: none;
+
+                            &:hover {
+                                background-color: #000000;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
