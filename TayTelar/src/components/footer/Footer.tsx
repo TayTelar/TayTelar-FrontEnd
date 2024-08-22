@@ -1,8 +1,8 @@
-import logo from "../assets/images/logo_white.png";
-import "../assets/sass/components/_footer.scss"
+import logo from "../../assets/images/logo_white.png";
+import "../../assets/sass/components/_footer.scss"
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import HeadsetMicOutlinedIcon from '@mui/icons-material/HeadsetMicOutlined';
-import pementlogo from "../assets/images/paymenlogo.webp"
+import pementlogo from "../../assets/images/paymenlogo.webp"
 const Footer = () => {
     return (
         <footer>
