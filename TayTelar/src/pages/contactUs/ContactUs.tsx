@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import "../../assets/sass/pages/contactus.scss";
+import "../../assets/sass/pages/_contactus.scss";
 const ContactUs = () => {
     const formik = useFormik({
         initialValues: {
