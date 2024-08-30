@@ -1,0 +1,333 @@
+.product {
+    height: 100rem;
+    font-family: "Red Hat Display", sans-serif;
+
+    .productlist-heading {
+        position: relative; // To position the pseudo-elements relative to this container
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%; // Position it vertically centered with respect to the list
+            width: 30%; // Adjust the width as needed for the lines
+            height: 1px; // Thickness of the line
+            background:rgb(228, 223, 223); // Color of the line
+        }
+
+        &::before {
+            left: 4rem;
+           
+             // Position the line on the left
+        }
+
+        &::after {
+            right: 4rem;
+     // Position the line on the right
+        }
+
+        ul {
+            display: flex;
+            padding-left: 34rem;
+            padding-right: 34rem;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 3rem; // Remove default margin
+            // Remove default padding
+            list-style-type: none; // Remove default list dots
+        }
+
+        li {
+            padding: 0 1rem; // Optional: spacing around list items
+        }
+        .details.active,.shipping.active,.reviews.active{
+            color: #BA933E;
+    text-decoration: underline;
+    text-decoration-color: #BA933E; /* Optional: Match underline color with text color */
+    text-decoration-thickness: 2px; /* Thickness of the underline */
+    text-underline-offset: 7px; /* Space between text and underline */
+    text-decoration-skip-ink: auto
+        }
+        .details,.shipping,.reviews{
+            text-decoration: none;
+            color: black;
+        }
+       
+        
+    }
+    .outlet{
+        margin-top: 3rem;
+        margin-left: 4rem;
+        margin-right: 4rem;
+        font-size: 1rem;
+    }
+}
+
+.review-container {
+    .review-star, .grey-star-inner {
+        font-size: 1.3rem; /* Adjust size as needed */
+    }
+
+    .grey-star-inner {
+        color: rgb(183, 181, 181);
+        font-size: 1.25rem;
+        margin-top: 0.2rem;
+    }
+    .box {
+        height: 0.9rem;
+        width: 9rem;
+        background-color: rgb(241, 240, 240);
+        margin-top: 0.4rem;
+        margin-left: 2.2rem;
+        position: relative;
+        overflow: hidden;
+        border-radius: 0.25rem;
+      }
+      
+      .box-fill {
+        background-color: black;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0; // Will be set dynamically
+      }
+      
+      .box1 {
+        width: 9.1rem; // Special case width
+      }
+    
+    .star-5,.star-4,.star-3,.star-2,.star-1{
+        display: flex;
+        
+    }
+    .review-num{
+       margin-left: 2rem;
+        margin-top: 0.35rem;
+        font-size: 0.8rem;
+    }
+    .primary-review-container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+      
+    
+.outof{
+    font-size: 1rem;
+   
+    position: relative;
+    left: 0.5rem;
+    bottom: 0.43rem;
+
+}
+.review-star, .customer-review, .review-button {
+    position: relative; /* Needed for the pseudo-elements */
+    padding-right: 6rem;
+}
+
+/* Vertical line between review-star and customer-review */
+.review-star::after, .customer-review::after {
+    content: "";
+    position: absolute;
+    right: 0; /* Position on the right side */
+    top: 50%; /* Start from the middle */
+    transform: translateY(-50%); /* Center vertically */
+    height: 50%; /* Adjust height as needed */
+    width: 1px; /* Line thickness */
+    background-color: #ccc; /* Line color */
+}
+
+/* Remove the line from the last div */
+
+.based{
+    font-size: 1.1rem;
+    position: relative;
+    bottom: 1.1rem;
+
+}
+.review-star{
+    margin-top: 6rem;
+    margin-left: 3rem;
+    padding-top: 2rem;
+}
+.review-button  button{
+    background-color: black;
+    color: white;
+    width: 13rem;
+    height: 2.5rem;
+    font-size: 1rem;
+    position: relative;
+    top: 3rem;
+    right: 5rem;
+   display:flex;
+   justify-content: center;
+   align-items: center;
+
+    
+  }
+
+  .review-button button:hover{
+background-color: #BA933E;
+cursor: pointer;
+border: 1px solid #BA933E;
+  }
+  
+  .primary-review-container {
+    position: relative; /* Ensure the pseudo-element is positioned relative to this container */
+    padding: 3rem; /* Adjust padding as needed */
+}
+    /* Remove the line from the last div */
+    .primary-review-container::after {
+        content: "";
+        position: absolute;
+        left: 0; /* Position on the left side */
+        bottom: 0; /* Align at the bottom */
+        transform: translateY(50%); /* Center vertically */
+        height: 0.5px; /* Line thickness */
+        width: 100%; /* Full width of the container */
+        background-color: #ccc;
+    }
+    .most-recent select{
+        font-size: 1rem;
+    height: 2rem;
+    border: none; /* Removes the border */
+    outline: none; /* Removes the outline, if present */
+    background: transparent; /* Optional: Makes the background transparent */
+
+  
+    }
+    .most-recent{
+        position: relative;
+        padding: 1rem;
+    }
+    .review-appear{
+        position: relative;
+        padding: 1rem;
+    }
+    .review-appear::after {
+        content: "";
+        position: absolute;
+        left: 0; /* Position on the left side */
+        bottom: 0; /* Align at the bottom */
+        transform: translateY(50%); /* Center vertically */
+        height: 0.5px; /* Line thickness */
+        width: 100%; /* Full width of the container */
+        background-color: #ccc;
+    }
+    .most-recent::after {
+        content: "";
+        position: absolute;
+        left: 0; /* Position on the left side */
+        bottom: 0; /* Align at the bottom */
+        transform: translateY(50%); /* Center vertically */
+        height: 0.5px; /* Line thickness */
+        width: 100%; /* Full width of the container */
+        background-color: #ccc;
+    }
+    .most-recent select:hover{
+        border: 1px solid black;
+    }
+    .person-icon{
+        font-size: 1.8rem;
+        background-color:rgb(229, 223, 223);
+        position: relative;
+        top: 0.5rem;
+        right: 0.2rem;
+    }
+    .write-review{
+        
+        padding:1rem;
+        position: relative;
+        padding-left: 13rem;
+
+        padding-right: 20rem;
+    }
+    .write-review::after{
+        content: "";
+        position: absolute;
+        left: 0; /* Position on the left side */
+        bottom: 0; /* Align at the bottom */
+        transform: translateY(50%); /* Center vertically */
+        height: 0.5px; /* Line thickness */
+        width: 100%; /* Full width of the container */
+        background-color: #ccc;
+
+    }
+    
+
+.main-review{
+    text-align: center;
+}
+.title{
+    height: 3rem;
+    width: 32rem;
+    font-size: 0.9rem;
+    border:1px solid #e5e5e5
+}
+.name{
+    height: 3rem;
+    width: 32rem;
+    font-size: 0.9rem;
+    border:1px solid #e5e5e5
+}
+.comments{
+    height: 8rem;
+    width: 32rem;
+    font-size: 0.9rem;
+   
+    border:1px solid #e5e5e5
+    
+}
+
+.email{
+    height: 3rem;
+    width: 32rem;
+    font-size: 0.9rem;
+    border:1px solid #e5e5e5
+}
+.title:hover,.email:hover,.comments:hover,.name:hover{
+    border: 1px solid black;
+}
+.cancel{
+    width: 9rem;
+    height: 2.5rem;
+    background-color: white;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+.submit
+{
+    width: 9rem;
+    height: 2.5rem;
+    background-color:black;
+    color: white;
+    cursor: pointer;
+
+}
+.cancel:hover{
+    color: gray;
+    border: 1px solid gray;
+}
+.submit:hover{
+    background-color: #BA933E;
+    border: 1px solid #BA933E;
+}
+.error{
+    color: red;
+}
+.more-info{
+    width: 9rem;
+    height: 2.5rem;
+    background-color:black;
+    color: white;
+    cursor: pointer;
+}
+}
+
+
+
+
