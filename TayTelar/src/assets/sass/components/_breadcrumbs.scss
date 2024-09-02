@@ -1,0 +1,32 @@
+// src/assets/sass/components/_breadcrumbs.scss
+.breadcrumbs {
+    margin: 5px 0;
+    font-size: 12px;
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+  
+      li {
+        margin-right: 10px;
+        
+        .breadcrumb-link {
+          text-decoration: none;
+          color: #ffff;
+          font-weight: 100;
+          
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        
+        span {
+          color: #6c757d;
+        }
+      }
+    }
+  }
+  
