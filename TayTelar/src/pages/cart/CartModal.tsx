@@ -4,10 +4,23 @@ import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const CartModal = () => {
+interface CartItem {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  originalPrice: number;
+  discount: string;
+  size: string;
+  quantity: number;
+  isChecked: boolean;
+  image: string;
+}
+
+const CartModal: React.FC = () => {
   const navigate = useNavigate();
 
-  const [cartItems, setCartItems] = useState([
+  const [cartItems, setCartItems] = useState<CartItem[]>([
     {
       id: 1,
       name: "Camel Stretch Pants",
@@ -46,7 +59,7 @@ const CartModal = () => {
     },
   ]);
 
-  const handleQuantityChange = (id, increment = true) => {
+  const handleQuantityChange = (id: number, increment: boolean = true) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
         item.id === id
@@ -61,13 +74,13 @@ const CartModal = () => {
     );
   };
 
-  const handleSizeChange = (id, size) => {
+  const handleSizeChange = (id: number, size: string) => {
     setCartItems((prevItems) =>
       prevItems.map((item) => (item.id === id ? { ...item, size } : item))
     );
   };
 
-  const handleCheckboxChange = (id) => {
+  const handleCheckboxChange = (id: number) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
         item.id === id ? { ...item, isChecked: !item.isChecked } : item
@@ -75,7 +88,7 @@ const CartModal = () => {
     );
   };
 
-  const handleRemoveItem = (id) => {
+  const handleRemoveItem = (id: number) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
@@ -160,56 +173,56 @@ const CartModal = () => {
             ))}
           </div>
         </div>
-          <div className="price-details">
-            <h5>
-              PRICE DETAILS ({selectedItemsCount} Item
-              {selectedItemsCount > 1 && "s"})
-            </h5>
-            <div>
-              <span>Total MRP</span>
-              <span>
-                Rs.{" "}
-                {cartItems.reduce(
-                  (acc, item) =>
-                    acc + (item.isChecked ? item.originalPrice : 0),
-                  0
-                )}
-              </span>
-            </div>
-            <div>
-              <span>Discount on MRP</span>
-              <span>
-                - Rs.{" "}
-                {cartItems.reduce(
-                  (acc, item) =>
-                    acc +
-                    (item.isChecked ? item.originalPrice - item.price : 0),
-                  0
-                )}
-              </span>
-            </div>
-            <div>
-              <span>Platform Fee</span>
-              <span className="free">FREE</span>
-            </div>
-            <div>
-              <span>Shipping Fee</span>
-              <span className="free">FREE</span>
-            </div>
-            <div className="total-amount">
-              <span>TOTAL AMOUNT</span>
-              <span>
-                Rs.{" "}
-                {cartItems.reduce(
-                  (acc, item) => acc + (item.isChecked ? item.price : 0),
-                  0
-                )}
-              </span>
-            </div>
-            <button className="place-order" onClick={handleCheckout}>
-              CHECKOUT
-            </button>
+        <div className="price-details">
+          <h5>
+            PRICE DETAILS ({selectedItemsCount} Item
+            {selectedItemsCount > 1 && "s"})
+          </h5>
+          <div>
+            <span>Total MRP</span>
+            <span>
+              Rs.{" "}
+              {cartItems.reduce(
+                (acc, item) =>
+                  acc + (item.isChecked ? item.originalPrice : 0),
+                0
+              )}
+            </span>
           </div>
+          <div>
+            <span>Discount on MRP</span>
+            <span>
+              - Rs.{" "}
+              {cartItems.reduce(
+                (acc, item) =>
+                  acc +
+                  (item.isChecked ? item.originalPrice - item.price : 0),
+                0
+              )}
+            </span>
+          </div>
+          <div>
+            <span>Platform Fee</span>
+            <span className="free">FREE</span>
+          </div>
+          <div>
+            <span>Shipping Fee</span>
+            <span className="free">FREE</span>
+          </div>
+          <div className="total-amount">
+            <span>TOTAL AMOUNT</span>
+            <span>
+              Rs.{" "}
+              {cartItems.reduce(
+                (acc, item) => acc + (item.isChecked ? item.price : 0),
+                0
+              )}
+            </span>
+          </div>
+          <button className="place-order" onClick={handleCheckout}>
+            CHECKOUT
+          </button>
+        </div>
       </div>
     </div>
   );

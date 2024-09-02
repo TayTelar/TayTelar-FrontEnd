@@ -1,4 +1,4 @@
-import "../../assets/sass/pages/_checkout.scss";
+import "../../assets/sass/components/_review.scss";
 
 const ReviewOrder = () => {
   return <div>REVIEW ORDER</div>;

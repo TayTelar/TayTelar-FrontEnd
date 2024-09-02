@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import "../../assets/sass/pages/_shop.scss";
 import banner from "../../assets/images/products_banner.png";
 import img1 from "../../assets/images/image_1 (1).png";
@@ -17,7 +18,16 @@ import { useState } from "react";
 import Breadcrumbs from "../../components/breadcrumb/Breadcrumbs";
 import CloseIcon from "@mui/icons-material/Close";
 
-const products = [
+interface Product {
+  img: string;
+  hoverImg: string;
+  title: string;
+  price: string;
+  rating: string;
+  reviews: string;
+}
+
+const products: Product[] = [
   {
     img: img1,
     hoverImg: hover_2,
@@ -160,11 +170,11 @@ const filters = [
   },
 ];
 
-const Shop = () => {
+const Shop: React.FC = () => {
   const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop" }];
-  const [selectedFilters, setSelectedFilters] = useState(new Set());
+  const [selectedFilters, setSelectedFilters] = useState<Set<string>>(new Set());
 
-  const handleFilterChange = (filter) => {
+  const handleFilterChange = (filter: string) => {
     setSelectedFilters((prev) => {
       const newFilters = new Set(prev);
       if (newFilters.has(filter)) {
@@ -176,14 +186,13 @@ const Shop = () => {
     });
   };
 
-  const handleRemoveFilter = (filter) => {
+  const handleRemoveFilter = (filter: string) => {
     setSelectedFilters((prev) => {
       const newFilters = new Set(prev);
       newFilters.delete(filter);
       return newFilters;
     });
   };
-
 
   return (
     <div className="shop-container">
@@ -258,20 +267,27 @@ const Shop = () => {
 
 export default Shop;
 
-const Filter: React.FC = ({
+interface FilterProps {
+  onFilterChange: (filter: string) => void;
+  selectedFilters: Set<string>;
+  onRemoveFilter: (filter: string) => void;
+}
+
+const Filter: React.FC<FilterProps> = ({
   onFilterChange,
   selectedFilters,
   onRemoveFilter,
 }) => {
-  const [hiddenItems, setHiddenItems] = useState([]);
-  const [clickedSize, setClickedSize] = useState(null);
+  const [hiddenItems, setHiddenItems] = useState<string[]>([]); 
+  const [clickedSize, setClickedSize] = useState<number | null>(null);
 
-  const handleSizeClick = (size) => {
+
+  const handleSizeClick = (size: number) => {
     setClickedSize(size === clickedSize ? null : size); // Toggle size selection
-    onFilterChange(size);
+    onFilterChange(size.toString());
   };
 
-  const handleItemClick = (item) => {
+  const handleItemClick = (item: string) => {
     setHiddenItems((prev) =>
       prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
     );
@@ -328,7 +344,7 @@ const Filter: React.FC = ({
                 width: "30px",
                 height: "30px",
                 borderRadius: "50%",
-              }} // Added styling
+              }} 
               onClick={() => handleItemClick(color)}
             ></div>
           ))}

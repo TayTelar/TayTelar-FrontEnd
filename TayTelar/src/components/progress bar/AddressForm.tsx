@@ -1,8 +1,24 @@
-import { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import "../../assets/sass/pages/_checkout.scss";
 
-const AddressForm = ({ addAddress }) => {
-  const [formData, setFormData] = useState({
+interface FormData {
+  name: string;
+  mobileNumber: string;
+  addressLine1: string;
+  addressLine2: string;
+  city: string;
+  pinCode: string;
+  state: string;
+  addressType: "HOME" | "WORK" | "OTHERS"; 
+  defaultAddress: boolean;
+}
+
+interface AddressFormProps {
+  addAddress: (address: FormData) => void;
+}
+
+const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     mobileNumber: "",
     addressLine1: "",
@@ -14,22 +30,30 @@ const AddressForm = ({ addAddress }) => {
     defaultAddress: false,
   });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, type, checked } = e.target as HTMLInputElement;
+    
+    if (type === "checkbox") {
+      setFormData({
+        ...formData,
+        [name]: checked,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
-  const handleAddressTypeChange = (type) => {
+  const handleAddressTypeChange = (type: "HOME" | "WORK" | "OTHERS") => {
     setFormData({
       ...formData,
       addressType: type,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addAddress(formData);
     setFormData({
@@ -139,13 +163,13 @@ const AddressForm = ({ addAddress }) => {
             HOME
           </p>
           <p
-            onClick={() => handleAddressTypeChange("OFFICE")}
+            onClick={() => handleAddressTypeChange("WORK")}
             style={{
               borderColor:
-                formData.addressType === "OFFICE" ? "#BA933E" : "#cdcdcd",
+                formData.addressType === "WORK" ? "#BA933E" : "#cdcdcd",
             }}
           >
-            OFFICE
+            WORK
           </p>
           <p
             onClick={() => handleAddressTypeChange("OTHERS")}
@@ -164,5 +188,6 @@ const AddressForm = ({ addAddress }) => {
     </form>
   );
 };
+
 
 export default AddressForm;

@@ -1,15 +1,33 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import AddHomeIcon from "@mui/icons-material/AddHome";
 import DevicesIcon from "@mui/icons-material/Devices";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import Modal from "@mui/material/Modal";
-import "../../assets/sass/pages/_checkout.scss";
 
-const AddressList = ({ addresses = [], onRemove, onProceed, onSave }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [currentAddress, setCurrentAddress] = useState(null);
+interface Address {
+  name: string;
+  addressLine1: string;
+  addressLine2: string;
+  city: string;
+  state: string;
+  pinCode: string;
+  mobileNumber: string;
+  addressType: "HOME" | "WORK" | "OTHERS";
+}
 
-  const getAddressTypeIcon = (addressType) => {
+interface AddressListProps {
+  addresses: Address[];
+  onRemove: (index: number) => void;
+  onProceed: () => void;
+  onSave: (index: number, address: Address) => void;
+}
+
+const AddressList: React.FC<AddressListProps> = ({ addresses, onRemove, onProceed, onSave }) => {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [currentAddress, setCurrentAddress] = useState<Address | null>(null);
+  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+
+  const getAddressTypeIcon = (addressType: Address['addressType']) => {
     switch (addressType) {
       case "HOME":
         return <AddHomeIcon />;
@@ -22,14 +40,15 @@ const AddressList = ({ addresses = [], onRemove, onProceed, onSave }) => {
     }
   };
 
-  const handleEdit = (address, index) => {
-    setCurrentAddress({ ...address, index });
+  const handleEdit = (address: Address, index: number) => {
+    setCurrentAddress({ ...address });
+    setCurrentIndex(index);
     setIsEditing(true);
   };
 
   const handleSave = () => {
-    if (currentAddress) {
-      onSave(currentAddress.index, currentAddress);
+    if (currentAddress !== null && currentIndex !== null) {
+      onSave(currentIndex, currentAddress);
       setIsEditing(false);
     }
   };
@@ -206,7 +225,7 @@ const AddressList = ({ addresses = [], onRemove, onProceed, onSave }) => {
                     onChange={(e) =>
                       setCurrentAddress({
                         ...currentAddress,
-                        addressType: e.target.value,
+                        addressType: e.target.value as "HOME" | "WORK" | "OTHERS",
                       })
                     }
                   />

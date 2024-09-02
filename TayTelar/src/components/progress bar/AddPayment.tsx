@@ -16,7 +16,6 @@ const banksList = [
   "Bank of Baroda",
   "Punjab National Bank",
   "Union Bank of India",
-  // Add more banks as needed
 ];
 
 const AddPayment: React.FC<AddPaymentProps> = ({ onProceed }) => {
@@ -146,9 +145,11 @@ const AddPayment: React.FC<AddPaymentProps> = ({ onProceed }) => {
           )}
         </div>
       </div>
-      <button onClick={onProceed} className="btn-continue">
-        Continue
-      </button>
+      {!showCashOnDelivery && (
+        <button onClick={onProceed} className="btn-continue">
+          Continue
+        </button>
+      )}
     </div>
   );
 };

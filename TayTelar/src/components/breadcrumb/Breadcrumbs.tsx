@@ -1,7 +1,17 @@
-import { NavLink } from "react-router-dom";
-import "../../assets/sass/components/_breadcrumbs.scss"; // Adjust path as necessary
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import "../../assets/sass/components/_breadcrumbs.scss"; 
 
-const Breadcrumbs = ({ crumbs }) => {
+interface Breadcrumb {
+  label: string;
+  path?: string;
+}
+
+interface BreadcrumbsProps {
+  crumbs: Breadcrumb[];
+}
+
+const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ crumbs }) => {
   return (
     <nav className="breadcrumbs">
       <ul>

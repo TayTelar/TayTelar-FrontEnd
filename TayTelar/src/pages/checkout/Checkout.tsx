@@ -1,15 +1,29 @@
-import "../../assets/sass/pages/_checkout.scss";
+import React, { useState } from "react";
 import CreateIcon from "@mui/icons-material/Create";
 import PaymentIcon from "@mui/icons-material/Payment";
 import GradingIcon from "@mui/icons-material/Grading";
-import { useState } from "react";
 import AddressForm from "../../components/progress bar/AddressForm";
 import AddressList from "../../components/progress bar/AddressList";
 import OrderSummary from "../../components/progress bar/OrderSummary";
 import AddPayment from "../../components/progress bar/AddPayment";
 import ReviewOrder from "../../components/progress bar/ReviewOrder";
 
-const ProgressBar = ({ currentStep }) => {
+interface Address {
+  name: string;
+  addressLine1: string;
+  addressLine2: string;
+  city: string;
+  state: string;
+  pinCode: string;
+  mobileNumber: string;
+  addressType: "HOME" | "WORK" | "OTHERS";
+}
+
+interface ProgressBarProps {
+  currentStep: number;
+}
+
+const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep }) => {
   const stepIcons = [
     <CreateIcon key="address" />,
     <PaymentIcon key="payment" />,
@@ -37,22 +51,19 @@ const ProgressBar = ({ currentStep }) => {
   );
 };
 
-const Checkout = () => {
-  const [addresses, setAddresses] = useState([]);
-  const [currentStep, setCurrentStep] = useState(1);
+const Checkout: React.FC = () => {
+  const [addresses, setAddresses] = useState<Address[]>([]);
+  const [currentStep, setCurrentStep] = useState<number>(1);
 
-  // Add new address
-  const addAddress = (address) => {
+  const addAddress = (address: Address) => {
     setAddresses([...addresses, address]);
   };
 
-  // Remove an address by index
-  const removeAddress = (index) => {
+  const removeAddress = (index: number) => {
     setAddresses(addresses.filter((_, i) => i !== index));
   };
 
-  // Update an existing address
-  const handleSave = (index, updatedAddress) => {
+  const handleSave = (index: number, updatedAddress: Address) => {
     setAddresses((prevAddresses) => {
       const updatedAddresses = [...prevAddresses];
       updatedAddresses[index] = updatedAddress;
@@ -60,12 +71,10 @@ const Checkout = () => {
     });
   };
 
-  // Proceed to payment step
   const proceedToPayment = () => {
     setCurrentStep(2);
   };
 
-  // Proceed to review step
   const proceedToReview = () => {
     setCurrentStep(3);
   };
@@ -80,7 +89,7 @@ const Checkout = () => {
               addresses={addresses}
               onRemove={removeAddress}
               onProceed={proceedToPayment}
-              onSave={handleSave} // Pass onSave here
+              onSave={handleSave}
             />
             <AddressForm addAddress={addAddress} />
           </div>
