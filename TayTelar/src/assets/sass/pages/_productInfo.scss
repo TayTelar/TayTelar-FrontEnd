@@ -182,9 +182,12 @@
 
 .size-num {
   display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .num {
+  position: relative;
   border: 1px solid #E6E6E6;
   background-color: #FFFFFF;
   height: 2.3rem;
@@ -210,11 +213,43 @@
   background-color: black;
   color: white;
 }
+.unavailable-size {
+  position: relative;
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+.limited-text{
+  font-size: 0.5rem;
+  position: absolute;
+  top: 2.3rem;
+  bottom: -20px;
+  width: 4rem;
+      left: 70%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      color: red;
+}
+
+.crossed-size {
+  position: relative;
+}
+
+.crossed-size::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -0.48rem;
+  width: 200%;
+  height:2px;
+  background-color: rgb(145, 145, 145); /* or any color you prefer */
+  transform: translateY(-50%) rotate(-45deg);
+}
+
 .blocks {
   display: flex;
   width: 30rem;
   justify-content: space-between;
-  margin-top: 2rem;
+  margin-top: 3rem;
   font-size: 1.2rem;
 
 .add-sub {

@@ -16,6 +16,7 @@ import Product from './Product';
 const images = [image1, image2, image3, image4, image5];
 const colors: string[] = ['black', 'white', 'grey', 'blue'];
 const sizes: string[] = ['30', '32', '34', '36'];
+const limitedSize = '34'; 
 
 const ProductInfo = () => {
   const [activeImage, setActiveImage] = useState<number>(0);
@@ -176,16 +177,29 @@ const ProductInfo = () => {
           <div className="Mrp">M.R.P. Incl. of all taxes</div>
           <div className="size">
             <span className="size-label">SELECT SIZE</span>
+            
             <div className="size-num">
               {sizes.map((size) => (
                 <div
                   key={size}
                   className={`num ${selectSize === size ? 'sizeselected' : ''}`}
                   onClick={() => setselectSize(size)}
+                 
                 >
                   {size}
+                  {size === limitedSize && (
+                  <div className="limited-text">Only 2 left</div>
+                )}
+                 
                 </div>
+                
+                 
+                
               ))}
+             
+              <div className="num unavailable-size">
+      <span className="crossed-size">38</span>
+    </div>
             </div>
           </div>
           <div className="blocks">

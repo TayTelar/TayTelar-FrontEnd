@@ -13,6 +13,7 @@ interface ReviewData {
   comments: string;
 }
 
+
 const Review: React.FC = () => {
   const [writeReview, setWriteReview] = useState<string>('Rate Us');
   const [showReview, setShowReview] = useState<boolean>(false);
@@ -131,9 +132,9 @@ const Review: React.FC = () => {
             </div>
             <div className="review-section">
               <PersonOutlineOutlinedIcon className="person-icon" />
-              {review.name}
+              
             </div>
-            <h4>{review.title}</h4>
+            
             <p>{review.comments}</p>
           </div>
         ))}
