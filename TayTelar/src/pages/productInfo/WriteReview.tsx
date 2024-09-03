@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
@@ -9,51 +9,37 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentNeutralIcon from '@mui/icons-material/SentimentNeutral';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
+import { useReviews } from './contexts/ReviewContext'; // Use the context hook
 
 // Define validation schema
 const validationSchema = Yup.object({
-   
     comments: Yup.string()
-        .min(5,'comments must be minimum of 5 characters')
+        .min(5, 'Comments must be a minimum of 5 characters')
         .max(500, 'Comments cannot be more than 500 characters'),
-   
-   
     rating: Yup.number()
         .required('Rating is required')
         .min(1, 'Rating must be at least 1')
         .max(5, 'Rating cannot be more than 5'),
 });
 
-interface WriteReviewProps {
-    review: boolean;
-    onReview: (isReviewing: boolean) => void;
-    write: string;
-    onSubmitReview: (reviewData: {  comments: string;  rating: number }) => void; // New prop for submitting review data
-}
-
-const WriteReview: React.FC<WriteReviewProps> = ({ review, onReview, write, onSubmitReview }) => {
+const WriteReview: React.FC<{ onReview: (isReviewing: boolean) => void }> = ({ onReview }) => {
+    const { addReview } = useReviews(); // Use the context hook
     const [rating, setRating] = useState<number>(0);
-    const [ratingDescription, setRatingDescription] = useState<JSX.Element | string>(''); // Changed type to accept JSX
-   
+    const [ratingDescription, setRatingDescription] = useState<JSX.Element | string>('');
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
     const formik = useFormik({
         initialValues: {
-           
             comments: '',
-           
             rating: 0,
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            console.log('Form data:', values);
-            setIsSubmitted(true);
-            onSubmitReview({
-                
+            addReview({
                 comments: values.comments,
-              
                 rating: values.rating,
             });
+            setIsSubmitted(true);
         },
     });
 
@@ -62,41 +48,36 @@ const WriteReview: React.FC<WriteReviewProps> = ({ review, onReview, write, onSu
             case 1:
                 return (
                     <>
-                        
                         <span>Hated it</span>
-                        <SentimentVeryDissatisfiedIcon  style={{ color: 'black',position:"relative",top:"0.35rem",left:"0.3rem"}} />
+                        <SentimentVeryDissatisfiedIcon style={{ color: 'black', position: "relative", top: "0.35rem", left: "0.3rem" }} />
                     </>
                 );
             case 2:
                 return (
                     <>
-                        
                         <span>Didn't like it</span>
-                        <SentimentDissatisfiedIcon  style={{ color: 'black',position:"relative",top:"0.35rem",left:"0.3rem"}} />
+                        <SentimentDissatisfiedIcon style={{ color: 'black', position: "relative", top: "0.35rem", left: "0.3rem" }} />
                     </>
                 );
             case 3:
                 return (
                     <>
-                       
                         <span>Was good</span>
-                        <SentimentNeutralIcon  style={{ color: 'black',position:"relative",top:"0.35rem",left:"0.3rem"}} />
+                        <SentimentNeutralIcon style={{ color: 'black', position: "relative", top: "0.35rem", left: "0.3rem" }} />
                     </>
                 );
             case 4:
                 return (
                     <>
-                       
                         <span>Liked it</span>
-                        <SentimentSatisfiedIcon  style={{ color: 'black',position:"relative",top:"0.35rem",left:"0.3rem"}} />
+                        <SentimentSatisfiedIcon style={{ color: 'black', position: "relative", top: "0.35rem", left: "0.3rem" }} />
                     </>
                 );
             case 5:
                 return (
                     <>
-                       
                         <span>Loved it</span>
-                        <SentimentVerySatisfiedIcon  style={{ color: 'black',position:"relative",top:"0.35rem",left:"0.3rem"}} />
+                        <SentimentVerySatisfiedIcon style={{ color: 'black', position: "relative", top: "0.35rem", left: "0.3rem" }} />
                     </>
                 );
             default:
@@ -108,9 +89,9 @@ const WriteReview: React.FC<WriteReviewProps> = ({ review, onReview, write, onSu
         <div className="main-review">
             {isSubmitted ? (
                 <div className="thank-you-message">
-                    <CheckCircleIcon style={{fontSize:'3rem'}}/>
+                    <CheckCircleIcon style={{ fontSize: '3rem' }} />
                     <h1>Review Submitted!</h1>
-                    <p>Thank You for your review. Your feedback is valuable to us.</p>
+                    <p>Thank you for your review. Your feedback is valuable to us.</p>
                 </div>
             ) : (
                 <form onSubmit={formik.handleSubmit}>
@@ -123,7 +104,7 @@ const WriteReview: React.FC<WriteReviewProps> = ({ review, onReview, write, onSu
                                 className="star-inner"
                                 style={{
                                     width: '2rem',
-                                    height:'2rem',
+                                    height: '2rem',
                                     color: i < rating ? 'black' : 'grey',
                                     cursor: 'pointer',
                                 }}
@@ -134,13 +115,11 @@ const WriteReview: React.FC<WriteReviewProps> = ({ review, onReview, write, onSu
                                 }}
                             />
                         ))}
-                        <p className="rating-description" style={{fontWeight:'1000',fontSize:'1.1rem'}}>{ratingDescription}</p>
+                        <p className="rating-description" style={{ fontWeight: '1000', fontSize: '1.1rem' }}>{ratingDescription}</p>
                     </div>
                     {formik.errors.rating && formik.touched.rating && (
                         <p className="error">{formik.errors.rating}</p>
                     )}
-
-                   
 
                     <p>Review</p>
                     <textarea
@@ -155,10 +134,7 @@ const WriteReview: React.FC<WriteReviewProps> = ({ review, onReview, write, onSu
                         <p className="error">{formik.errors.comments}</p>
                     )}
 
-                    
-                    
-
-                   <p>
+                    <p>
                         How we use your data: We’ll only contact you about the review you left, and only if necessary. By
                         submitting your review, you agree to Judge.me’s terms, privacy and content policies.
                     </p>
@@ -167,7 +143,7 @@ const WriteReview: React.FC<WriteReviewProps> = ({ review, onReview, write, onSu
                         Cancel Review
                     </button>
                     <button className="submit" type="submit">
-                        Submit review
+                        Submit Review
                     </button>
                 </form>
             )}

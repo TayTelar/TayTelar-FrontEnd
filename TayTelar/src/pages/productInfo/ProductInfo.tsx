@@ -1,4 +1,4 @@
-import React, { useState, useRef, MouseEvent } from 'react';
+import React, { useState, useRef, MouseEvent,useEffect } from 'react';
 import Slider from 'react-slick';
 import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
@@ -12,6 +12,10 @@ import '../../assets/sass/pages/_productInfo.scss';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Product from './Product';
+import { useReviews } from './contexts/ReviewContext';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
+import StarHalfIcon from '@mui/icons-material/StarHalf';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 const images = [image1, image2, image3, image4, image5];
 const colors: string[] = ['black', 'white', 'grey', 'blue'];
@@ -19,6 +23,32 @@ const sizes: string[] = ['30', '32', '34', '36'];
 const limitedSize = '34'; 
 
 const ProductInfo = () => {
+  const { reviews, averageRating } = useReviews(); 
+  const [rating, setRating] = useState<number>(averageRating);
+
+  useEffect(() => {
+    setRating(averageRating); // Update local state when context changes
+  }, [averageRating]);//
+  const renderStars = (rating: number) => {
+    const fullStars = Math.floor(rating); // Number of full stars
+    const hasHalfStar = rating % 1 !== 0; // Check if there is a fractional part
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); // Remaining empty stars
+
+    return (
+      <>
+        {[...Array(fullStars)].map((_, i) => (
+          <StarRoundedIcon key={`full-${i}`} className="star-inner" />
+        ))}
+        {hasHalfStar && (
+          <StarHalfIcon key="half" className="star-inner" />
+        )}
+        {[...Array(emptyStars)].map((_, i) => (
+          <StarBorderIcon key={`empty-${i}`} className="star-inner" />
+        ))}
+      </>
+    );
+  }; 
+
   const [activeImage, setActiveImage] = useState<number>(0);
   const [selectedColor, setSelectedColor] = useState<string>("grey");
   const [selectSize, setselectSize] = useState<string>('');
@@ -91,12 +121,6 @@ const ProductInfo = () => {
     verticalSwiping: true,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
-    beforeChange: function (currentSlide: any, nextSlide: any) {
-      console.log('before change', currentSlide, nextSlide);
-    },
-    afterChange: function (currentSlide: any) {
-      console.log('after change', currentSlide);
-    },
   };
 
   return (
@@ -135,10 +159,10 @@ const ProductInfo = () => {
         <div className="content">
           <h1 className="product-name">Came Stretch Pants</h1>
           <div className="star">
-            {[...Array(4)].map((_, i) => (
-              <StarPurple500OutlinedIcon key={i} className="star-inner" />
-            ))}
-            <pre className="review">1 review</pre>
+          {renderStars(averageRating)}
+        <pre className="review">
+          {reviews.length} review{reviews.length !== 1 ? 's' : ''}
+        </pre>
           </div>
           <div className="information">
             Most of us are familiar with the iconic design of the egg shaped
@@ -177,29 +201,22 @@ const ProductInfo = () => {
           <div className="Mrp">M.R.P. Incl. of all taxes</div>
           <div className="size">
             <span className="size-label">SELECT SIZE</span>
-            
             <div className="size-num">
               {sizes.map((size) => (
                 <div
                   key={size}
                   className={`num ${selectSize === size ? 'sizeselected' : ''}`}
                   onClick={() => setselectSize(size)}
-                 
                 >
                   {size}
                   {size === limitedSize && (
-                  <div className="limited-text">Only 2 left</div>
-                )}
-                 
+                    <div className="limited-text">Only 2 left</div>
+                  )}
                 </div>
-                
-                 
-                
               ))}
-             
               <div className="num unavailable-size">
-      <span className="crossed-size">38</span>
-    </div>
+                <span className="crossed-size">38</span>
+              </div>
             </div>
           </div>
           <div className="blocks">
@@ -234,15 +251,15 @@ const ProductInfo = () => {
             </div>
             <div className="info-item">
               <span className="info-label">Fit Type</span>
-              <span className="info-value">Straight Fit</span>
+              <span className="info-value">Loose Fit</span>
             </div>
             <div className="info-item">
               <span className="info-label">Length</span>
-              <span className="info-value">Regular</span>
+              <span className="info-value">Full Length</span>
             </div>
             <div className="info-item">
               <span className="info-label">Wash</span>
-              <span className="info-value">Hand Wash</span>
+              <span className="info-value">Machine Wash</span>
             </div>
           </div>
         </div>

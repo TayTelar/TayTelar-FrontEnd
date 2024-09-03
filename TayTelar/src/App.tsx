@@ -7,18 +7,26 @@ import ProductInfo from "./pages/productInfo/ProductInfo";
 import Details from "./pages/productInfo/Details";
 import Shipping from "./pages/productInfo/Shipping";
 import Review from "./pages/productInfo/Review";
-
-
+import Shop from "./pages/shop/Shop";
+import CartModal from "./pages/cart/CartModal";
+import Checkout from "./pages/checkout/Checkout";
+import { ReviewProvider } from "./pages/productInfo/contexts/ReviewContext"; // Update path as needed
 
 const App = () => (
-    
-        <Router>
+    <Router>
         <Header />
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/contactUs" element={<ContactUs />} />
-            <Route path="/productinfo" element={<ProductInfo />}>
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/cart" element={<CartModal />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/productinfo" element={
+                <ReviewProvider> {/* Provide context only to ProductInfo and its nested routes */}
+                    <ProductInfo />
+                </ReviewProvider>
+            }>
                 {/* Nested Routes */}
                 <Route index element={<Details />} /> {/* Default route */}
                 <Route path="details" element={<Details />} />
@@ -28,7 +36,6 @@ const App = () => (
         </Routes>
         <Footer />
     </Router>
-       
 );
 
 export default App;

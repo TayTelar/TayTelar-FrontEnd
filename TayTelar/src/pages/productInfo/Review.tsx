@@ -5,30 +5,15 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import WriteReview from './WriteReview';
 import '../../assets/sass/pages/_product.scss';
-import StarOutlineRoundedIcon from '@mui/icons-material/StarOutlineRounded';
-
-interface ReviewData {
-  rating: number;
-  
-  comments: string;
-}
-
+import { useReviews } from './contexts/ReviewContext';
 
 const Review: React.FC = () => {
+  const { reviews, averageRating } = useReviews(); // Use the context hook
   const [writeReview, setWriteReview] = useState<string>('Rate Us');
   const [showReview, setShowReview] = useState<boolean>(false);
-  const [reviews, setReviews] = useState<ReviewData[]>([
-    {
-      rating: 5,
-      comments: 'Great working',
-    },
-  ]);
 
-  // Calculate average rating and counts
+  // Calculate review counts
   const totalReviews = reviews.length;
-  const averageRating =
-    reviews.reduce((acc, review) => acc + review.rating, 0) / totalReviews;
-
   const reviewCounts = [5, 4, 3, 2, 1].map((star) =>
     reviews.filter((review) => review.rating === star).length
   );
@@ -36,11 +21,6 @@ const Review: React.FC = () => {
   const handleReview = (isReviewing: boolean) => {
     setShowReview(isReviewing);
     setWriteReview(isReviewing ? 'Cancel Rating' : 'Rate Us');
-  };
-
-  const handleNewReview = (newReview: ReviewData) => {
-    setReviews([...reviews, newReview]);
-    setWriteReview('Rate Us');
   };
 
   const renderStars = (rating: number) => {
@@ -102,18 +82,13 @@ const Review: React.FC = () => {
               setShowReview(writeReview === 'Rate Us');
             }}
           >
-            {writeReview}<StarRoundedIcon className='rate-star' style={{color:"white",position:"relative",left:"0.2rem",bottom:"0.1rem"}}/>
+            {writeReview}<StarRoundedIcon className='rate-star' style={{ color: "white", position: "relative", left: "0.2rem", bottom: "0.1rem" }} />
           </button>
         </div>
       </div>
       {showReview && (
         <div className="write-review">
-          <WriteReview
-            review={showReview}
-            onReview={handleReview}
-            write={writeReview}
-            onSubmitReview={handleNewReview} // Pass handleNewReview as a prop
-          />
+          <WriteReview onReview={handleReview} />
         </div>
       )}
       <div className="most-recent">
@@ -132,9 +107,7 @@ const Review: React.FC = () => {
             </div>
             <div className="review-section">
               <PersonOutlineOutlinedIcon className="person-icon" />
-              
             </div>
-            
             <p>{review.comments}</p>
           </div>
         ))}
