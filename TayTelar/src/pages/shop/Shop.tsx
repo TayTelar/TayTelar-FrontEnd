@@ -17,6 +17,7 @@ import StarIcon from "@mui/icons-material/Star";
 import { useState } from "react";
 import Breadcrumbs from "../../components/breadcrumb/Breadcrumbs";
 import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
 
 interface Product {
   img: string;
@@ -173,6 +174,7 @@ const filters = [
 const Shop: React.FC = () => {
   const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop" }];
   const [selectedFilters, setSelectedFilters] = useState<Set<string>>(new Set());
+  const navigate=useNavigate();
 
   const handleFilterChange = (filter: string) => {
     setSelectedFilters((prev) => {
@@ -230,11 +232,13 @@ const Shop: React.FC = () => {
                     src={product.img}
                     alt={product.title}
                     className="section-image"
+                   
                   />
                   <img
                     src={product.hoverImg}
                     alt={product.title}
                     className="section-image-hover"
+                    onClick={()=>navigate('/productinfo')}
                   />
                   {/* Add labels conditionally based on row index */}
                   {Math.floor(index / 4) === 0 && (

@@ -1,6 +1,6 @@
-import React, { useState, useRef, MouseEvent,useEffect } from 'react';
+import  { useState, useRef, MouseEvent,useEffect } from 'react';
 import Slider from 'react-slick';
-import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';
+
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import { CustomPrevArrow, CustomNextArrow } from './customArrows';
 import image1 from '../../assets/images/image-1.webp';
@@ -210,7 +210,7 @@ const ProductInfo = () => {
                 >
                   {size}
                   {size === limitedSize && (
-                    <div className="limited-text">Only 2 left</div>
+                    <div className="limited-text">2 left</div>
                   )}
                 </div>
               ))}
