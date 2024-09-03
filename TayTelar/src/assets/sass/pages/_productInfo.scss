@@ -1,103 +1,107 @@
 /* Base styles - apply to all screen sizes */
 .main-container {
-  width: 100%;
-  min-height: 100vh;
-  
 
-  .secondary-container {
-    width: 100%;
-    display: flex;
-    gap: 10px;
-    /* Center align items vertically */
-    // justify-content: space-between; /* Distribute space between items */
-    /* Add padding if needed */
-    .slider-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 10rem;
-      height: auto;
-      margin-left: 1.85rem;
-      overflow: hidden; /* Hide images that are out of view */
-      position: relative;
-      .stacked-images {
-        height: 10.1rem;
-        width: 200px;
+  font-family: "Red Hat Display", sans-serif ;
 
-        transition: opacity 0.5s ease-in-out;
-      }
-    }
-    .product-name{
-      font-size: 1.7rem;
-    }
-    .content {
-      position: relative;
-      top: 1rem;
-      right: 5rem;
-      width: 50%; 
-    }
-    .primary-image-container {
-      position: relative;
-      width: 60%;
-      height: 47rem;
-      overflow: hidden;
-  
-      .primary-image {
-        position: absolute;
-        top: 2rem;
-        left: 3rem;
-        width: 78%;
-        height: 95%;
-        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; /* Smooth slide effect */
-      }
-  
-      .slide-in {
-        transform: translateX(100%);
-        opacity: 0; /* Initial state off-screen to the right */
-      }
-  
-      .slide-out {
-        transform: translateX(100%);
-        opacity: 0; /* Slide out to the left */
-      }
-  
-      .slide-active {
-        transform: translateX(0);
-        opacity: 1; /* Bring image to the center */
-      }
-    }
-  }
 
- 
+.secondary-container {
+  display: flex;
+  align-items: center; /* Center align items vertically */
+  justify-content: space-between; /* Distribute space between items */
+   /* Add padding if needed */
+}
+.image-container{
+  display: flex;
+  justify-content: space-between;
+  width: 49rem;
+}
 
- 
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  height: 50rem;
+  width: 8rem;
+  margin-left: 1.85rem;
+  overflow: hidden; /* Hide images that are out of view */
+  position: relative;
+}
 
-  .star-inner {
-    color: #1a1a1a;
-    width: 1.2rem;
-    height: 1.6rem;
+.stacked-images {
+  height: 10.1rem;
+  width: 200px;
+  margin-bottom: 2rem;
+  transition: opacity 0.5s ease-in-out;
+}
+.primary-image-container {
+  position: relative;
+  width: 60%;
+  right: 4rem;
+  height: 47rem;
+  overflow: hidden;
 
-    gap: 0px;
-    opacity: 0px;
-  }
-  .review {
+  .primary-image {
+    position: absolute;
+    top: 2rem;
     
-    position: absolute;
-    bottom: 0rem;
-    top: -0.8rem;
-
-    color: #666666;
-    font-size: 0.9rem;
-
-    left: 6.4rem;
+    width: 78%;
+    height: 95%;
+    transition: transform 0.5s ease-in-out , opacity 0.5s ease-in-out; /* Smooth slide effect */
   }
 
-  .star {
-    position: absolute;
-    top:3.2rem;
-    line-height: 1.4rem;
-    box-sizing: border-box;
+  .slide-in {
+    transform: translateX(100%);
+    opacity: 0; /* Initial state off-screen to the right */
   }
+
+  .slide-out {
+    transform: translateX(100%); 
+    opacity: 0;/* Slide out to the left */
+  }
+
+  .slide-active {
+    transform: translateX(0);
+    opacity: 1; /* Bring image to the center */
+  }
+}
+
+.content {
+  
+  position: absolute; /* Position it absolutely within the main container */
+  top: 8.6rem; /* Adjust as needed to vertically center the heading */
+  left: 52rem;
+  
+  gap: 0px;
+  opacity: 0px;
+  /* Center it vertically relative to the primary image */
+}
+
+.star-inner {
+  color: #1A1A1A;
+  width: 1.2rem;
+  height: 1.6rem;
+  
+  
+  gap: 0px;
+  opacity: 0px;
+}
+.review{
+  
+  position: absolute;
+ bottom: 0rem;
+ top: -0.8rem;
+ 
+ color: #666666;
+ font-size: 0.9rem;
+
+  left: 6.4rem;
+}
+
+.star {
+  position: absolute;
+  top: 3.2rem;
+  line-height: 1.4rem;
+  box-sizing: border-box;
+}
 
   .information {
     width: 38rem;
@@ -135,17 +139,17 @@
     font-size: 1rem;
   }
 
-  .Mrp {
-    position: absolute;
-    bottom: 25.2rem;
-    font-size: 0.8rem;
-    font-weight: 400;
-    line-height: 1.13rem;
-    text-align: left;
-    color: #9a9a9a;
-  }
-  .header {
-    padding: 10px 0;
+.Mrp {
+  position: absolute;
+  bottom: 25.2rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.13rem;
+  text-align: left;
+  color: #9A9A9A;
+}
+.header{
+  padding: 10px 0;
     display: block;
     font-weight: 700;
     min-width: 80px;
@@ -249,21 +253,21 @@
     margin-top: 3rem;
     font-size: 1.2rem;
 
-    .add-sub {
-      width: 7rem;
-      height: 3rem;
-      gap: 0px;
-      opacity: 0px;
-      background-color: #f5f5f5;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-weight: 600;
-      font-size: 1.2rem;
-      text-align: left;
-      border-radius: 0.5rem;
-      border: 1px solid #f5f5f5;
-    }
+.add-sub {
+  width: 7rem;
+  height: 3.5rem;
+  gap: 0px;
+  opacity: 0px;
+  background-color: #F5F5F5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-align: left;
+  border-radius: 0.5rem;
+  border: 1px solid #f5f5f5
+}
 
     .add {
       margin-right: 1.23rem;
@@ -275,49 +279,54 @@
       cursor: pointer;
     }
 
-    .buy {
-      height: 3rem;
-      width: 9rem;
-      background-color: black;
-      color: white;
-      font-size: 0.85rem;
-      border-radius: 0.5rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+.buy {
+  height: 3rem;
+    width: 9rem;
+    background-color: black;
+    color: white;
+    font-size: 0.85rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    .cart {
-      height: 3rem;
-      width: 9rem;
-      background-color: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: white;
-      font-size: 0.85rem;
-      border-radius: 0.5rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .cart:hover {
-      background-color: #ba933e;
-      border: 1px solid #ba933e;
-    }
-    .buy:hover {
-      background-color: #ba933e;
-      border: 1px solid #ba933e;
-    }
-    .shopping-bag {
-      position: relative;
-      bottom: 0.1rem;
-      right: 0.3rem;
-    }
-  }
+}
+
+.cart {
+  height: 3rem;
+  width: 9rem;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  font-size: 0.85rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  
+}
+.cart:hover{
+  background-color:#BA933E ;
+  border: 1px solid #BA933E;
+}
+.buy:hover{
+  background-color: #BA933E;
+  border: 1px solid #BA933E;
+}
+.shopping-bag{
+  position: relative;
+  bottom: 0.2rem;
+  right: 0.3rem;
+}
+
+
+}
 
   .info-container {
     display: flex;
@@ -363,3 +372,5 @@
     margin-top: 5rem;
   }
 }
+
+
