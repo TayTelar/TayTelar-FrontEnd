@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { CustomLeftArrow, CustomRightArrow } from "./customArrows";
 
 interface ImageModalProps {
   isModalOpen: boolean;
@@ -15,8 +14,6 @@ const imageSliderSettings = {
   infinite: true,
   slidesToShow: 1,
   slidesToScroll: 1,
-  prevArrow: <CustomLeftArrow />,
-  nextArrow: <CustomRightArrow />,
 };
 
 const ImageModal: React.FC<ImageModalProps> = ({ isModalOpen, toggleModal, images }) => {
@@ -57,10 +54,16 @@ const ImageModal: React.FC<ImageModalProps> = ({ isModalOpen, toggleModal, image
     }
   }, [isModalOpen]);
 
+  const handleClickModal = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === modalRef.current) {
+      toggleModal();
+    }
+  };
+
   return (
     isModalOpen ? (
-      <div className="modal" ref={modalRef} onClick={toggleModal}>
-        <div className="image-slider-container">
+      <div className="modal" ref={modalRef} onClick={handleClickModal}>
+        <div className="image-slider-container" onClick={(e) => e.stopPropagation()}>
           <Slider {...imageSliderSettings}>
             {images.map((image, index) => (
               <div key={index} className="image-slide">
