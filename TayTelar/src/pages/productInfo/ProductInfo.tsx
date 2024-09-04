@@ -3,11 +3,11 @@ import Slider from "react-slick";
 
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { CustomPrevArrow, CustomNextArrow } from "./customArrows";
-import image1 from "../../assets/images/image-1.webp";
-import image2 from "../../assets/images/image-2.jpg";
-import image3 from "../../assets/images/image-3.webp";
-import image4 from "../../assets/images/image-4.webp";
-import image5 from "../../assets/images/image-5.webp";
+import image1 from "../../assets/images/pant1.webp";
+import image2 from "../../assets/images/pant5.webp";
+import image3 from "../../assets/images/pant2.webp";
+import image4 from "../../assets/images/pant3.jpg";
+import image5 from "../../assets/images/pant4.jpg";
 import "../../assets/sass/pages/_productInfo.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -16,15 +16,24 @@ import { useReviews } from "./contexts/ReviewContext";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+import Breadcrumbs from "../../components/breadcrumb/Breadcrumbs";
+import ImageModal from "./ImageModal";
 
 const images = [image1, image2, image3, image4, image5];
 const colors: string[] = ["black", "white", "grey", "blue"];
 const sizes: string[] = ["30", "32", "34", "36"];
 const limitedSize = "34";
-
 const ProductInfo = () => {
+  
+const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/shop" }];
+
   const { reviews, averageRating } = useReviews();
   const [rating, setRating] = useState<number>(averageRating);
+  
+
+  
+
+
 
   useEffect(() => {
     setRating(averageRating); // Update local state when context changes
@@ -53,12 +62,10 @@ const ProductInfo = () => {
   const [selectSize, setselectSize] = useState<string>("");
   const [count, setCount] = useState<number>(1);
   const [animationClass, setAnimationClass] = useState<string>("slide-active");
-  const [previewShow, setPreviewShow] = useState(false);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  
 
-  const imageRef = useRef<HTMLImageElement | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
+  
   const handleImageChange = (index: number) => {
     if (index !== activeImage) {
       setAnimationClass("slide-out"); // Start slide out animation
@@ -74,47 +81,47 @@ const ProductInfo = () => {
     }
   };
 
-  const handleMouseMove = (e: MouseEvent<HTMLImageElement>) => {
-    if (imageRef.current && canvasRef.current) {
-      const { offsetX, offsetY } = e.nativeEvent;
-      const img = imageRef.current;
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext("2d");
+  // const handleMouseMove = (e: MouseEvent<HTMLImageElement>) => {
+  //   if (imageRef.current && canvasRef.current) {
+  //     const { offsetX, offsetY } = e.nativeEvent;
+  //     const img = imageRef.current;
+  //     const canvas = canvasRef.current;
+  //     const ctx = canvas.getContext("2d");
 
-      if (ctx && img) {
-        const scaleX = img.naturalWidth / img.width;
-        const scaleY = img.naturalHeight / img.height;
+  //     if (ctx && img) {
+  //       const scaleX = img.naturalWidth / img.width;
+  //       const scaleY = img.naturalHeight / img.height;
 
-        const cropWidth = 150;
-        const cropHeight = 150;
+  //       const cropWidth = 150;
+  //       const cropHeight = 150;
 
-        const cropX = offsetX * scaleX - cropWidth / 2;
-        const cropY = offsetY * scaleY - cropHeight / 2;
+  //       const cropX = offsetX * scaleX - cropWidth / 2;
+  //       const cropY = offsetY * scaleY - cropHeight / 2;
 
-        canvas.width = cropWidth;
-        canvas.height = cropHeight;
+  //       canvas.width = cropWidth;
+  //       canvas.height = cropHeight;
 
-        ctx.drawImage(
-          img,
-          cropX,
-          cropY,
-          cropWidth,
-          cropHeight,
-          0,
-          0,
-          cropWidth,
-          cropHeight
-        );
+  //       ctx.drawImage(
+  //         img,
+  //         cropX,
+  //         cropY,
+  //         cropWidth,
+  //         cropHeight,
+  //         0,
+  //         0,
+  //         cropWidth,
+  //         cropHeight
+  //       );
 
-        setPreview(canvas.toDataURL());
-      }
-    }
-  };
+  //       setPreview(canvas.toDataURL());
+  //     }
+  //   }
+  // };
 
   const settings = {
     dots: false,
     infinite: true,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     vertical: true,
     verticalSwiping: true,
@@ -122,9 +129,17 @@ const ProductInfo = () => {
     nextArrow: <CustomNextArrow />,
   };
 
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
   return (
-    <div className="main-container">
+    <div className={`main-container ${isModalOpen ? "blur-background" : ""}`}>
+      <div className="bread-crumbs">
+      <Breadcrumbs crumbs={breadcrumbData}/>
+      </div>
+      
       <div className="secondary-container">
+      
         <div className="slider-container">
           <Slider {...settings}>
             {images.map((image, index) => (
@@ -141,25 +156,17 @@ const ProductInfo = () => {
           </Slider>
         </div>
         <div className="primary-image-container">
-          <img
+        <img
             src={images[activeImage]}
             alt="main-image"
             className={`primary-image ${animationClass}`}
-            onMouseEnter={() => setPreviewShow(true)}
-            onMouseLeave={() => setPreviewShow(false)}
-            onMouseMove={handleMouseMove}
-            ref={imageRef}
-            style={{ cursor: "crosshair" }}
+            onClick={toggleModal}
           />
 
-          <canvas ref={canvasRef} style={{ display: "none" }} />
+          
         </div>
         <div className="content">
-        {previewShow && preview && (
-        <div className="preview">
-          <img className="preview-image" src={preview} alt="Zoom Preview" />
-        </div>
-      )}
+        
           <h1 className="product-name">Came Stretch Pants</h1>
           <div className="star">
             {renderStars(averageRating)}
@@ -260,7 +267,16 @@ const ProductInfo = () => {
             </div>
           </div>
         </div>
+        <ImageModal
+          isModalOpen={isModalOpen}
+          toggleModal={toggleModal}
+          images={images}
+          
+        />
+      
+        
       </div>
+      
 
       <div className="video-container">
         <iframe

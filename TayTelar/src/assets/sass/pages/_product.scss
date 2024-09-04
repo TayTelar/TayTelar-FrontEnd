@@ -42,9 +42,9 @@
             padding: 0 1rem; // Optional: spacing around list items
         }
         .details.active,.shipping.active,.reviews.active{
-            color: #BA933E;
+            color:#A4A4A4;
     text-decoration: underline;
-    text-decoration-color: #BA933E; /* Optional: Match underline color with text color */
+    text-decoration-color: #A4A4A4; /* Optional: Match underline color with text color */
     text-decoration-thickness: 2px; /* Thickness of the underline */
     text-underline-offset: 7px; /* Space between text and underline */
     text-decoration-skip-ink: auto
@@ -166,15 +166,12 @@
    display:flex;
    justify-content: center;
    align-items: center;
+   cursor: pointer;
 
     
   }
 
-  .review-button button:hover{
-background-color: #BA933E;
-cursor: pointer;
-border: 1px solid #BA933E;
-  }
+  
   
   .primary-review-container {
     position: relative; /* Ensure the pseudo-element is positioned relative to this container */
@@ -243,6 +240,7 @@ border: 1px solid #BA933E;
         padding:1rem;
         position: relative;
         padding-left: 13rem;
+        cursor: pointer;
 
         padding-right: 20rem;
     }
@@ -312,10 +310,7 @@ border: 1px solid #BA933E;
     color: gray;
     border: 1px solid gray;
 }
-.submit:hover{
-    background-color: #BA933E;
-    border: 1px solid #BA933E;
-}
+
 .error{
     color: red;
 }

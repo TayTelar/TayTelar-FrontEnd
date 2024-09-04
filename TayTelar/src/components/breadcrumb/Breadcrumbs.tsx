@@ -17,7 +17,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ crumbs }) => {
       <ul>
         {crumbs.map((crumb, index) => (
           <li key={index}>
-            {index > 0 && <span> &gt; </span>}
+            {index > 0 &&  <span> / </span>} 
             {crumb.path ? (
               <NavLink to={crumb.path} className="breadcrumb-link">
                 {crumb.label}
