@@ -27,8 +27,9 @@
                         text-decoration: none;
                         color: #666666;
                     }
+
                     i {
-                        margin-left:10px;
+                        margin-left: 10px;
                     }
                 }
 
@@ -55,10 +56,37 @@
                 gap: 15px;
 
                 i {
-                    color:#666666;
+                    color: #666666;
                     margin: 0 0.5em;
                     cursor: pointer;
-                    font-size:16px;
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 660px) {
+    .topbar {
+        &_container {
+            &_section {
+                justify-content: center;
+
+                &_left {
+                    justify-content: end;
+
+                    p {
+                        font-size: 10px;
+                        width: 50%;
+                    }
+
+                    .email {
+                        border-left: none;
+                    }
+                }
+
+                &_right {
+                    display: none;
                 }
             }
         }
