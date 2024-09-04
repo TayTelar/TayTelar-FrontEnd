@@ -16,7 +16,8 @@ import prod55 from '../../assets/images/prod55.webp'
 import prod6 from '../../assets/images/prod6.webp'
 import prod66 from '../../assets/images/prod66.webp'
 import '../../assets/sass/pages/_home.scss'
-import img from '../../assets/images/Screenshot (2).png'
+import shop1 from '../../assets/images/shop1.png'
+import shop2 from '../../assets/images/shop2.png'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import banner1 from '../../assets/images/banner_image1.webp'
@@ -57,7 +58,7 @@ const Home = () => {
                         <div className='banner1'>
                             <img src={banner1} alt="Banner 1" />
                             <div className="content">
-                                <h4>Quick parcel delivery, 
+                                <h4>Quick parcel delivery,
                                     <span className="text-primary"> from $25</span>
                                 </h4>
                                 <h1>
@@ -66,7 +67,7 @@ const Home = () => {
                                     Up to 70% off now!
                                 </h1>
                                 <Link to={"/aboutus"}>
-                                <button>Start Shopping <NavigateNextSharpIcon /></button>
+                                    <button>Start Shopping <NavigateNextSharpIcon /></button>
                                 </Link>
                             </div>
 
@@ -74,7 +75,7 @@ const Home = () => {
                         <div className='banner2'>
                             <img src={banner2} alt="Banner 2" />
                             <div className="content">
-                                <h4>Quick parcel delivery, 
+                                <h4>Quick parcel delivery,
                                     <span className="text-primary"> from $25</span>
                                 </h4>
                                 <h1>
@@ -83,7 +84,7 @@ const Home = () => {
                                     Extra 40% off now.
                                 </h1>
                                 <Link to={"/aboutus"}>
-                                <button>Start Shopping <NavigateNextSharpIcon /></button>
+                                    <button>Start Shopping <NavigateNextSharpIcon /></button>
                                 </Link>
                             </div>
 
@@ -91,7 +92,7 @@ const Home = () => {
                         <div className='banner3'>
                             <img src={banner3} alt="Banner 3" />
                             <div className="content">
-                                <h4>Quick parcel delivery, 
+                                <h4>Quick parcel delivery,
                                     <span className="text-primary"> from $25</span>
                                 </h4>
                                 <h1>
@@ -100,7 +101,7 @@ const Home = () => {
                                     Collection AW 2020.
                                 </h1>
                                 <Link to={"/aboutus"}>
-                                <button>Start Shopping <NavigateNextSharpIcon /></button>
+                                    <button>Start Shopping <NavigateNextSharpIcon /></button>
                                 </Link>
                             </div>
 
@@ -258,7 +259,11 @@ const Home = () => {
 
                         </div>
                     </div>
-                    <img src={img} alt="" />
+                    <div className="shop">
+                        <img src={shop1} alt="" />
+                        <img src={shop2} alt="" />
+                    </div>
+
                     {/*news letter */}
                     <div className="newsletter">
                         <div className="newsletter_container">
