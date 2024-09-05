@@ -29,8 +29,9 @@
                         text-decoration: none;
                         color: #ffff;
                     }
+
                     i {
-                        margin-left:10px;
+                        margin-left: 10px;
                     }
                 }
 
@@ -60,7 +61,34 @@
                     color: #ffff;
                     margin: 0 0.5em;
                     cursor: pointer;
-                    font-size:16px;
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 660px) {
+    .topbar {
+        &_container {
+            &_section {
+                justify-content: center;
+
+                &_left {
+                    justify-content: end;
+
+                    p {
+                        font-size: 10px;
+                        width: 50%;
+                    }
+
+                    .email {
+                        border-left: none;
+                    }
+                }
+
+                &_right {
+                    display: none;
                 }
             }
         }
