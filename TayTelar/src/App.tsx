@@ -6,6 +6,7 @@ import ContactUs from "./pages/contactUs/ContactUs";
 import Shop from "./pages/shop/Shop";
 import CartModal from "./pages/cart/CartModal";
 import Checkout from "./pages/checkout/Checkout";
+import Login from "./pages/login/Login";
 
 const App = () => (
   <Router>
@@ -13,6 +14,7 @@ const App = () => (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/home" element={<Home />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/contactUs" element={<ContactUs />} />
       <Route path="/shop" element={<Shop />} />
       <Route path="/cart" element={<CartModal />} />

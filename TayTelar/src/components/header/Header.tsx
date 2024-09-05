@@ -29,12 +29,10 @@ const Header = () => {
         setTimeout(() => {
           setMenuOpen(false);
           centerMenu.classList.remove('open', 'closing');
-          document.body.style.overflow = "auto";
         }, 300);
   
       } else {
         setMenuOpen(true);
-        document.body.style.overflow = "hidden";
       }
     }
   };
@@ -45,7 +43,8 @@ const Header = () => {
       <nav>
         <div className="menu_list" >
           <div className="menu_list_container">
-            <div className={`menu_list_container_section ${menuOpen ? "menu-overlay" : ""}`}>
+            <div className={`${menuOpen ? "menu-overlay" : ""}`}></div>
+            <div className="menu_list_container_section">
               <div className={`hamburger`} onClick={toggleMenu}>
                 <MenuSharpIcon />
                 <SearchIcon className="searchicon" />
