@@ -6,6 +6,7 @@ import ContactUs from "./pages/contactUs/ContactUs";
 import Shop from "./pages/shop/Shop";
 import CartModal from "./pages/cart/CartModal";
 import Checkout from "./pages/checkout/Checkout";
+import Orders from "./pages/orders/Orders";
 
 const App = () => (
   <Router>
@@ -17,6 +18,7 @@ const App = () => (
       <Route path="/shop" element={<Shop />} />
       <Route path="/cart" element={<CartModal />} />
       <Route path="/checkout" element={<Checkout />} />
+      <Route path="/order" element={<Orders />} />
     </Routes>
     <Footer />
   </Router>

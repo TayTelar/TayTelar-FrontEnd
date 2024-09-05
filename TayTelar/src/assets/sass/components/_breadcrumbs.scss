@@ -1,4 +1,3 @@
-// src/assets/sass/components/_breadcrumbs.scss
 .breadcrumbs {
     margin: 5px 0;
     font-size: 12px;
@@ -24,7 +23,8 @@
         }
         
         span {
-          color: #6c757d;
+          color: #ffff;
+          font-weight: 500;
         }
       }
     }

@@ -7,6 +7,7 @@ import AddressList from "../../components/progress bar/AddressList";
 import OrderSummary from "../../components/progress bar/OrderSummary";
 import AddPayment from "../../components/progress bar/AddPayment";
 import ReviewOrder from "../../components/progress bar/ReviewOrder";
+import "../../assets/sass/pages/_checkout.scss";
 
 interface Address {
   name: string;
@@ -95,12 +96,12 @@ const Checkout: React.FC = () => {
           </div>
         )}
         {currentStep === 2 && (
-          <div className="checkout_content_right">
+          <div>
             <AddPayment onProceed={proceedToReview} />
           </div>
         )}
         {currentStep === 3 && (
-          <div className="checkout_content_right">
+          <div>
             <ReviewOrder />
           </div>
         )}

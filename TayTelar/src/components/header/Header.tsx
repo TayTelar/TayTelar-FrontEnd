@@ -40,23 +40,15 @@ const Header = () => {
                       to="/shop"
                       className={({ isActive }) => (isActive ? "active" : "")}
                     >
-                      Shop <ExpandMoreIcon />
+                      Shop
                     </NavLink>
                   </li>
                   <li>
                     <NavLink
-                      to="/aboutUs"
+                      to="/order"
                       className={({ isActive }) => (isActive ? "active" : "")}
                     >
-                      Collections <ExpandMoreIcon />
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/blogs"
-                      className={({ isActive }) => (isActive ? "active" : "")}
-                    >
-                      Blogs <ExpandMoreIcon />
+                      My Orders
                     </NavLink>
                   </li>
                   <li>
@@ -77,15 +69,15 @@ const Header = () => {
                       to="/login"
                       className={({ isActive }) => (isActive ? "active" : "")}
                     >
-                      <PermIdentityIcon />
+                      <PermIdentityIcon className="icon" />
                       &nbsp; Login / Register
                     </NavLink>
                   </li>
                   <li>
-                    <SearchIcon />
+                    <SearchIcon className="icon" />
                   </li>
                   <li>
-                    <LocalMallIcon onClick={handleCartClick} />
+                    <LocalMallIcon onClick={handleCartClick} className="icon" />
                   </li>
                 </ul>
               </div>
