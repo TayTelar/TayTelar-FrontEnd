@@ -48,11 +48,11 @@
     }
 
     &.active .step-icon {
-      background-color: #cdcdcd;
+      background-color: #e0e0e0;
     }
 
     &.completed .step-icon {
-      background-color: #ba933e;
+      background-color: #3B3B3B;
     }
 
     &::after {
@@ -71,7 +71,7 @@
     }
 
     &.completed::after {
-      background-color: #ba933e;
+      background-color: #3B3B3B;
     }
   }
 }

@@ -31,9 +31,8 @@
       }
 
       button {
-        background-color: black; 
+        background-color: #3B3B3B; 
         color: #fff; 
-        border: 1px solid black;
         padding: 8px 20px; 
         cursor: pointer; 
         font-size: 14px;
@@ -62,12 +61,12 @@
           font-weight: 600;
           text-decoration: underline;
           cursor: pointer;
-          color: #ba933e;
+          color: #3B3B3B;
         }
 
         .default-address {
           padding: 12px;
-          background-color: #fff5de;
+          background-color: #e0e0e0;
           border-radius: 5px;
           font-size: 13px;
 
@@ -77,12 +76,12 @@
             justify-content: space-between;
 
             button {
-              background-color: #fff5de;
-              border: 1.4px solid #ba933e;
+              background-color: #e0e0e0;
+              border: 1.4px solid #ffffff;
               font-size: 12px;
               padding: 5px;
               border-radius: 5px;
-              color: #ba933e;
+              color: #ffffff;
               font-weight: 500;
               cursor: pointer;
             }
@@ -177,11 +176,6 @@
                 color: #fff;
                 padding: 5px 10px;
                 cursor: pointer;
-                font-size: 0.8rem;
-
-                &:hover {
-                  background-color: black;
-                }
               }
 
               span {
@@ -255,12 +249,12 @@
           align-items: center;
 
           span {
-            font-size: 13px;
+            font-size: 12px;
             padding-top: 12px;
           }
           .icon {
-            font-size: 35px;
-            color: #515151;
+            font-size: 30px;
+            color: #3B3B3B;
           }
         }
       }
@@ -294,7 +288,7 @@
       .place-order {
         display: block;
         width: 100%;
-        background-color: #ba933e;
+        background-color: #3B3B3B;
         color: #fff;
         padding: 10px;
         border: none;
@@ -302,7 +296,6 @@
         font-weight: 500;
         cursor: pointer;
         text-align: center;
-        border-radius: 5px;
         margin-top: 20px;
       }
     }

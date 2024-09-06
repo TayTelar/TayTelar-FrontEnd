@@ -7,7 +7,7 @@
     font-size: 14px;
     font-weight: 500;
     color: #fff;
-    background-color: #ba933e;
+    background-color: #3B3B3B;
   }
   .cart-items-list {
     margin: 0 auto;
@@ -130,32 +130,31 @@
 
   .icon {
     font-size: 30px; 
-    color: #ba933e; 
+    color: #3B3B3B; 
   }
 
   .btn-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px; // Adjust gap between buttons
+    gap: 10px; 
 
     .close-btn {
-      background-color: #ba933e;
+      background-color: #3B3B3B;
       color: #fff;
       border: none;
-      padding: 10px 30px; // Adjust padding as needed
+      padding: 10px 30px; 
       cursor: pointer;
       font-size: 14px;
-      border-radius: 4px; // Optional: Add border radius for rounded corners
     }
 
     .shopping-btn {
       background-color: #fff;
-      border: 1px solid black;
-      padding: 10px 30px; // Adjust padding as needed
+      border: 1.5px solid #3B3B3B;
+      padding: 10px 30px; 
       cursor: pointer;
       font-size: 14px;
-      border-radius: 4px; // Optional: Add border radius for rounded corners
+      border-radius: 4px; 
     }
   }
 }
