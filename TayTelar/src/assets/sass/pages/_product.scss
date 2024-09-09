@@ -1,6 +1,6 @@
 .product {
     height: 100rem;
-    font-family: "Red Hat Display", sans-serif;
+   
 
     .productlist-heading {
         position: relative; // To position the pseudo-elements relative to this container
@@ -31,7 +31,7 @@
             padding-left: 34rem;
             padding-right: 34rem;
             justify-content: space-between;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             margin-top: 3rem; // Remove default margin
             // Remove default padding
@@ -42,16 +42,16 @@
             padding: 0 1rem; // Optional: spacing around list items
         }
         .details.active,.shipping.active,.reviews.active{
-            color:#A4A4A4;
+            color:#636363;
     text-decoration: underline;
-    text-decoration-color: #A4A4A4; /* Optional: Match underline color with text color */
+    text-decoration-color: #636363; /* Optional: Match underline color with text color */
     text-decoration-thickness: 2px; /* Thickness of the underline */
     text-underline-offset: 7px; /* Space between text and underline */
     text-decoration-skip-ink: auto
         }
         .details,.shipping,.reviews{
             text-decoration: none;
-            color: black;
+            color: #3b3b3b;
         }
        
         
@@ -86,7 +86,7 @@
       }
       
       .box-fill {
-        background-color: black;
+        background-color: #3b3b3b;
         height: 100%;
         position: absolute;
         top: 0;
@@ -155,7 +155,7 @@
     padding-top: 2rem;
 }
 .review-button  button{
-    background-color: black;
+    background-color: #3b3b3b;
     color: white;
     width: 13rem;
     height: 2.5rem;
@@ -301,8 +301,9 @@
 {
     width: 9rem;
     height: 2.5rem;
-    background-color:black;
+    background-color:#3b3b3b;
     color: white;
+    font-weight: 500;
     cursor: pointer;
 
 }
@@ -317,7 +318,7 @@
 .more-info{
     width: 9rem;
     height: 2.5rem;
-    background-color:black;
+    background-color:#3b3b3b;
     color: white;
     cursor: pointer;
 }

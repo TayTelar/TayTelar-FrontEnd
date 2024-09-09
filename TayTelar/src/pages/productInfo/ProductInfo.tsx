@@ -25,7 +25,7 @@ const sizes: string[] = ["30", "32", "34", "36"];
 const limitedSize = "34";
 const ProductInfo = () => {
   
-const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/shop" }];
+const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/shop" },{label:"Blog",path:'/'},{label:"Contact Us",path:'/contactUs'}];
 
   const { reviews, averageRating } = useReviews();
   const [rating, setRating] = useState<number>(averageRating);
@@ -81,43 +81,6 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
     }
   };
 
-  // const handleMouseMove = (e: MouseEvent<HTMLImageElement>) => {
-  //   if (imageRef.current && canvasRef.current) {
-  //     const { offsetX, offsetY } = e.nativeEvent;
-  //     const img = imageRef.current;
-  //     const canvas = canvasRef.current;
-  //     const ctx = canvas.getContext("2d");
-
-  //     if (ctx && img) {
-  //       const scaleX = img.naturalWidth / img.width;
-  //       const scaleY = img.naturalHeight / img.height;
-
-  //       const cropWidth = 150;
-  //       const cropHeight = 150;
-
-  //       const cropX = offsetX * scaleX - cropWidth / 2;
-  //       const cropY = offsetY * scaleY - cropHeight / 2;
-
-  //       canvas.width = cropWidth;
-  //       canvas.height = cropHeight;
-
-  //       ctx.drawImage(
-  //         img,
-  //         cropX,
-  //         cropY,
-  //         cropWidth,
-  //         cropHeight,
-  //         0,
-  //         0,
-  //         cropWidth,
-  //         cropHeight
-  //       );
-
-  //       setPreview(canvas.toDataURL());
-  //     }
-  //   }
-  // };
-
   const settings = {
     dots: false,
     infinite: true,
@@ -125,6 +88,7 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
     slidesToScroll: 1,
     vertical: true,
     verticalSwiping: true,
+    arrows: true,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
   };
@@ -160,7 +124,7 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
             src={images[activeImage]}
             alt="main-image"
             className={`primary-image ${animationClass}`}
-            onClick={toggleModal}
+            onClick={()=>{toggleModal(),console.log(activeImage)}}
           />
 
           
@@ -215,6 +179,8 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
               {sizes.map((size) => (
                 <div
                   key={size}
+
+                  
                   className={`num ${selectSize === size ? "sizeselected" : ""}`}
                   onClick={() => setselectSize(size)}
                 >
@@ -271,6 +237,7 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
           isModalOpen={isModalOpen}
           toggleModal={toggleModal}
           images={images}
+          activeImage={activeImage} 
           
         />
       

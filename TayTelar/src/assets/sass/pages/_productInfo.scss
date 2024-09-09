@@ -1,7 +1,7 @@
 /* Base styles - apply to all screen sizes */
 .main-container {
 
-  font-family: "Red Hat Display", sans-serif ;
+ 
 
 .bread-crumbs{
   margin-left: 10rem;
@@ -11,20 +11,7 @@
   opacity: 0.5;
 }
 
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: flex-start; /* Align to the top of the container */
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 999;
-  overflow: auto; /* Enable scrolling in the modal */
-  transition: opacity 0.3s ease;
-}
+
 
 .enlarged-image {
   position: relative; /* Position relative to the modal container */
@@ -56,19 +43,24 @@
 .slider-container {
   display: flex;
   flex-direction: column;
- height: 28rem;
+ height: 32rem;
  width: 4rem;
+ gap: 10px;
 
   margin-left: 15rem;
   overflow: hidden; /* Hide images that are out of view */
   position: relative;
 }
+.slide-container .slick-prev,.slick-next{
+  display: none;
+}
 
 .stacked-images {
   border: 1px solid #c2c2c2;
-  width: 52px;
-  height: 66px;
+  width: 55px;
+  height: 70px;
   margin: 0 auto;
+  margin-bottom: 1.8px;
   display: block;
   cursor: pointer;
   transition: opacity 0.5s ease-in-out;
@@ -101,9 +93,43 @@
   transition: transform 0.3s ease;
 }
 
+/* Ensure the slider images fit within their container */
 .slick-slide img {
   width: 100%;
   height: auto;
+}
+
+/* Custom styling for slick dots */
+.slick-dots {
+  bottom: 900px; /* Adjust the position as needed */
+}
+
+.slick-dots li {
+  margin: 0 5px; /* Adjust spacing between dots as needed */
+}
+
+.slick-dots li button {
+  border: 1px solid none; /* Remove default button border */
+}
+
+/* Style for all dots */
+.slick-dots li button:before {
+  font-size: 30px; /* Adjust size as needed */
+  color: white; /* Default color for non-active dots */
+  border-radius: 50%; /* Make dots circular */
+  border: 3px solid rgb(173, 171, 171); 
+  opacity: 0.8;/* White border around dots */
+  content: ''; /* Remove default content */
+  display: block; 
+  width: 14px; /* Dot size */
+  height: 14px; /* Dot size */
+}
+
+/* Style for the active dot */
+.slick-dots li.slick-active button:before {
+  color: black; /* Color for the active dot */
+  border: 2px solid white; 
+  background-color: black;/* Black border around active dot */
 }
 
 
@@ -121,6 +147,7 @@
 
   .primary-image {
     position: absolute;
+    cursor: zoom-in;
     
     top: 1.3rem;
     left: 7rem;
@@ -149,16 +176,19 @@
 .content {
   
   position: absolute; /* Position it absolutely within the main container */
-  top: 8.6rem; /* Adjust as needed to vertically center the heading */
+  top: 10.5rem; /* Adjust as needed to vertically center the heading */
   left: 58rem;
   
   gap: 0px;
   opacity: 0px;
   /* Center it vertically relative to the primary image */
 }
+.product-name{
+  color:#3B3B3B
+}
 
 .star-inner {
-  color: #1A1A1A;
+  color: #3b3b3b;
   width: 1.2rem;
   height: 1.6rem;
   
@@ -172,7 +202,7 @@
  bottom: 0rem;
  top: -0.8rem;
  
- color: #666666;
+ color: #636363;
  font-size: 0.9rem;
 
   left: 6.4rem;
@@ -194,36 +224,38 @@
     font-weight: 400;
     line-height: 1.2rem;
     text-align: left;
-    color: #9a9a9a;
+    color: #aeacac;
   }
 
   .price {
     width: 160px;
     display: flex;
     justify-content: space-between;
+    position: relative;
+    bottom: 1.2rem;
   }
 
   .rupees {
     font-size: 1.54rem;
-    color: black;
+    color: #3b3b3b;
     font-weight: 600;
     margin-top: 2.46rem;
   }
 
   .discount {
-    color:grey;
+    color:#aeacac;
     margin-top: 3.08rem;
   }
 
   .size-label {
-    color: black;
+    color: #3b3b3b;
     font-weight: 600;
     font-size: 1rem;
   }
 
 .Mrp {
   position: absolute;
- bottom: 20.4rem;
+ bottom: 20rem;
   font-size: 0.8rem;
   font-weight: 400;
   line-height: 1.13rem;
@@ -284,7 +316,7 @@
   }
 
   .size {
-    margin-top: 0.7rem;
+    margin-top: 0rem;
   }
 
   .size-num {
@@ -302,7 +334,7 @@
   }
   .limited-text {
     position: absolute;
-    background-color:black;
+    background-color:#3b3b3b;
     width: 2.7rem;
     left: 1.56rem;
     transform: translateX(-50%);
@@ -332,7 +364,7 @@
     display: flex;
     width: 30rem;
     justify-content: space-between;
-    margin-top: 3rem;
+    margin-top: 2rem;
     font-size: 1.2rem;
 
 .add-sub {
@@ -364,11 +396,12 @@
 .buy {
   height: 3rem;
     width: 9rem;
-    background-color: black;
+    background-color: #3b3b3b;
     color: white;
     font-size: 0.85rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
+    border: none;
+   
+    font-weight: 500;
     cursor: pointer;
     text-align: center;
     display: flex;
@@ -380,15 +413,15 @@
 .cart {
   height: 3rem;
   width: 9rem;
-  background-color: black;
+  background-color: #3b3b3b;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   color: white;
   font-size: 0.85rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
+ 
+  font-weight: 500;
   cursor: pointer;
 
   
@@ -423,7 +456,7 @@
     text-align: left;
 
     font-weight: 700;
-    color: #000000;
+    color: #3B3B3B;
     margin-right: 10px;
   }
 

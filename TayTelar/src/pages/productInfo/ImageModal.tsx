@@ -2,24 +2,31 @@ import React, { useState, useRef, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { ArrowsUpFromLine } from "lucide-react";
 
 interface ImageModalProps {
   isModalOpen: boolean;
   toggleModal: () => void;
   images: string[];
+  activeImage: number; // Add activeImage to props
 }
 
-const imageSliderSettings = {
+const imageSliderSettings = (initialSlide: number) => ({
   dots: true,
   infinite: true,
   slidesToShow: 1,
   slidesToScroll: 1,
-};
+ 
+ arrows:false,
+  dotsClass: "slick-dots custom-dots",
+  initialSlide, // Set the initial slide index
+});
 
-const ImageModal: React.FC<ImageModalProps> = ({ isModalOpen, toggleModal, images }) => {
+const ImageModal: React.FC<ImageModalProps> = ({ isModalOpen, toggleModal, images, activeImage }) => {
   const [mouseY, setMouseY] = useState<number>(50); // Start at the center
   const modalRef = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
+  const sliderRef = useRef<Slider | null>(null);
 
   const handleMouseMove = (e: MouseEvent) => {
     if (modalRef.current && imageRef.current) {
@@ -54,6 +61,12 @@ const ImageModal: React.FC<ImageModalProps> = ({ isModalOpen, toggleModal, image
     }
   }, [isModalOpen]);
 
+  useEffect(() => {
+    if (isModalOpen && sliderRef.current) {
+      sliderRef.current.slickGoTo(activeImage);
+    }
+  }, [activeImage, isModalOpen]);
+
   const handleClickModal = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === modalRef.current) {
       toggleModal();
@@ -64,7 +77,7 @@ const ImageModal: React.FC<ImageModalProps> = ({ isModalOpen, toggleModal, image
     isModalOpen ? (
       <div className="modal" ref={modalRef} onClick={handleClickModal}>
         <div className="image-slider-container" onClick={(e) => e.stopPropagation()}>
-          <Slider {...imageSliderSettings}>
+          <Slider {...imageSliderSettings(activeImage)} ref={sliderRef}>
             {images.map((image, index) => (
               <div key={index} className="image-slide">
                 <img
