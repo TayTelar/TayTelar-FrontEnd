@@ -8,20 +8,22 @@ import CartModal from "./pages/cart/CartModal";
 import Checkout from "./pages/checkout/Checkout";
 import Login from "./pages/login/Login";
 
-const App = () => (
-  <Router>
-    <Header />
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/contactUs" element={<ContactUs />} />
-      <Route path="/shop" element={<Shop />} />
-      <Route path="/cart" element={<CartModal />} />
-      <Route path="/checkout" element={<Checkout />} />
-    </Routes>
-    <Footer />
-  </Router>
-);
+const App = () => {
+  return (
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/contactUs" element={<ContactUs />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/cart" element={<CartModal />} />
+        <Route path="/checkout" element={<Checkout />} />
+      </Routes>
+      <Footer />
+    </Router>
 
+  );
+}
 export default App;
