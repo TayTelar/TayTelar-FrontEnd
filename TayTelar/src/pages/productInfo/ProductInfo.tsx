@@ -1,4 +1,4 @@
-import { useState, useRef, MouseEvent, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Slider from "react-slick";
 
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
