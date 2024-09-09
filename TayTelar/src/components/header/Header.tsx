@@ -5,7 +5,6 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import "../../assets/sass/components/_header.scss";
 import logo from "../../assets/images/logo.png";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useNavigate } from "react-router-dom";
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
 import ClearSharpIcon from '@mui/icons-material/ClearSharp';
@@ -70,25 +69,16 @@ const Header = () => {
                       to="/shop"
                       className={({ isActive }) => (isActive ? "active" : "")}
                     >
-                      Shop <ExpandMoreIcon />
+                      Shop
                     </NavLink>
                   </li>
                   <li>
                     <NavLink
-                      to="/aboutUs"
+                      to="/order"
                       className={({ isActive }) => (isActive ? "active" : "")}
                       onClick={toggleMenu}
                     >
-                      Collections <ExpandMoreIcon />
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/blogs"
-                      className={({ isActive }) => (isActive ? "active" : "")}
-                      onClick={toggleMenu}
-                    >
-                      Blogs <ExpandMoreIcon />
+                      My Orders
                     </NavLink>
                   </li>
                   <li>
@@ -109,15 +99,15 @@ const Header = () => {
                       to="/login"
                       className={({ isActive }) => (isActive ? "active" : "")}
                     >
-                      <PermIdentityIcon />
-                      &nbsp; <p>Login / Register</p>
+                      <PermIdentityIcon className="icon" />
+                      &nbsp; Login / Register
                     </NavLink>
                   </li>
                   <li>
-                    <SearchIcon className="searchicon" />
+                    <SearchIcon className="icon" />
                   </li>
                   <li>
-                    <LocalMallIcon onClick={handleCartClick} />
+                    <LocalMallIcon onClick={handleCartClick} className="icon" />
                   </li>
                 </ul>
               </div>

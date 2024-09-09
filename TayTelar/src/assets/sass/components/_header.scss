@@ -72,17 +72,14 @@ nav {
 
             a {
               text-decoration: none;
-              color: #1a1a1a;
+              color: #3B3B3B;
               display: flex;
               align-items: center;
-              padding: 0 10px;
+              padding: 0 10px; 
+              font-weight: 600; 
 
               &.active {
-                color: #ba933e;
-              }
-
-              &:hover {
-                color: #ba933e;
+                color: #9e9e9e;
               }
 
               p {
@@ -163,6 +160,15 @@ nav {
   nav {
     .menu_list {
       &_container {
+        .menu-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 999;
+        }
         &_section {
           width: 90%;
           .hamburger {
@@ -274,15 +280,6 @@ nav {
                 }
               }
             }
-          }
-          &.menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
           }
         }
       }

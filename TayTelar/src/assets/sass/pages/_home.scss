@@ -19,11 +19,11 @@
                         margin: 0;
                         font-size: 2vw;
                         font-weight: 700;
-                        color: #1a1a1a;
+                        color: #3B3B3B;
                     }
 
                     p {
-                        color: #444444;
+                        color: #636363;
                         font-weight: 400;
                         margin: 0 auto 10px;
                         font-size: 16px;
@@ -115,7 +115,6 @@
                             font-weight: 700;
 
                             &:hover {
-                                color: #ba933e;
                                 cursor: pointer;
                             }
                         }
@@ -138,11 +137,11 @@
                         margin: 0;
                         font-size: 2vw;
                         font-weight: 700;
-                        color: #1a1a1a;
+                        color: #3B3B3B;
                     }
 
                     p {
-                        color: #444444;
+                        color: #636363;
                         font-weight: 400;
                         margin: 0 auto 10px;
                         font-size: 16px;
@@ -221,13 +220,13 @@
                                 font-size: 16px;
                                 font-weight: 700;
                                 line-height: 1.1;
-                                color: #1a1a1a;
+                                color: #3B3B3B;
                             }
 
                             p {
                                 margin: 0;
                                 font-size: 14px;
-                                color: #666;
+                                color: #636363;
                             }
                         }
                     }
@@ -273,12 +272,12 @@
                                 font-size: 28px;
                                 padding: 0 0 10px;
                                 margin: 0;
-                                font-weight: 700;
-                                color: #1a1a1a;
+                                font-weight: 600;
+                                color: #3B3B3B;
                             }
 
                             span {
-                                color: #444444;
+                                color: #636363;
                                 font-weight: 400;
                                 font-size: 16px;
                                 margin: 0 auto 10px;
@@ -305,10 +304,9 @@
                                     padding: 1px 20px;
                                     font-size: 16px;
                                     line-height: 1.45;
-                                    color: #444444;
                                     background-color: #fff;
                                     background-image: none;
-                                    border: 2px solid #e1e1e1;
+                                    border: 1.5px solid #e0e0e0;
                                     border-radius: 5px;
                                     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
                                     box-shadow: none;
@@ -317,15 +315,14 @@
                                 span {
                                     button {
                                         font-size: 14px;
-                                        font-weight: 700;
+                                        font-weight: 500;
                                         padding: 8px 35px;
                                         margin-left: 20px;
                                         display: inline-block;
                                         color: #ffffff;
-                                        background-color: #1a1a1a;
-                                        border: 1px solid #1a1a1a;
+                                        background-color: #3B3B3B;
+                                        border: none;
                                         line-height: 24px;
-                                        border-radius: 3px;
                                         -webkit-transition: all .35s ease;
                                         -o-transition: all .35s ease;
                                         transition: all .35s ease;
@@ -348,21 +345,15 @@
                 width: 45px;
                 height: 45px;
                 line-height: 45px;
-                border: 1px solid #e1e1e1;
+                border: 1px solid #e0e0e0;
                 border-radius: 50%;
-                color: #e1e1e1;
+                color: #3B3B3B;
                 cursor: pointer;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 opacity: 1;
                 transition: background-color 0.3s ease;
-
-                &:hover {
-                    background-color: #ba933e;
-                    color: #ffffff;
-                    border: none;
-                }
             }
 
             .carousel-prev {
@@ -379,7 +370,7 @@
             }
 
             .carousel .control-dots .dot {
-                background-color: #ba933e;
+                background-color: #3B3B3B;
                 opacity: 1;
                 box-shadow: none;
                 width: 10px;
@@ -392,8 +383,8 @@
             .carousel .control-dots .dot.selected {
                 width: 18px;
                 height: 18px;
-                border: 2.5px solid #ba933e;
-                background-color: #f6f6f6;
+                border: 2.5px solid #3B3B3B;
+                background-color: #e0e0e0;
                 transform: translateY(4px);
             }
 
@@ -413,7 +404,7 @@
                     text-align: left;
 
                     h4 {
-                        color: #444444;
+                        color: #3B3B3B;
                         font-size: 20px;
                         line-height: 36px;
                         margin: 0 0 2%;
@@ -421,7 +412,7 @@
                         font-weight: 700;
 
                         span {
-                            color: #ba933e;
+                            color: #636363;
                         }
 
                     }
@@ -445,22 +436,16 @@
                         align-items: center;
                         border: none;
                         font-size: 15px;
-                        background-color: #1a1a1a;
+                        background-color: #3B3B3B;
                         color: #ffffff;
-                        padding: 14px 30px;
+                        padding: 10px 25px;
                         margin-bottom: 0;
                         text-align: center;
                         line-height: 1.45;
-                        border-radius: 4px;
                         margin-top: 30px;
-                        font-weight: 600;
+                        font-weight: 500;
                         cursor: pointer;
                         transition: all .35s ease;
-
-                        &:hover {
-                            background-color: #ba933e;
-                            color: #ffffff;
-                        }
                     }
                 }
             }

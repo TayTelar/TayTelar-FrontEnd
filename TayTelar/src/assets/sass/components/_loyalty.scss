@@ -1,0 +1,67 @@
+/* loyalty section */
+.order-summary {
+  padding: 12px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  width: 400px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  margin-right: 75px;
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__label {
+    font-weight: 600;
+    font-size: 14px;
+    padding: 5px 0px;
+  }
+
+  &__value {
+    font-size: 14px;
+    padding: 5px 0px;
+    font-weight: 600;
+  }
+
+  &__value--free {
+    color: #28a745;
+    font-weight: bold;
+  }
+
+  &__loyalty {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+
+    input {
+      width: 70%;
+      padding: 5px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .order-summary__apply-btn {
+      background-color: #000;
+      color: #fff;
+      padding: 5px 15px;
+      border: none;
+      cursor: pointer;
+    }
+  }
+
+  &__points {
+    font-size: 14px;
+    padding: 15px 0px;
+  }
+
+  &__total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px 0px;
+  }
+}

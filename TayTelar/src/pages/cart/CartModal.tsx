@@ -3,6 +3,10 @@ import item from "../../assets/images/hover_img_4.webp";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
+import StraightenIcon from "@mui/icons-material/Straighten";
+import empty_cart from "../../assets/images/empty_cart.png";
 
 interface CartItem {
   id: number;
@@ -98,131 +102,180 @@ const CartModal: React.FC = () => {
     navigate("/checkout");
   };
 
+  const addItems = () => {
+    navigate("/shop");
+  };
+
+  const handleChangeAddress = () => {
+    navigate("/checkout");
+  };
+
   return (
     <div className="cart-modal">
       <div className="cart-content">
-        <div className="cart-items">
-          <div className="cart-header">
-            <h5>
-              {selectedItemsCount} OUT OF {cartItems.length} ITEMS SELECTED
-            </h5>
+        {cartItems.length === 0 ? (
+          <div className="empty-cart">
+            <img src={empty_cart} alt="Empty Cart" />
+            <h5>Your cart is empty</h5>
+            <p>Start adding items to your cart</p>
+            <button onClick={addItems}>Go to Shop</button>
           </div>
-          <div className="cart-items-list">
-            {cartItems.map((item) => (
-              <div className="cart-item" key={item.id}>
-                <div className="cart-item-checkbox">
-                  <input
-                    type="checkbox"
-                    checked={item.isChecked}
-                    onChange={() => handleCheckboxChange(item.id)}
-                  />
-                </div>
-                <div className="cart-item-image">
-                  <img src={item.image} alt={item.name} />
-                </div>
-                <div className="cart-item-details">
-                  <div className="cart-item-title">
-                    <h5>{item.name}</h5>
-                    <button
-                      className="remove-item"
-                      onClick={() => handleRemoveItem(item.id)}
-                    >
-                      <RemoveCircleIcon />
+        ) : (
+          <>
+            <div className="cart-items">
+              <div className="cart-header">
+                <h5>
+                  {selectedItemsCount} OUT OF {cartItems.length} ITEMS SELECTED
+                </h5>
+                <div className="default-address">
+                  <div>
+                    <span>Kavya Shree</span>
+                    <button onClick={handleChangeAddress}>
+                      CHANGE ADDRESS
                     </button>
                   </div>
-                  <span>{item.description}</span>
-                  <div className="cart-item-price">
-                    <span className="price">Rs. {item.price}</span>
-                    <span className="original-price">
-                      Rs. {item.originalPrice}
-                    </span>
-                    <span className="discount">{item.discount}</span>
-                  </div>
-                  <div className="cart-item-options">
-                    <div className="size-dropdown">
-                      <select
-                        id="size"
-                        value={item.size}
-                        onChange={(e) =>
-                          handleSizeChange(item.id, e.target.value)
-                        }
-                      >
-                        <option value="32">32</option>
-                        <option value="34">34</option>
-                        <option value="36">36</option>
-                        <option value="38">38</option>
-                      </select>
+                  <p>
+                    Shekar Sound System, Suncalpet Cross, Ganesh Street, Kolar
+                    563101
+                  </p>
+                </div>
+                <p onClick={addItems} className="items-to-cart">
+                  Add Few More Items To Cart{" "}
+                </p>
+              </div>
+              <div className="cart-items-list">
+                {cartItems.map((item) => (
+                  <div className="cart-item" key={item.id}>
+                    <div className="cart-item-checkbox">
+                      <input
+                        type="checkbox"
+                        checked={item.isChecked}
+                        onChange={() => handleCheckboxChange(item.id)}
+                      />
                     </div>
-                    <div className="quantity-control">
-                      <button
-                        onClick={() => handleQuantityChange(item.id, false)}
-                      >
-                        -
-                      </button>
-                      <span>{item.quantity}</span>
-                      <button
-                        onClick={() => handleQuantityChange(item.id, true)}
-                      >
-                        +
-                      </button>
+                    <div className="cart-item-image">
+                      <img src={item.image} alt={item.name} />
+                    </div>
+                    <div className="cart-item-details">
+                      <div className="cart-item-title">
+                        <h5>{item.name}</h5>
+                        <button
+                          className="remove-item"
+                          onClick={() => handleRemoveItem(item.id)}
+                        >
+                          <RemoveCircleIcon />
+                        </button>
+                      </div>
+                      <span>{item.description}</span>
+                      <div className="cart-item-price">
+                        <span className="price">Rs. {item.price}</span>
+                        <span className="original-price">
+                          Rs. {item.originalPrice}
+                        </span>
+                        <span className="discount">{item.discount}</span>
+                      </div>
+                      <div className="cart-item-options">
+                        <div className="size-dropdown">
+                          <select
+                            id="size"
+                            value={item.size}
+                            onChange={(e) =>
+                              handleSizeChange(item.id, e.target.value)
+                            }
+                          >
+                            <option value="32">32</option>
+                            <option value="34">34</option>
+                            <option value="36">36</option>
+                            <option value="38">38</option>
+                          </select>
+                        </div>
+                        <div className="quantity-control">
+                          <button
+                            onClick={() => handleQuantityChange(item.id, false)}
+                          >
+                            -
+                          </button>
+                          <span>{item.quantity}</span>
+                          <button
+                            onClick={() => handleQuantityChange(item.id, true)}
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                      <p>14 days return available</p>
                     </div>
                   </div>
-                  <p>14 days return available</p>
+                ))}
+              </div>
+            </div>
+            <div className="price-details">
+              <h5>
+                PRICE DETAILS ({selectedItemsCount} Item
+                {selectedItemsCount > 1 && "s"})
+              </h5>
+              <div>
+                <span>Total MRP</span>
+                <span>
+                  Rs.{" "}
+                  {cartItems.reduce(
+                    (acc, item) =>
+                      acc + (item.isChecked ? item.originalPrice : 0),
+                    0
+                  )}
+                </span>
+              </div>
+              <div>
+                <span>Discount on MRP</span>
+                <span>
+                  - Rs.{" "}
+                  {cartItems.reduce(
+                    (acc, item) =>
+                      acc +
+                      (item.isChecked ? item.originalPrice - item.price : 0),
+                    0
+                  )}
+                </span>
+              </div>
+              <div>
+                <span>Platform Fee</span>
+                <span className="free">FREE</span>
+              </div>
+              <div>
+                <span>Shipping Fee</span>
+                <span className="free">FREE</span>
+              </div>
+              <hr />
+              <div className="total-amount">
+                <span>TOTAL AMOUNT</span>
+                <span>
+                  Rs.{" "}
+                  {cartItems.reduce(
+                    (acc, item) => acc + (item.isChecked ? item.price : 0),
+                    0
+                  )}
+                </span>
+              </div>
+              <button className="place-order" onClick={handleCheckout}>
+                CHECKOUT
+              </button>
+              <div className="trust-indicators">
+                <div className="indicator">
+                  <LocalShippingIcon className="icon" />
+                  <span>Easy Exchange</span>
+                </div>
+                <div className="indicator">
+                  <AssuredWorkloadIcon className="icon" />
+                  <span>Secure Payment</span>
+                </div>
+                <div className="indicator">
+                  <StraightenIcon className="icon" />
+                  <span>Best Fit</span>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-        <div className="price-details">
-          <h5>
-            PRICE DETAILS ({selectedItemsCount} Item
-            {selectedItemsCount > 1 && "s"})
-          </h5>
-          <div>
-            <span>Total MRP</span>
-            <span>
-              Rs.{" "}
-              {cartItems.reduce(
-                (acc, item) =>
-                  acc + (item.isChecked ? item.originalPrice : 0),
-                0
-              )}
-            </span>
-          </div>
-          <div>
-            <span>Discount on MRP</span>
-            <span>
-              - Rs.{" "}
-              {cartItems.reduce(
-                (acc, item) =>
-                  acc +
-                  (item.isChecked ? item.originalPrice - item.price : 0),
-                0
-              )}
-            </span>
-          </div>
-          <div>
-            <span>Platform Fee</span>
-            <span className="free">FREE</span>
-          </div>
-          <div>
-            <span>Shipping Fee</span>
-            <span className="free">FREE</span>
-          </div>
-          <div className="total-amount">
-            <span>TOTAL AMOUNT</span>
-            <span>
-              Rs.{" "}
-              {cartItems.reduce(
-                (acc, item) => acc + (item.isChecked ? item.price : 0),
-                0
-              )}
-            </span>
-          </div>
-          <button className="place-order" onClick={handleCheckout}>
-            CHECKOUT
-          </button>
-        </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
