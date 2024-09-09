@@ -5,7 +5,6 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import "../../assets/sass/components/_header.scss";
 import logo from "../../assets/images/logo.png";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useNavigate } from "react-router-dom";
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
 import ClearSharpIcon from '@mui/icons-material/ClearSharp';
@@ -29,10 +28,12 @@ const Header = () => {
         setTimeout(() => {
           setMenuOpen(false);
           centerMenu.classList.remove('open', 'closing');
+          document.body.style.overflow = "auto";
         }, 300);
   
       } else {
         setMenuOpen(true);
+        document.body.style.overflow = "hidden";
       }
     }
   };
@@ -43,8 +44,7 @@ const Header = () => {
       <nav>
         <div className="menu_list" >
           <div className="menu_list_container">
-            <div className={`${menuOpen ? "menu-overlay" : ""}`}></div>
-            <div className="menu_list_container_section">
+            <div className={`menu_list_container_section ${menuOpen ? "menu-overlay" : ""}`}>
               <div className={`hamburger`} onClick={toggleMenu}>
                 <MenuSharpIcon />
                 <SearchIcon className="searchicon" />

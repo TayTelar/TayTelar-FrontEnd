@@ -157,7 +157,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
             onClick={() => handleAddressTypeChange("HOME")}
             style={{
               borderColor:
-                formData.addressType === "HOME" ? "#BA933E" : "#cdcdcd",
+                formData.addressType === "HOME" ? "#3B3B3B" : "#e0e0e0",
             }}
           >
             HOME
@@ -166,7 +166,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
             onClick={() => handleAddressTypeChange("WORK")}
             style={{
               borderColor:
-                formData.addressType === "WORK" ? "#BA933E" : "#cdcdcd",
+                formData.addressType === "WORK" ? "#3B3B3B" : "#e0e0e0",
             }}
           >
             WORK
@@ -175,7 +175,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
             onClick={() => handleAddressTypeChange("OTHERS")}
             style={{
               borderColor:
-                formData.addressType === "OTHERS" ? "#BA933E" : "#cdcdcd",
+                formData.addressType === "OTHERS" ? "#3B3B3B" : "#e0e0e0",
             }}
           >
             OTHERS
