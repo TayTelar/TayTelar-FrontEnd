@@ -19,11 +19,11 @@
                         margin: 0;
                         font-size: 2vw;
                         font-weight: 700;
-                        color: #1a1a1a;
+                        color: #3B3B3B;
                     }
 
                     p {
-                        color: #444444;
+                        color: #636363;
                         font-weight: 400;
                         margin: 0 auto 10px;
                         font-size: 16px;
@@ -61,7 +61,7 @@
                             background: rgba(255, 255, 255, 0.7);
                             z-index: 1;
                             transition: all .9s ease 0s;
-                        }   
+                        }
 
                         &::before {
                             left: 0;
@@ -115,7 +115,6 @@
                             font-weight: 700;
 
                             &:hover {
-                                color: #ba933e;
                                 cursor: pointer;
                             }
                         }
@@ -138,11 +137,11 @@
                         margin: 0;
                         font-size: 2vw;
                         font-weight: 700;
-                        color: #1a1a1a;
+                        color: #3B3B3B;
                     }
 
                     p {
-                        color: #444444;
+                        color: #636363;
                         font-weight: 400;
                         margin: 0 auto 10px;
                         font-size: 16px;
@@ -152,6 +151,7 @@
                 .product_container {
 
                     display: flex;
+                    justify-content: center;
                     flex-wrap: wrap;
                     gap: 30px;
                     margin-top: 3vw;
@@ -220,16 +220,31 @@
                                 font-size: 16px;
                                 font-weight: 700;
                                 line-height: 1.1;
-                                color: #1a1a1a;
+                                color: #3B3B3B;
                             }
 
                             p {
                                 margin: 0;
                                 font-size: 14px;
-                                color: #666;
+                                color: #636363;
                             }
                         }
                     }
+                }
+            }
+
+            .shop {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                margin-top: 5vw;
+                width: 90%;
+
+                img {
+                    max-width: 50%;
+                    height: auto;
+                    object-fit: cover;
                 }
             }
 
@@ -257,12 +272,12 @@
                                 font-size: 28px;
                                 padding: 0 0 10px;
                                 margin: 0;
-                                font-weight: 700;
-                                color: #1a1a1a;
+                                font-weight: 600;
+                                color: #3B3B3B;
                             }
 
                             span {
-                                color: #444444;
+                                color: #636363;
                                 font-weight: 400;
                                 font-size: 16px;
                                 margin: 0 auto 10px;
@@ -289,10 +304,9 @@
                                     padding: 1px 20px;
                                     font-size: 16px;
                                     line-height: 1.45;
-                                    color: #444444;
                                     background-color: #fff;
                                     background-image: none;
-                                    border: 2px solid #e1e1e1;
+                                    border: 1.5px solid #e0e0e0;
                                     border-radius: 5px;
                                     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
                                     box-shadow: none;
@@ -301,15 +315,14 @@
                                 span {
                                     button {
                                         font-size: 14px;
-                                        font-weight: 700;
+                                        font-weight: 500;
                                         padding: 8px 35px;
                                         margin-left: 20px;
                                         display: inline-block;
                                         color: #ffffff;
-                                        background-color: #1a1a1a;
-                                        border: 1px solid #1a1a1a;
+                                        background-color: #3B3B3B;
+                                        border: none;
                                         line-height: 24px;
-                                        border-radius: 3px;
                                         -webkit-transition: all .35s ease;
                                         -o-transition: all .35s ease;
                                         transition: all .35s ease;
@@ -332,21 +345,15 @@
                 width: 45px;
                 height: 45px;
                 line-height: 45px;
-                border: 1px solid #e1e1e1;
+                border: 1px solid #e0e0e0;
                 border-radius: 50%;
-                color: #e1e1e1;
+                color: #3B3B3B;
                 cursor: pointer;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 opacity: 1;
                 transition: background-color 0.3s ease;
-
-                &:hover {
-                    background-color: #ba933e;
-                    color: #ffffff;
-                    border: none;
-                }
             }
 
             .carousel-prev {
@@ -363,7 +370,7 @@
             }
 
             .carousel .control-dots .dot {
-                background-color: #ba933e;
+                background-color: #3B3B3B;
                 opacity: 1;
                 box-shadow: none;
                 width: 10px;
@@ -376,8 +383,8 @@
             .carousel .control-dots .dot.selected {
                 width: 18px;
                 height: 18px;
-                border: 2.5px solid #ba933e;
-                background-color: #f6f6f6;
+                border: 2.5px solid #3B3B3B;
+                background-color: #e0e0e0;
                 transform: translateY(4px);
             }
 
@@ -397,7 +404,7 @@
                     text-align: left;
 
                     h4 {
-                        color: #444444;
+                        color: #3B3B3B;
                         font-size: 20px;
                         line-height: 36px;
                         margin: 0 0 2%;
@@ -405,7 +412,7 @@
                         font-weight: 700;
 
                         span {
-                            color: #ba933e;
+                            color: #636363;
                         }
 
                     }
@@ -429,26 +436,617 @@
                         align-items: center;
                         border: none;
                         font-size: 15px;
-                        background-color: #1a1a1a;
+                        background-color: #3B3B3B;
                         color: #ffffff;
-                        padding: 14px 30px;
+                        padding: 10px 25px;
                         margin-bottom: 0;
                         text-align: center;
                         line-height: 1.45;
-                        border-radius: 4px;
                         margin-top: 30px;
-                        font-weight: 600;
+                        font-weight: 500;
                         cursor: pointer;
                         transition: all .35s ease;
-
-                        &:hover {
-                            background-color: #ba933e;
-                            color: #ffffff;
-                        }
                     }
                 }
             }
 
+        }
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .home {
+        &_container {
+            &_section {
+                .carousel-root {
+                    .carousel {
+                        .slider-wrapper {
+                            height: 60vw;
+                        }
+                    }
+                }
+
+                .carousel .control-dots {
+                    bottom: 0px;
+                }
+
+                .carousel-prev,
+                .carousel-next {
+                    width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                }
+
+                .carousel .control-dots .dot {
+                    width: 8px;
+                    height: 8px;
+                }
+
+                .carousel .control-dots .dot.selected {
+                    width: 16px;
+                    height: 16px;
+                    border: 2px solid #ba933e;
+
+                }
+
+                .banner1,
+                .banner2,
+                .banner3 {
+                    .content {
+                        left: 5%;
+                        top: 10%;
+
+                        h4 {
+                            font-size: 16px;
+                        }
+
+                        h1 {
+                            font-size: 22px;
+                            line-height: 35px;
+                        }
+
+                        button {
+                            font-size: 14px;
+                            padding: 10px 20px;
+                            margin-top: 15px;
+                        }
+                    }
+
+                    img {
+                        height: 60vw;
+                    }
+                }
+
+                &_category {
+                    margin-top: 12vw;
+
+                    .heading {
+                        h3 {
+                            font-size: 24px;
+                        }
+
+                        p {
+                            font-size: 16px;
+                        }
+                    }
+
+                    .items {
+                        .item1 {
+                            grid-column: 1;
+                            grid-row: 1;
+                        }
+
+                        .item2 {
+                            grid-column: 1;
+                            grid-row: 2;
+                        }
+
+                        .item5 {
+                            grid-column: 1;
+                            grid-row: 3;
+                        }
+
+                        .item3 {
+                            grid-row: 4;
+                        }
+                    }
+                }
+
+                &_product {
+                    margin-top: 12vw;
+
+                    .heading {
+                        h3 {
+                            font-size: 24px;
+                        }
+
+                        p {
+                            font-size: 16px;
+                        }
+                    }
+
+                    .product_container {
+                        flex-direction: column;
+
+                        .products {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                .shop {
+                    flex-direction: column;
+                    width: 90%;
+                    margin-bottom: 5vw;
+                    img{
+                        max-width: 100%;
+                    }
+                }
+
+                .newsletter {
+                    margin-top: 10vw;
+
+                    &_container {
+                        margin: 5vw;
+
+                        &_section {
+                            width: 100%;
+                            padding: 10vw 1vw;
+
+                            .heading {
+                                h3 {
+                                    font-size: 24px;
+                                    margin-bottom: 10px;
+                                }
+                            }
+
+                            form {
+                                margin-top: 20px;
+
+                                .input_form {
+                                    width: 100%;
+
+                                    span {
+                                        button {
+                                            padding: 6px 20px;
+                                            margin-left: 10px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width:767px){
+    .home {
+        &_container {
+            &_section {
+                .carousel-root {
+                    .carousel {
+                        .slider-wrapper {
+                            height: 50vw;
+                        }
+                    }
+                }
+
+                .carousel .control-dots {
+                    bottom: 10px;
+                }
+
+                .carousel-prev,
+                .carousel-next {
+                    width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                }
+
+                .carousel .control-dots .dot {
+                    width: 8px;
+                    height: 8px;
+                }
+
+                .carousel .control-dots .dot.selected {
+                    width: 16px;
+                    height: 16px;
+                    border: 2px solid #ba933e;
+
+                }
+
+                .banner1,
+                .banner2,
+                .banner3 {
+                    .content {
+                        left: 8%;
+                        top: 15%;
+
+                        h4 {
+                            font-size: 18px;
+                        }
+
+                        h1 {
+                            font-size: 24px;
+                            line-height: 40px;
+                        }
+
+                        button {
+                            font-size: 16px;
+                            padding: 10px 20px;
+                            margin-top: 20px;
+                        }
+                    }
+
+                    img {
+                        height: 50vw;
+                    }
+                }
+
+                &_category {
+                    margin-top: 10vw;
+
+                    .heading {
+                        h3 {
+                            font-size: 26px;
+                        }
+
+                        p {
+                            font-size: 18px;
+                        }
+                    }
+
+                    .items {
+                        .item1 {
+                            grid-column: 1/span 2;
+                            grid-row: 1;
+                        }
+
+                        .item2 {
+                            grid-column: 1;
+                            grid-row: 2;
+                        }
+
+                        .item5 {
+                            grid-column: 2;
+                            grid-row: 2;
+                        }
+
+                        .item4 {
+                            grid-column: 1/span 2;
+                            grid-row: 3;
+                        }
+                        .item3 {
+                            grid-column: 1/span 2;
+                            grid-row: 4;
+                        }
+                    }
+                }
+
+                &_product {
+                    margin-top: 10vw;
+
+                    .heading {
+                        h3 {
+                            font-size: 24px;
+                        }
+
+                        p {
+                            font-size: 16px;
+                        }
+                    }
+
+                    .product_container {
+                        gap: 20px;
+                        .products {
+                            flex: 0 0 calc(50% - 10px);
+                            box-sizing: border-box;
+                        }
+                    }
+                }
+
+                .shop {
+                    flex-direction: column;
+                    width: 90%;
+                    margin-bottom: 5vw;
+                    img{
+                        max-width: 100%;
+                    }
+                }
+
+                .newsletter {
+                    margin-top: 10vw;
+
+                    &_container {
+                        margin: 5vw;
+
+                        &_section {
+                            width: 100%;
+                            padding: 10vw 3vw;
+
+                            .heading {
+                                h3 {
+                                    font-size: 24px;
+                                    margin-bottom: 10px;
+                                }
+                            }
+
+                            form {
+                                margin-top: 20px;
+
+                                .input_form {
+                                    width: 100%;
+
+                                    span {
+                                        button {
+                                            padding: 6px 20px;
+                                            margin-left: 10px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width:768px) and (max-width:992px){
+    .home {
+        &_container {
+            &_section {
+                .carousel .control-dots {
+                    bottom: 15px;
+                }
+
+                .carousel-prev,
+                .carousel-next {
+                    width: 42px;
+                    height: 42px;
+                    line-height: 42px;
+                }
+
+                .carousel .control-dots .dot {
+                    width: 10px;
+                    height: 10px;
+                }
+
+                .carousel .control-dots .dot.selected {
+                    width: 17px;
+                    height: 17px;
+                    border: 2px solid #ba933e;
+
+                }
+
+                .banner1,
+                .banner2,
+                .banner3 {
+                    .content {
+                        left: 10%;
+                        top: 20%;
+
+                        h4 {
+                            font-size: 20px;
+                        }
+
+                        h1 {
+                            font-size: 26px;
+                            line-height: 45px;
+                        }
+
+                        button {
+                            font-size: 18px;
+                            padding: 12px 24px;
+                            margin-top: 25px;
+                        }
+                    }
+                }
+
+                &_category {
+                    margin-top: 6vw;
+
+                    .heading {
+                        h3 {
+                            font-size: 28px;
+                        }
+
+                        p {
+                            font-size: 20px;
+                        }
+                    }
+                }
+
+                &_product {
+                    margin-top: 6vw;
+
+                    .heading {
+                        h3 {
+                            font-size: 28px;
+                        }
+
+                        p {
+                            font-size: 20px;
+                        }
+                    }
+
+                    .product_container {
+                        gap: 20px;
+                        .products {
+                            flex: 0 0 calc(50% - 10px);
+                            box-sizing: border-box;
+                        }
+                        .details {
+                            h3 {
+                                font-size: 20px;
+                            }
+                            p {
+                                font-size: 16px;
+                            }
+                        }
+                    }
+                }
+
+                .shop {
+                    width: 90%;
+                    margin-bottom: 5vw;
+                    img{
+                        max-width: 50%;
+                    }
+                }
+
+                .newsletter {
+                    margin-top: 10vw;
+
+                    &_container {
+                        margin: 5vw;
+
+                        &_section {
+                            width: 100%;
+                            padding: 10vw 3vw;
+
+                            .heading {
+                                h3 {
+                                    font-size: 26px;
+                                    margin-bottom: 10px;
+                                }
+                                span{
+                                    font-size: 18px;
+                                }
+                            }
+
+                            form {
+                                margin-top: 20px;
+
+                                .input_form {
+                                    width: 70%;
+
+                                    span {
+                                        button {
+                                            padding: 6px 20px;
+                                            margin-left: 10px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width:993px) and (max-width:1279px){
+    .home {
+        &_container {
+            &_section {
+                .banner1,
+                .banner2,
+                .banner3 {
+                    .content {
+                        h4 {
+                            font-size: 22px;
+                        }
+
+                        h1 {
+                            font-size: 42px;
+                            line-height: 60px;
+                        }
+
+                        button {
+                            font-size: 16px;
+                        }
+                    }
+                }
+
+                &_category {
+                    margin-top: 6vw;
+
+                    .heading {
+                        h3 {
+                            font-size: 28px;
+                        }
+
+                        p {
+                            font-size: 20px;
+                        }
+                    }
+                }
+
+                &_product {
+                    margin-top: 6vw;
+
+                    .heading {
+                        h3 {
+                            font-size: 28px;
+                        }
+
+                        p {
+                            font-size: 20px;
+                        }
+                    }
+
+                    .product_container {
+                        gap: 20px;
+                        width: 100%;
+                        .products {
+                            flex: 0 0 30%;
+                            box-sizing: border-box;
+                        }
+                       
+                    }
+                }
+
+                .shop {
+                    width: 90%;
+                    margin-bottom: 5vw;
+                    img{
+                        max-width: 50%;
+                    }
+                }
+
+                .newsletter {
+                    margin-top: 10vw;
+
+                    &_container {
+                        margin: 5vw;
+
+                        &_section {
+                            width: 100%;
+                            padding: 10vw 3vw;
+
+                            .heading {
+                                h3 {
+                                    font-size: 26px;
+                                    margin-bottom: 10px;
+                                }
+                                span{
+                                    font-size: 18px;
+                                }
+                            }
+
+                            form {
+                                margin-top: 20px;
+
+                                .input_form {
+                                    width: 70%;
+
+                                    span {
+                                        button {
+                                            padding: 6px 20px;
+                                            margin-left: 10px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

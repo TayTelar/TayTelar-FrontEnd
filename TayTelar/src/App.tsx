@@ -10,32 +10,24 @@ import Review from "./pages/productInfo/Review";
 import Shop from "./pages/shop/Shop";
 import CartModal from "./pages/cart/CartModal";
 import Checkout from "./pages/checkout/Checkout";
-import { ReviewProvider } from "./pages/productInfo/contexts/ReviewContext"; // Update path as needed
+import Orders from "./pages/orders/Orders";
+import Login from "./pages/login/Login";
 
 const App = () => (
-    <Router>
-        <Header />
-        <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/contactUs" element={<ContactUs />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/cart" element={<CartModal />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/productinfo" element={
-                <ReviewProvider> {/* Provide context only to ProductInfo and its nested routes */}
-                    <ProductInfo />
-                </ReviewProvider>
-            }>
-                {/* Nested Routes */}
-                <Route index element={<Details />} /> {/* Default route */}
-                <Route path="details" element={<Details />} />
-                <Route path="shipping-returns" element={<Shipping />} />
-                <Route path="review" element={<Review />} />
-            </Route>
-        </Routes>
-        <Footer />
-    </Router>
+  <Router>
+    <Header />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/login" element={<Login/>}/>
+      <Route path="/contactUs" element={<ContactUs />} />
+      <Route path="/shop" element={<Shop />} />
+      <Route path="/cart" element={<CartModal />} />
+      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/order" element={<Orders/>}/>
+    </Routes>
+    <Footer />
+  </Router>
 );
 
 export default App;

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import "../../assets/sass/pages/_shop.scss";
 import banner from "../../assets/images/products_banner.png";
 import img1 from "../../assets/images/image_1 (1).png";
@@ -240,7 +239,6 @@ const Shop: React.FC = () => {
                     className="section-image-hover"
                     onClick={()=>navigate('/productinfo')}
                   />
-                  {/* Add labels conditionally based on row index */}
                   {Math.floor(index / 4) === 0 && (
                     <span className="label">New Arrival</span>
                   )}
@@ -280,14 +278,13 @@ interface FilterProps {
 const Filter: React.FC<FilterProps> = ({
   onFilterChange,
   selectedFilters,
-  onRemoveFilter,
 }) => {
   const [hiddenItems, setHiddenItems] = useState<string[]>([]); 
   const [clickedSize, setClickedSize] = useState<number | null>(null);
 
 
   const handleSizeClick = (size: number) => {
-    setClickedSize(size === clickedSize ? null : size); // Toggle size selection
+    setClickedSize(size === clickedSize ? null : size); 
     onFilterChange(size.toString());
   };
 

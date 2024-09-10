@@ -35,6 +35,7 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
 
 
 
+  
   useEffect(() => {
     setRating(averageRating); // Update local state when context changes
   }, [averageRating]);

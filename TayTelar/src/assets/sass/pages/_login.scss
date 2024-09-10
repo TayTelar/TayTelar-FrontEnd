@@ -1,0 +1,258 @@
+.login {
+    &_container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin: 5vw 0;
+
+        .logo {
+            text-align: center;
+        }
+
+        &_section {
+            width: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .css-1x51dt5-MuiInputBase-input-MuiInput-input {
+                font-size: 14px;
+            }
+
+            .css-bz5ng3-MuiInputBase-root-MuiInput-root {
+                width: 100%;
+
+            }
+
+            .css-bz5ng3-MuiInputBase-root-MuiInput-root::before {
+                border-bottom: 2px solid rgb(242, 242, 242);
+            }
+
+            .css-bz5ng3-MuiInputBase-root-MuiInput-root::after {
+                border-bottom: 2px solid #000;
+            }
+
+            label {
+                margin-top: 15px;
+                text-transform: uppercase;
+                color: rgb(102, 102, 102);
+                font-weight: 500;
+                display: block;
+                font-size: 12px;
+                letter-spacing: 0.75px;
+                line-height: 16px;
+            }
+
+            &_signin {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                form {
+                    margin-top: 3vw;
+
+                    .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+                        width: 100%;
+
+                        .css-1eed5fa-MuiInputBase-root-MuiInput-root::before {
+                            border-bottom: 2px solid rgb(242, 242, 242);
+                        }
+
+                        .css-1eed5fa-MuiInputBase-root-MuiInput-root::after {
+                            border-bottom: 2px solid #000;
+                        }
+                    }
+
+                    .login_btn {
+                        background-color: rgb(242, 242, 242);
+                        color: rgb(183, 183, 183);
+                        border: none;
+                        width: 100%;
+                        height: auto;
+                        margin-top: 33px;
+                        outline: none;
+                        text-align: center;
+                        text-transform: uppercase;
+                        text-rendering: optimizelegibility;
+                        border-color: transparent;
+                        border-style: none;
+                        border-width: 0px;
+                        box-sizing: border-box;
+                        font-size: 12px;
+                        font-weight: 500;
+                        letter-spacing: 0.5px;
+                        line-height: 22px;
+                        padding: 0px 16px;
+                        text-decoration: none;
+                        overflow: hidden;
+                        transform: translate3d(0px, 0px, 0px) scale(1, 1);
+                        transition: transform 50ms;
+                        min-height: 44px;
+                    }
+                }
+
+                .register_button {
+                    margin-left: 5px;
+
+                    span {
+                        font-size: 13px;
+                    }
+
+                    p {
+                        margin-top: 5px;
+                    }
+                }
+
+                .mobile_divider {
+                    display: none;
+                }
+            }
+
+            &_register {
+                width: 40%;
+
+                .css-953pxc-MuiInputBase-root-MuiInput-root::before,
+                .css-1hhziy4-MuiInputBase-root-MuiInput-root::before {
+                    border-bottom: 2px solid rgb(242, 242, 242);
+
+                }
+
+                .css-953pxc-MuiInputBase-root-MuiInput-root::after,
+                .css-1hhziy4-MuiInputBase-root-MuiInput-root::after {
+                    border-bottom: 2px solid #000;
+
+                }
+
+                form {
+                    width: 100%;
+
+                    .name {
+                        display: flex;
+                        justify-content: space-between;
+
+                        .first {
+                            width: 50%;
+                            margin-right: 10px;
+                        }
+
+                        .last {
+                            width: 50%;
+                            margin-left: 10px;
+                        }
+                    }
+
+                    .login_btn {
+                        width: 100%;
+                        height: auto;
+                        margin-top: 33px;
+                        outline: none;
+                        text-align: center;
+                        text-rendering: optimizelegibility;
+                        -webkit-font-smoothing: antialiased;
+                        -webkit-box-align: center;
+                        align-items: center;
+                        border-color: transparent;
+                        border-style: none;
+                        border-width: 0px;
+                        box-sizing: border-box;
+                        cursor: pointer;
+                        display: inline-flex;
+                        font-family: Clarkson, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                        font-size: 12px;
+                        font-weight: 500;
+                        -webkit-box-pack: center;
+                        justify-content: center;
+                        letter-spacing: 0.5px;
+                        line-height: 22px;
+                        padding: 0px 16px;
+                        text-decoration: none;
+                        text-transform: uppercase;
+                        background-color: rgb(14, 14, 14);
+                        color: rgb(255, 255, 255);
+                        overflow: hidden;
+                        transform: translate3d(0px, 0px, 0px) scale(1, 1);
+                        transition: transform 50ms;
+                        min-height: 44px;
+                    }
+
+                }
+
+                span {
+                    font-size: 13px;
+                    margin-top: 15px;
+                    display: block;
+                }
+
+                p {
+                    margin-top: 5px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width:767px) {
+    .login {
+        &_container {
+            margin: 2vw 0 6vw;
+
+            .logo {
+                img {
+                    display: none;
+                }
+            }
+
+            &_section {
+                &_signin {
+                    flex-direction: column;
+
+                    form {}
+
+                    .mobile_divider {
+                        display: flex;
+                        width: 100%;
+                        font-size: 12px;
+                        margin: 3vw 0;
+                    }
+
+                    .laptop_divider {
+                        display: none;
+                    }
+
+                    .social_login {
+                        width: 100%;
+                    }
+                }
+
+                &_register {
+                    width: 90%;
+                }
+            }
+        }
+    }
+
+}
+
+@media only screen and (min-width:768px) and (max-width:992px) {
+    .login {
+        &_container {
+            &_section {
+                &_register {
+                    width: 60%;
+                }
+            }
+        }
+    }
+}
+@media only screen and (min-width:993px) and (max-width:1270px) {
+    .login {
+        &_container {
+            &_section {
+                &_register {
+                    width: 50%;
+                }
+            }
+        }
+    }
+}

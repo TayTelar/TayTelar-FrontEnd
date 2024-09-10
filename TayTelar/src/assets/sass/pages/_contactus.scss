@@ -18,6 +18,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: baseline;
+
                 .contact_details {
                     width: 50%;
 
@@ -42,11 +43,13 @@
                             text-decoration: none;
                             color: #444444;
                         }
-                        .social_media{
-                            h3{
+
+                        .social_media {
+                            h3 {
                                 margin-top: 2vw;
                             }
-                            a{
+
+                            a {
                                 color: #1a1a1a;
                                 margin: 2vw 2vw 0 0;
                             }
@@ -71,7 +74,7 @@
                             text-align: center;
                         }
 
-                        P {
+                        p {
                             font-size: 19px;
                             font-style: normal;
                             letter-spacing: 0px;
@@ -83,9 +86,7 @@
 
                         input,
                         textarea {
-                            border-radius: 2px;
-                            -webkit-border-radius: 2px;
-                            width: 93%;
+                            width: 90%;
                             display: block;
                             padding: 19px 22px;
                             font-size: 15px;
@@ -93,6 +94,8 @@
                             background-color: #fff;
                             border: 1px solid #e1e1e1;
                             margin-bottom: 2vw;
+                            border-radius: 2px;
+                            box-sizing: border-box;
                         }
 
                         .form-group {
@@ -107,13 +110,9 @@
                             color: #e53d34;
                         }
 
-                        textarea {
-                            height: 120px;
-                        }
-
                         button {
                             background-color: #1a1a1a;
-                            width: 100%;
+                            width: 90%;
                             color: #fff;
                             border-width: 0;
                             border-style: solid;
@@ -128,6 +127,50 @@
 
                             &:hover {
                                 background-color: #000000;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .contactUs {
+        &_container {
+            &_section {
+                &_contact {
+                    flex-direction: column;
+
+                    .contact_details {
+                        width: 90%;
+
+                        .social_media {
+                            i {
+                                font-size: 4vw;
+                            }
+                        }
+                    }
+
+                    .input_form {
+                        width: 90%;
+
+                        form {
+                            h1 {
+                                font-size: 24px;
+                            }
+
+                            p {
+                                font-size: 16px;
+                            }
+
+                            input,
+                            textarea {
+                                margin-bottom: 3.5vw;
+                            }
+                            .error {
+                                bottom: -15px;
                             }
                         }
                     }

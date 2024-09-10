@@ -1,9 +1,9 @@
 footer {
-    background-color: #1a1a1a;
+    background-color: #3b3b3b;
     font-family: "Red Hat Display", sans-serif;
 
     .footer_container {
-        border-bottom: 1px solid #999999;
+        border-bottom: 1px solid #ffffff;
 
         &_section {
             width: 95%;
@@ -77,15 +77,84 @@ footer {
         display: flex;
         justify-content: center;
         color: #999999;
+
         &_container {
             width: 90%;
             padding: 10px 0;
             display: flex;
             justify-content: space-between;
-            span{
+
+            span {
                 color: #fff;
                 font-size: 14px;
                 font-weight: 700;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    footer {
+        .footer_container {
+            display: flex;
+            justify-content: center;
+
+            &_section {
+                flex-direction: column;
+                width: 90%;
+
+                .footer_section1 {
+                    width: 60%;
+
+                    .social_section {
+                        i {
+                            font-size: 6vw;
+                        }
+                    }
+                }
+
+                .footer_section2 {
+                    margin-top: 5vw;
+                }
+            }
+        }
+    }
+
+    .footer_bottom {
+        &_container {
+            .footer_bottom_right {
+                display: none;
+            }
+
+        }
+    }
+}
+
+@media only screen and (min-width: 767px) and (max-width:992px) {
+
+    footer {
+        .footer_container {
+            &_section {
+                display: grid;
+                grid-template-columns: auto auto;
+                width: 90%;
+
+                .footer_section1 {
+                    .social_section {
+                        i {
+                            font-size: 3vw;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    .footer_bottom {
+        &_container {
+            .footer_bottom_right {
+                display: none;
             }
         }
     }

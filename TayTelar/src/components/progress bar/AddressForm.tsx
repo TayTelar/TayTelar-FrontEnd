@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import "../../assets/sass/pages/_checkout.scss";
+import "../../assets/sass/components/_address.scss";
 
 interface FormData {
   name: string;
@@ -9,7 +9,7 @@ interface FormData {
   city: string;
   pinCode: string;
   state: string;
-  addressType: "HOME" | "WORK" | "OTHERS"; 
+  addressType: "HOME" | "WORK" | "OTHERS";
   defaultAddress: boolean;
 }
 
@@ -30,9 +30,11 @@ const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
     defaultAddress: false,
   });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value, type, checked } = e.target as HTMLInputElement;
-    
+
     if (type === "checkbox") {
       setFormData({
         ...formData,
@@ -157,7 +159,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
             onClick={() => handleAddressTypeChange("HOME")}
             style={{
               borderColor:
-                formData.addressType === "HOME" ? "#BA933E" : "#cdcdcd",
+                formData.addressType === "HOME" ? "#3B3B3B" : "#e0e0e0",
             }}
           >
             HOME
@@ -166,7 +168,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
             onClick={() => handleAddressTypeChange("WORK")}
             style={{
               borderColor:
-                formData.addressType === "WORK" ? "#BA933E" : "#cdcdcd",
+                formData.addressType === "WORK" ? "#3B3B3B" : "#e0e0e0",
             }}
           >
             WORK
@@ -175,7 +177,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
             onClick={() => handleAddressTypeChange("OTHERS")}
             style={{
               borderColor:
-                formData.addressType === "OTHERS" ? "#BA933E" : "#cdcdcd",
+                formData.addressType === "OTHERS" ? "#3B3B3B" : "#e0e0e0",
             }}
           >
             OTHERS
@@ -188,6 +190,5 @@ const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
     </form>
   );
 };
-
 
 export default AddressForm;

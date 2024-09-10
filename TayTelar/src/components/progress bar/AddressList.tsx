@@ -3,6 +3,7 @@ import AddHomeIcon from "@mui/icons-material/AddHome";
 import DevicesIcon from "@mui/icons-material/Devices";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import Modal from "@mui/material/Modal";
+import "../../assets/sass/components/_list.scss";
 
 interface Address {
   name: string;
@@ -22,12 +23,17 @@ interface AddressListProps {
   onSave: (index: number, address: Address) => void;
 }
 
-const AddressList: React.FC<AddressListProps> = ({ addresses, onRemove, onProceed, onSave }) => {
+const AddressList: React.FC<AddressListProps> = ({
+  addresses,
+  onRemove,
+  onProceed,
+  onSave,
+}) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [currentAddress, setCurrentAddress] = useState<Address | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
-  const getAddressTypeIcon = (addressType: Address['addressType']) => {
+  const getAddressTypeIcon = (addressType: Address["addressType"]) => {
     switch (addressType) {
       case "HOME":
         return <AddHomeIcon />;
@@ -225,7 +231,10 @@ const AddressList: React.FC<AddressListProps> = ({ addresses, onRemove, onProcee
                     onChange={(e) =>
                       setCurrentAddress({
                         ...currentAddress,
-                        addressType: e.target.value as "HOME" | "WORK" | "OTHERS",
+                        addressType: e.target.value as
+                          | "HOME"
+                          | "WORK"
+                          | "OTHERS",
                       })
                     }
                   />
