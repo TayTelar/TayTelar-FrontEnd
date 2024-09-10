@@ -12,6 +12,8 @@ import CartModal from "./pages/cart/CartModal";
 import Checkout from "./pages/checkout/Checkout";
 import Orders from "./pages/orders/Orders";
 import Login from "./pages/login/Login";
+import { ReviewProvider } from "./pages/productInfo/contexts/ReviewContext"; // Update path as needed
+
 
 const App = () => (
   <Router>
@@ -25,6 +27,18 @@ const App = () => (
       <Route path="/cart" element={<CartModal />} />
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/order" element={<Orders/>}/>
+      <Route path="/productinfo" element={
+                <ReviewProvider> {/* Provide context only to ProductInfo and its nested routes */}
+                    <ProductInfo />
+                </ReviewProvider>
+            }>
+                {/* Nested Routes */}
+                <Route index element={<Details />} /> {/* Default route */}
+                <Route path="details" element={<Details />} />
+                <Route path="shipping-returns" element={<Shipping />} />
+                <Route path="review" element={<Review />} />
+            </Route>
+
     </Routes>
     <Footer />
   </Router>
