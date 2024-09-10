@@ -20,40 +20,39 @@ const Header = () => {
 
   const toggleMenu = () => {
     const centerMenu = document.querySelector('.center');
-
+  
     if (centerMenu) {
       if (menuOpen) {
         centerMenu.classList.add('closing');
-
+  
         setTimeout(() => {
           setMenuOpen(false);
           centerMenu.classList.remove('open', 'closing');
         }, 300);
-
+  
       } else {
         setMenuOpen(true);
       }
     }
   };
-
+  
   return (
     <>
       <TopBar />
       <nav>
         <div className="menu_list" >
           <div className="menu_list_container">
-            <div className={`${menuOpen ? "menu-overlay" : ""}`}></div>
-            <div className="menu_list_container_section">
+            <div className={`menu_list_container_section ${menuOpen ? "menu-overlay" : ""}`}>
               <div className={`hamburger`} onClick={toggleMenu}>
-              <MenuSharpIcon />
-              <SearchIcon className="searchicon" />
-            </div>
+                <MenuSharpIcon />
+                <SearchIcon className="searchicon" />
+              </div>
               <div className="logo_left">
                 <img src={logo} alt="LOGO" />
               </div>
               <div className={`center ${menuOpen ? "open" : ""}`}>
                 <ul>
-                  <li><p>Menu</p><ClearSharpIcon className="x-mark" onClick={toggleMenu} /></li>
+                  <li><p>Menu</p><ClearSharpIcon className="x-mark" onClick={toggleMenu}/></li>
                   <li>
                     <NavLink
                       to="/home"
@@ -68,25 +67,16 @@ const Header = () => {
                       to="/shop"
                       className={({ isActive }) => (isActive ? "active" : "")}
                     >
-                      Shop 
+                      Shop
                     </NavLink>
                   </li>
                   <li>
                     <NavLink
-                      to="/aboutUs"
+                      to="/order"
                       className={({ isActive }) => (isActive ? "active" : "")}
                       onClick={toggleMenu}
                     >
-                      Collections 
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/blogs"
-                      className={({ isActive }) => (isActive ? "active" : "")}
-                      onClick={toggleMenu}
-                    >
-                      Blogs
+                      My Orders
                     </NavLink>
                   </li>
                   <li>
@@ -107,15 +97,15 @@ const Header = () => {
                       to="/login"
                       className={({ isActive }) => (isActive ? "active" : "")}
                     >
-                      <PermIdentityIcon />
-                      &nbsp; <p>Login / Register</p>
+                      <PermIdentityIcon className="icon" />
+                      &nbsp; Login / Register
                     </NavLink>
                   </li>
                   <li>
-                    <SearchIcon className="searchicon" />
+                    <SearchIcon className="icon" />
                   </li>
                   <li>
-                    <LocalMallIcon onClick={handleCartClick} />
+                    <LocalMallIcon onClick={handleCartClick} className="icon" />
                   </li>
                 </ul>
               </div>

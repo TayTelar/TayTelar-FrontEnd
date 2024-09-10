@@ -48,6 +48,7 @@
     .cart-items {
       flex: 2;
       margin-right: 20px;
+      overflow: auto;
 
       .cart-header {
         h5 {
@@ -299,5 +300,4 @@
       }
     }
   }
-  
 }

@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import "../../assets/sass/pages/_checkout.scss";
+import "../../assets/sass/components/_address.scss";
 
 interface FormData {
   name: string;
@@ -9,7 +9,7 @@ interface FormData {
   city: string;
   pinCode: string;
   state: string;
-  addressType: "HOME" | "WORK" | "OTHERS"; 
+  addressType: "HOME" | "WORK" | "OTHERS";
   defaultAddress: boolean;
 }
 
@@ -30,9 +30,11 @@ const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
     defaultAddress: false,
   });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value, type, checked } = e.target as HTMLInputElement;
-    
+
     if (type === "checkbox") {
       setFormData({
         ...formData,
@@ -188,6 +190,5 @@ const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
     </form>
   );
 };
-
 
 export default AddressForm;

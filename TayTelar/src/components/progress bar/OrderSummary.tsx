@@ -1,3 +1,5 @@
+import "../../assets/sass/components/_loyalty.scss";
+
 const OrderSummary = () => {
   const subTotal = 2675;
   const totalLoyaltyPoints = 1000;
@@ -25,7 +27,6 @@ const OrderSummary = () => {
           {deliveryCharge}
         </span>
       </div>
-
       <div className="order-summary__total">
         <span className="order-summary__label">Grand Total</span>
         <span className="order-summary__value">Rs. {subTotal}</span>
