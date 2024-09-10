@@ -20,41 +20,40 @@ const Header = () => {
 
   const toggleMenu = () => {
     const centerMenu = document.querySelector('.center');
-  
+
     if (centerMenu) {
       if (menuOpen) {
         centerMenu.classList.add('closing');
-  
+
         setTimeout(() => {
           setMenuOpen(false);
           centerMenu.classList.remove('open', 'closing');
-          document.body.style.overflow = "auto";
         }, 300);
-  
+
       } else {
         setMenuOpen(true);
-        document.body.style.overflow = "hidden";
       }
     }
   };
-  
+
   return (
     <>
       <TopBar />
       <nav>
         <div className="menu_list" >
           <div className="menu_list_container">
-            <div className={`menu_list_container_section ${menuOpen ? "menu-overlay" : ""}`}>
+            <div className={`${menuOpen ? "menu-overlay" : ""}`}></div>
+            <div className="menu_list_container_section">
               <div className={`hamburger`} onClick={toggleMenu}>
-                <MenuSharpIcon />
-                <SearchIcon className="searchicon" />
-              </div>
+              <MenuSharpIcon />
+              <SearchIcon className="searchicon" />
+            </div>
               <div className="logo_left">
                 <img src={logo} alt="LOGO" />
               </div>
               <div className={`center ${menuOpen ? "open" : ""}`}>
                 <ul>
-                  <li><p>Menu</p><ClearSharpIcon className="x-mark" onClick={toggleMenu}/></li>
+                  <li><p>Menu</p><ClearSharpIcon className="x-mark" onClick={toggleMenu} /></li>
                   <li>
                     <NavLink
                       to="/home"
@@ -69,7 +68,7 @@ const Header = () => {
                       to="/shop"
                       className={({ isActive }) => (isActive ? "active" : "")}
                     >
-                      Shop <ExpandMoreIcon />
+                      Shop 
                     </NavLink>
                   </li>
                   <li>
@@ -78,7 +77,7 @@ const Header = () => {
                       className={({ isActive }) => (isActive ? "active" : "")}
                       onClick={toggleMenu}
                     >
-                      Collections <ExpandMoreIcon />
+                      Collections 
                     </NavLink>
                   </li>
                   <li>
@@ -87,7 +86,7 @@ const Header = () => {
                       className={({ isActive }) => (isActive ? "active" : "")}
                       onClick={toggleMenu}
                     >
-                      Blogs <ExpandMoreIcon />
+                      Blogs
                     </NavLink>
                   </li>
                   <li>
