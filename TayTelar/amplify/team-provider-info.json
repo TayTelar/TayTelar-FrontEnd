@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-taytelar-dev-58d79-authRole",
+      "UnauthRoleArn": "arn:aws:iam::794038231860:role/amplify-taytelar-dev-58d79-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::794038231860:role/amplify-taytelar-dev-58d79-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-taytelar-dev-58d79-deployment",
+      "UnauthRoleName": "amplify-taytelar-dev-58d79-unauthRole",
+      "StackName": "amplify-taytelar-dev-58d79",
+      "StackId": "arn:aws:cloudformation:ap-south-1:794038231860:stack/amplify-taytelar-dev-58d79/29d33680-6f41-11ef-8282-0a23b12878a9",
+      "AmplifyAppId": "d1cuszpck4jlnn"
+    },
+    "categories": {
+      "auth": {
+        "taytelar95820cc1": {}
+      }
+    }
+  }
+}

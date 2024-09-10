@@ -6,6 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import {Auth} from '@aws-amplify/auth'
 // @ts-ignore
 import { LoginSocialGoogle, LoginSocialFacebook, IResolveParams } from 'reactjs-social-login'
 import { GoogleLoginButton, FacebookLoginButton } from 'react-social-login-buttons';
@@ -18,6 +19,9 @@ const Login = () => {
     const [showPassword, setShowPassword] = React.useState(false);
     const [isHovered, setIsHovered] = useState(false);
     const [isRegister, setIsRegister] = useState(false);
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [otp, setOtp] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -51,6 +55,47 @@ const Login = () => {
         console.log('Login Failed:', err);
     };
 
+    const handleLogin = async (e:any) => {
+      e.preventDefault();
+      try {
+        // Assuming you are using phone number as the username
+        await Auth.signIn(phoneNumber, password);
+        alert('Login successful');
+      } catch (error) {
+        console.error('Login failed:', error);
+        alert('Error signing in');
+      }
+    };
+  
+    const handleRegister = async (e:any) => {
+      e.preventDefault();
+      try {
+        const result = await Auth.signUp({
+          username: phoneNumber,
+          password,
+          attributes: {
+            phone_number: phoneNumber, // Add more attributes like email, etc.
+          },
+        });
+        console.log(result);
+        alert('Registration successful. Please verify your account.');
+      } catch (error) {
+        console.error('Registration failed:', error);
+        alert('Error registering');
+      }
+    };
+  
+    const handleOtpSubmit = async () => {
+      try {
+        await Auth.confirmSignUp(phoneNumber, otp);
+        alert('Verification successful! Please log in.');
+      } catch (error) {
+        console.error('Verification failed:', error);
+        alert('Error verifying OTP');
+      }
+    };
+
+    
     return (
         <div className="login">
             <div className="login_container">
@@ -63,13 +108,16 @@ const Login = () => {
                     {!isRegister ? (
                         // Login Section
                         <div className="login_container_section_signin">
-                            <form action="">
+                            <form onSubmit={handleLogin}>
                                 <label htmlFor="">Phone Number</label>
                                 <TextField
                                     required
                                     id="standard-required"
                                     placeholder="Enter your Phone Number"
                                     variant="standard"
+                                    value={phoneNumber}
+                                    onChange={(e) => setPhoneNumber(e.target.value)}
+                  
                                 />
                                 <label htmlFor="">OTP</label>
                                 <Input
@@ -77,6 +125,8 @@ const Login = () => {
                                     id="standard-adornment-password"
                                     placeholder='Enter your OTP'
                                     type={showPassword ? 'text' : 'password'}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}                  
                                     endAdornment={
                                         <InputAdornment position="end">
                                             <IconButton
@@ -90,7 +140,7 @@ const Login = () => {
                                         </InputAdornment>
                                     }
                                 />
-                                <button className='login_btn'>Login</button>
+                                <button className='login_btn' type="submit">Login</button>
                             </form>
                             <Divider orientation="vertical" variant="middle" flexItem className='laptop_divider'>
                                 <span style={{ padding: '0 3vw', backgroundColor: '#fff', fontSize: '12px' }}>OR</span>
@@ -168,7 +218,7 @@ const Login = () => {
                     ) : (
                         // Register Section
                         <div className="login_container_section_register">
-                            <form>
+                            <form onSubmit={handleRegister}>
                                 <div className="name">
                                     <div className="first">
                                         <label>First Name</label>
@@ -177,6 +227,7 @@ const Login = () => {
                                             placeholder="Enter your first name"
                                             variant="standard"
                                             fullWidth
+                                           
                                         />
                                     </div>
                                     <div className="last">
@@ -186,6 +237,7 @@ const Login = () => {
                                             placeholder="Enter your last name"
                                             variant="standard"
                                             fullWidth
+                                            
                                         />
                                     </div>
 
@@ -196,6 +248,8 @@ const Login = () => {
                                     placeholder="Enter your phone number"
                                     variant="standard"
                                     fullWidth
+                                    value={phoneNumber}
+                                    onChange={(e) => setPhoneNumber(e.target.value)}
                                 />
                                 <label>OTP</label>
                                 <Input
@@ -203,6 +257,8 @@ const Login = () => {
                                     placeholder="Enter your OTP"
                                     type={showPassword ? 'text' : 'password'}
                                     fullWidth
+                                    value={otp}
+                onChange={(e) => setOtp(e.target.value)}
                                     endAdornment={
                                         <InputAdornment position="end">
                                             <IconButton
@@ -224,7 +280,7 @@ const Login = () => {
                                     variant="standard"
                                     fullWidth
                                 />
-                                <button className='login_btn'>Register</button>
+                                <button className='login_btn' onClick={handleOtpSubmit}>Register</button>
                             </form>
                             <span>Already have an account?</span>
                             <p onClick={() => setIsRegister(false)} style={{ cursor: 'pointer', color: 'blue' }}>Login</p>
