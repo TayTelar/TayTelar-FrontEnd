@@ -28,12 +28,10 @@ const Header = () => {
         setTimeout(() => {
           setMenuOpen(false);
           centerMenu.classList.remove('open', 'closing');
-          document.body.style.overflow = "auto";
         }, 300);
   
       } else {
         setMenuOpen(true);
-        document.body.style.overflow = "hidden";
       }
     }
   };
@@ -100,7 +98,7 @@ const Header = () => {
                       className={({ isActive }) => (isActive ? "active" : "")}
                     >
                       <PermIdentityIcon className="icon" />
-                      &nbsp; Login / Register
+                      &nbsp; <p>Login / Register</p>
                     </NavLink>
                   </li>
                   <li>
