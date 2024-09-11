@@ -6,7 +6,6 @@ import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { signUp, confirmSignUp, signIn } from '@aws-amplify/auth';
 // @ts-ignore
 import { LoginSocialGoogle, LoginSocialFacebook, IResolveParams } from 'reactjs-social-login'
 import { GoogleLoginButton, FacebookLoginButton } from 'react-social-login-buttons';
@@ -60,50 +59,15 @@ const Login = () => {
 
     const handleLogin = async (e: any) => {
         e.preventDefault();
-        try {
-            await signIn({ username: phoneNumber, password });
-            alert('Login successful');
-        } catch (error) {
-            console.error('Login failed:', error);
-            alert('Error signing in');
-        }
     };
 
     const handleRegister = async (e: any) => {
         e.preventDefault();
-
-        const userAttributes = {
-            email,
-            phone_number: phoneNumber,
-            given_name: firstName, 
-            family_name: lastName, 
-        };
-
-        try {
-            const result = await signUp({
-                username: phoneNumber,
-                password,
-                options: {
-                    userAttributes,
-                }
-            });
-            console.log(result);
-            alert('Registration successful. Please verify your account.');
-        } catch (error) {
-            console.error('Registration failed:', error);
-            alert('Error registering');
-        }
     };
 
 
     const handleOtpSubmit = async () => {
-        try {
-            await confirmSignUp({ username: phoneNumber, confirmationCode: otp });
-            alert('Verification successful! Please log in.');
-        } catch (error) {
-            console.error('Verification failed:', error);
-            alert('Error verifying OTP');
-        }
+       
     };
 
 

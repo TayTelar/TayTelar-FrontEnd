@@ -10,14 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^6.3.0",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.16.7",
     "@mui/material": "^5.16.7",
     "@types/gapi": "^0.0.47",
     "@types/gapi.auth2": "^0.0.60",
-    "aws-amplify": "^6.6.0",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "formik": "^2.4.6",
