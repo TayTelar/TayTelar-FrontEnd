@@ -7,6 +7,9 @@ import awsmobile from './aws-exports.js';
 
 Amplify.configure(awsmobile);
 
+
+
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
