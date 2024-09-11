@@ -16,5 +16,24 @@
         "taytelar95820cc1": {}
       }
     }
+  },
+  "nikhil": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-taytelar-nikhil-20fec-authRole",
+      "UnauthRoleArn": "arn:aws:iam::794038231860:role/amplify-taytelar-nikhil-20fec-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::794038231860:role/amplify-taytelar-nikhil-20fec-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-taytelar-nikhil-20fec-deployment",
+      "UnauthRoleName": "amplify-taytelar-nikhil-20fec-unauthRole",
+      "StackName": "amplify-taytelar-nikhil-20fec",
+      "StackId": "arn:aws:cloudformation:ap-south-1:794038231860:stack/amplify-taytelar-nikhil-20fec/da034710-7005-11ef-a009-068629e751e1",
+      "AmplifyAppId": "d246wjsp7708rn"
+    },
+    "categories": {
+      "auth": {
+        "taytelar95820cc1": {},
+        "userPoolGroups": {}
+      }
+    }
   }
 }
