@@ -7,8 +7,8 @@ import Input from '@mui/material/Input';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 // @ts-ignore
-import { LoginSocialGoogle, LoginSocialFacebook, IResolveParams } from 'reactjs-social-login'
-import { GoogleLoginButton, FacebookLoginButton } from 'react-social-login-buttons';
+import { LoginSocialGoogle, LoginSocialFacebook, LoginSocialApple, IResolveParams } from 'reactjs-social-login'
+import { GoogleLoginButton, FacebookLoginButton, AppleLoginButton } from 'react-social-login-buttons';
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
 import Divider from '@mui/material/Divider';
@@ -67,7 +67,7 @@ const Login = () => {
 
 
     const handleOtpSubmit = async () => {
-       
+
     };
 
 
@@ -82,28 +82,26 @@ const Login = () => {
 
                     {!isRegister ? (
                         // Login Section
-                        <div className="login_container_section_signin">
-                            <form onSubmit={handleLogin}>
-                                <label htmlFor="">Phone Number</label>
-                                <TextField
-                                    required
-                                    id="standard-required"
-                                    placeholder="Enter your Phone Number"
-                                    variant="standard"
-                                    value={phoneNumber}
-                                    onChange={(e) => setPhoneNumber(e.target.value)}
-
-                                />
-                                <label htmlFor="">OTP</label>
-                                <Input
-                                    required
-                                    id="standard-adornment-password"
-                                    placeholder='Enter your OTP'
-                                    type={showPassword ? 'text' : 'password'}
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    endAdornment={
-                                        <InputAdornment position="end">
+                        <>
+                            <div className="login_container_section_signin">
+                                <form onSubmit={handleLogin}>
+                                    <label htmlFor="">Phone Number</label>
+                                    <TextField
+                                        required
+                                        id="standard-required"
+                                        placeholder="Enter your Phone Number"
+                                        variant="standard"
+                                        value={phoneNumber}
+                                        onChange={(e) => setPhoneNumber(e.target.value)} />
+                                    <label htmlFor="">OTP</label>
+                                    <Input
+                                        required
+                                        id="standard-adornment-password"
+                                        placeholder='Enter your OTP'
+                                        type={showPassword ? 'text' : 'password'}
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        endAdornment={<InputAdornment position="end">
                                             <IconButton
                                                 aria-label="toggle password visibility"
                                                 onClick={handleClickShowPassword}
@@ -112,84 +110,103 @@ const Login = () => {
                                             >
                                                 {showPassword ? <VisibilityOff /> : <Visibility />}
                                             </IconButton>
-                                        </InputAdornment>
-                                    }
-                                />
-                                <button className='login_btn' type="submit">Login</button>
-                            </form>
-                            <Divider orientation="vertical" variant="middle" flexItem className='laptop_divider'>
-                                <span style={{ padding: '0 3vw', backgroundColor: '#fff', fontSize: '12px' }}>OR</span>
-                            </Divider>
-                            <Divider className='mobile_divider'>OR</Divider>
-                            <div className="social_login">
-                                <LoginSocialGoogle
-                                    client_id="618434730934-hsp3tuc9n6ibvqrn2b49hf0ektlgainb.apps.googleusercontent.com"
-                                    access_type="offline"
-                                    scope="profile email"
-                                    onResolve={handleResolve}
-                                    onReject={handleReject}
-                                >
-                                    <GoogleLoginButton
-                                        style={{
-                                            fontSize: '14px',
-                                            fontWeight: "500",
-                                            boxShadow: 'none',
-                                            border: '1px solid #000',
-                                            padding: '16px',
-                                            display: 'flex',
-                                            alignItems: 'start',
-                                            justifyContent: 'start',
-                                            color: '#000000',
-                                            marginBottom: '10px',
-                                        }}
-                                        iconSize='18px'>
-                                        <span style={{ color: '#000000', marginLeft: '15px' }}>
-                                            Continue with Google
-                                        </span>
-                                    </GoogleLoginButton>
-                                </LoginSocialGoogle>
-
-                                <LoginSocialFacebook
-                                    appId='1317999665724935'
-                                    onResolve={({ response }: IResolveParams) => {
-                                        console.log(response)
-                                    }}
-                                    onReject={(err: any) => {
-                                        console.log(err);
-                                    }}
-                                >
-                                    <FacebookLoginButton
-                                        style={{
-                                            fontSize: '14px',
-                                            fontWeight: "500",
-                                            boxShadow: 'none',
-                                            border: '1px solid #000',
-                                            padding: '16px',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'start',
-                                            color: '#000000',
-                                            backgroundColor: isHovered ? 'rgb(231, 231, 231)' : 'transparent',
-                                            marginBottom: '1vw',
-
-                                        }}
-                                        iconColor='#4267B2'
-                                        iconSize='18px'
-                                        onMouseEnter={() => setIsHovered(true)}
-                                        onMouseLeave={() => setIsHovered(false)}
+                                        </InputAdornment>} />
+                                    <button className='login_btn' type="submit">Login</button>
+                                </form>
+                                <Divider orientation="vertical" variant="middle" flexItem className='laptop_divider'>
+                                    <span style={{ padding: '0 3vw', backgroundColor: '#fff', fontSize: '12px' }}>OR</span>
+                                </Divider>
+                                <Divider className='mobile_divider'>OR</Divider>
+                                <div className="social_login">
+                                    <LoginSocialGoogle
+                                        client_id="618434730934-hsp3tuc9n6ibvqrn2b49hf0ektlgainb.apps.googleusercontent.com"
+                                        access_type="offline"
+                                        scope="profile email"
+                                        onResolve={handleResolve}
+                                        onReject={handleReject}
                                     >
-                                        <span style={{ color: '#000000', marginLeft: '15px' }}>
-                                            Continue with Facebook
-                                        </span>
-                                    </FacebookLoginButton>
-                                </LoginSocialFacebook>
+                                        <GoogleLoginButton
+                                            style={{
+                                                fontSize: '14px',
+                                                fontWeight: "500",
+                                                boxShadow: 'none',
+                                                border: '1px solid #000',
+                                                padding: '16px',
+                                                display: 'flex',
+                                                alignItems: 'start',
+                                                justifyContent: 'start',
+                                                color: '#000000',
+                                                marginBottom: '10px',
+                                            }}
+                                            iconSize='18px'>
+                                            <span style={{ color: '#000000', marginLeft: '15px' }}>
+                                                Continue with Google
+                                            </span>
+                                        </GoogleLoginButton>
+                                    </LoginSocialGoogle>
 
-                                <div className='register_button'>
-                                    <span>Don't have an account?</span>
-                                    <p onClick={() => setIsRegister(true)} style={{ cursor: 'pointer', color: 'blue' }}>Register</p>
+                                    <LoginSocialFacebook
+                                        appId='1317999665724935'
+                                        onResolve={({ response }: IResolveParams) => {
+                                            console.log(response);
+                                        }}
+                                        onReject={(err: any) => {
+                                            console.log(err);
+                                        }}
+                                    >
+                                        <FacebookLoginButton
+                                            style={{
+                                                fontSize: '14px',
+                                                fontWeight: "500",
+                                                boxShadow: 'none',
+                                                border: '1px solid #000',
+                                                padding: '16px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'start',
+                                                color: '#000000',
+                                                backgroundColor: isHovered ? 'rgb(231, 231, 231)' : 'transparent',
+                                                marginBottom: '1vw',
+                                            }}
+                                            iconColor='#4267B2'
+                                            iconSize='18px'
+                                            onMouseEnter={() => setIsHovered(true)}
+                                            onMouseLeave={() => setIsHovered(false)}
+                                        >
+                                            <span style={{ color: '#000000', marginLeft: '15px' }}>
+                                                Continue with Facebook
+                                            </span>
+                                        </FacebookLoginButton>
+                                    </LoginSocialFacebook>
+                                    <LoginSocialApple
+                                        scope={'name email'}
+
+                                    >
+                                        <AppleLoginButton
+                                            style={{
+                                                fontSize: '14px',
+                                                fontWeight: "500",
+                                                boxShadow: 'none',
+                                                border: '1px solid #000',
+                                                padding: '16px',
+                                                display: 'flex',
+                                                alignItems: 'start',
+                                                justifyContent: 'start',
+                                                color: '#000000',
+                                                marginBottom: '10px',
+                                            }}
+                                            iconSize='18px'>
+                                            <span style={{ color: '#000000', marginLeft: '15px' }}>
+                                                Continue with Apple
+                                            </span>
+                                        </AppleLoginButton>
+                                    </LoginSocialApple>
                                 </div>
-                            </div>
-                        </div>
+                            </div><div className='register_button'>
+                                <span>Don't have an account? </span>
+                                <span onClick={() => setIsRegister(true)} style={{ cursor: 'pointer', color: 'blue' }}>Register</span>
+                            </div></>
+
                     ) : (
                         // Register Section
                         <div className="login_container_section_register">

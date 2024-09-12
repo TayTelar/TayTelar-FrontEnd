@@ -15,7 +15,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-
+            flex-direction: column;
             .css-1x51dt5-MuiInputBase-input-MuiInput-input {
                 font-size: 14px;
             }
@@ -92,20 +92,15 @@
                     }
                 }
 
-                .register_button {
-                    margin-left: 5px;
-
-                    span {
-                        font-size: 13px;
-                    }
-
-                    p {
-                        margin-top: 5px;
-                    }
-                }
-
                 .mobile_divider {
                     display: none;
+                }
+            }
+
+            .register_button {
+                margin-top: 2vw;
+                span {
+                    font-size: 16px;
                 }
             }
 
