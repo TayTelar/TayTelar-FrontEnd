@@ -6,15 +6,15 @@ export const CustomPrevArrow = (props: any) => {
   const { className, onClick } = props;
   return (
     <div
-      className={className}
+      className="custom-prev-arrow"
       onClick={onClick}
       style={{ 
         display: 'block', 
         position: 'relative',
-        top: '480px',
-        left: '0',
+       top:"93.5%",
+      
         transform: 'rotate(270deg)',
-        zIndex: 10
+        zIndex: 20
       }}
     >
       <ArrowBackIosIcon style={{ color: 'black', fontSize: '16px' }} />
@@ -26,13 +26,13 @@ export const CustomNextArrow = (props: any) => {
   const { className, onClick } = props;
   return (
     <div
-      className={className}
+      className="custom-next-arrow"
       onClick={onClick}
       style={{
         display: 'block',
         position: 'absolute',
         top: '-5px',
-        right: '60%',
+        right: '35%',
         transform: 'rotate(270deg)',
         zIndex: 2
       }}
@@ -71,7 +71,7 @@ export const CustomRightArrow = (props: any) => {
       style={{
         display: 'block',
         position: 'absolute',
-        top: '-5px',
+        top: '-7px',
         right: '60%',
         transform: 'rotate(270deg)',
         zIndex: 2

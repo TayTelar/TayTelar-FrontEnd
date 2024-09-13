@@ -3,9 +3,7 @@ html, body {
   overflow-x: hidden;
 }
 .main-container {
-
- 
-
+  z-index: 100;
 .bread-crumbs{
   margin-left: 10rem;
   padding: 15px 10px 15px 30px;
@@ -17,7 +15,7 @@ html, body {
 
 
 .enlarged-image {
-  position: relative; /* Position relative to the modal container */
+  position: reltive; /* Position relative to the modal container */
   width: 75vw; /* Adjust the width as needed */
   height: 200vh; /* Adjust the height as needed */
   transition: transform 0.3s ease;
@@ -25,10 +23,6 @@ html, body {
   will-change: transform;
   top: var(--scroll-position-y, 0); /* Adjust the top position based on scroll */
 }
-
-
-
-
 
 .secondary-container {
   display: flex;
@@ -53,9 +47,15 @@ html, body {
   margin-left: 15rem;
   overflow: hidden; /* Hide images that are out of view */
   position: relative;
+  z-index: 10;
+ 
+  
 }
-.slide-container .slick-prev,.slick-next{
-  display: none;
+
+/* Only hide default Slick arrows within slider container */
+.slider-container .slick-prev,
+.slider-container .slick-next {
+  display: none!important;
 }
 
 .stacked-images {
@@ -67,6 +67,7 @@ html, body {
   display: block;
   cursor: pointer;
   transition: opacity 0.5s ease-in-out;
+  
 }
 .modal {
   position: fixed;
@@ -147,6 +148,7 @@ html, body {
   right: 20rem;
   height: 47rem;
   overflow: hidden;
+  z-index:1;
 
   .primary-image {
     position: absolute;
@@ -154,7 +156,7 @@ html, body {
     
     top: 1.3rem;
     left: 7rem;
-    
+   
     width:50%;
     height: 85%;
     transition: transform 0.5s ease-in-out , opacity 0.5s ease-in-out; /* Smooth slide effect */
@@ -231,7 +233,7 @@ html, body {
   }
 
   .price {
-    width: 160px;
+    width: 200px;
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -240,7 +242,7 @@ html, body {
 
   .rupees {
     font-size: 1.54rem;
-    color: #3b3b3b;
+    color: #525151;
     font-weight: 600;
     margin-top: 2.46rem;
   }
@@ -251,14 +253,14 @@ html, body {
   }
 
   .size-label {
-    color: #3b3b3b;
+    color: #525151;
     font-weight: 600;
     font-size: 1rem;
   }
 
 .Mrp {
   position: absolute;
- bottom: 20rem;
+ bottom: 19rem;
   font-size: 0.8rem;
   font-weight: 400;
   line-height: 1.13rem;
