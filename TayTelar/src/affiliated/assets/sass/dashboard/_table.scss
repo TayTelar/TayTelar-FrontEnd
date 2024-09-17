@@ -1,0 +1,55 @@
+.table-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+
+  .table-card {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%; // Full width for the card to adjust in smaller screens
+
+    .table-header {
+      display: flex;
+      color: #3b3b3b;
+      border-bottom: 1px solid #ececec;
+
+      .table-header-item {
+        flex: 1;
+        padding: 10px;
+        font-weight: 700;
+        text-align: center;
+        font-size: 15px;
+      }
+    }
+
+    .table-body {
+      .table-row {
+        display: flex;
+
+        .table-cell {
+          flex: 1;
+          padding: 15px;
+          text-align: center;
+          font-size: 13px;
+          border-bottom: 0.2px solid #ececec;
+
+          &:last-child {
+            border-right: none;
+          }
+        }
+      }
+
+      .table-row:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  @media (max-width: 450px) {
+    .table-container {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+}
