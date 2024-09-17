@@ -33,6 +33,66 @@
                 border-bottom: 2px solid #000;
             }
 
+            .login_btn:disabled {
+                background-color: rgb(242, 242, 242);
+                color: rgb(183, 183, 183);
+                border: none;
+                width: 100%;
+                height: auto;
+                margin-top: 33px;
+                outline: none;
+                text-align: center;
+                text-transform: uppercase;
+                text-rendering: optimizelegibility;
+                border-color: transparent;
+                border-style: none;
+                border-width: 0px;
+                box-sizing: border-box;
+                font-size: 12px;
+                font-weight: 500;
+                letter-spacing: 0.5px;
+                line-height: 22px;
+                padding: 0px 16px;
+                text-decoration: none;
+                overflow: hidden;
+                transform: translate3d(0px, 0px, 0px) scale(1, 1);
+                transition: transform 50ms;
+                min-height: 44px;
+            }
+            .login_btn {
+                width: 100%;
+                height: auto;
+                margin-top: 33px;
+                outline: none;
+                text-align: center;
+                text-rendering: optimizelegibility;
+                -webkit-font-smoothing: antialiased;
+                -webkit-box-align: center;
+                align-items: center;
+                border-color: transparent;
+                border-style: none;
+                border-width: 0px;
+                box-sizing: border-box;
+                cursor: pointer;
+                display: inline-flex;
+                font-family: Clarkson, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-size: 12px;
+                font-weight: 500;
+                -webkit-box-pack: center;
+                justify-content: center;
+                letter-spacing: 0.5px;
+                line-height: 22px;
+                padding: 0px 16px;
+                text-decoration: none;
+                text-transform: uppercase;
+                background-color: rgb(14, 14, 14);
+                color: rgb(255, 255, 255);
+                overflow: hidden;
+                transform: translate3d(0px, 0px, 0px) scale(1, 1);
+                transition: transform 50ms;
+                min-height: 44px;
+            }
+
             label {
                 margin-top: 15px;
                 text-transform: uppercase;
@@ -62,33 +122,6 @@
                         .css-1eed5fa-MuiInputBase-root-MuiInput-root::after {
                             border-bottom: 2px solid #000;
                         }
-                    }
-
-                    .login_btn {
-                        background-color: rgb(242, 242, 242);
-                        color: rgb(183, 183, 183);
-                        border: none;
-                        width: 100%;
-                        height: auto;
-                        margin-top: 33px;
-                        outline: none;
-                        text-align: center;
-                        text-transform: uppercase;
-                        text-rendering: optimizelegibility;
-                        border-color: transparent;
-                        border-style: none;
-                        border-width: 0px;
-                        box-sizing: border-box;
-                        font-size: 12px;
-                        font-weight: 500;
-                        letter-spacing: 0.5px;
-                        line-height: 22px;
-                        padding: 0px 16px;
-                        text-decoration: none;
-                        overflow: hidden;
-                        transform: translate3d(0px, 0px, 0px) scale(1, 1);
-                        transition: transform 50ms;
-                        min-height: 44px;
                     }
                 }
 
@@ -135,40 +168,6 @@
                             width: 50%;
                             margin-left: 10px;
                         }
-                    }
-
-                    .login_btn {
-                        width: 100%;
-                        height: auto;
-                        margin-top: 33px;
-                        outline: none;
-                        text-align: center;
-                        text-rendering: optimizelegibility;
-                        -webkit-font-smoothing: antialiased;
-                        -webkit-box-align: center;
-                        align-items: center;
-                        border-color: transparent;
-                        border-style: none;
-                        border-width: 0px;
-                        box-sizing: border-box;
-                        cursor: pointer;
-                        display: inline-flex;
-                        font-family: Clarkson, "Helvetica Neue", Helvetica, Arial, sans-serif;
-                        font-size: 12px;
-                        font-weight: 500;
-                        -webkit-box-pack: center;
-                        justify-content: center;
-                        letter-spacing: 0.5px;
-                        line-height: 22px;
-                        padding: 0px 16px;
-                        text-decoration: none;
-                        text-transform: uppercase;
-                        background-color: rgb(14, 14, 14);
-                        color: rgb(255, 255, 255);
-                        overflow: hidden;
-                        transform: translate3d(0px, 0px, 0px) scale(1, 1);
-                        transition: transform 50ms;
-                        min-height: 44px;
                     }
 
                 }
