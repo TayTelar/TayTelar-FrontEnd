@@ -28,7 +28,14 @@ import Support from "./affiliated/page/Support";
 
 const App = () => {
   const location = useLocation();
-  const isAffiliated = location.pathname.startsWith("/affiliated");
+  const isAffiliated = location.pathname.startsWith("/Affiliate");
+
+  const getCustomerType = () => {
+    if (location.pathname.startsWith("/login/Affiliate")) {
+      return "affiliate";
+    }
+    return "customer";
+  };
 
   return (
     <>
@@ -37,7 +44,6 @@ const App = () => {
         {/* Main application routes */}
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/cart" element={<CartModal />} />
@@ -57,11 +63,17 @@ const App = () => {
           <Route path="review" element={<Review />} />
         </Route>
 
-        {/* Affiliated routes */}
+        {/* Login routes */}
         <Route
-          path="/login/affiliated/*"
-          element={<Navigate to="/affiliated/dashboard" replace />}
+          path="/login"
+          element={<Login customerType={getCustomerType()} />}
         />
+        <Route
+          path="/login/affiliated"
+          element={<Login customerType={getCustomerType()} />}
+        />
+
+        {/* Affiliated routes */}
         <Route path="/affiliated" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
@@ -71,6 +83,7 @@ const App = () => {
           <Route path="support" element={<Support />} />
         </Route>
 
+        {/* Redirect non-matching routes */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       {!isAffiliated && <Footer />}
