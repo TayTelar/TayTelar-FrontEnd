@@ -28,14 +28,7 @@ import Support from "./affiliated/page/Support";
 
 const App = () => {
   const location = useLocation();
-  const isAffiliated = location.pathname.startsWith("/Affiliate");
-
-  const getCustomerType = () => {
-    if (location.pathname.startsWith("/login/Affiliate")) {
-      return "affiliate";
-    }
-    return "customer";
-  };
+  const isAffiliated = location.pathname.startsWith("/affiliate");
 
   return (
     <>
@@ -64,17 +57,14 @@ const App = () => {
         </Route>
 
         {/* Login routes */}
+        <Route path="/login" element={<Login customerType="customer" />} />
         <Route
-          path="/login"
-          element={<Login customerType={getCustomerType()} />}
-        />
-        <Route
-          path="/login/affiliated"
-          element={<Login customerType={getCustomerType()} />}
+          path="/login/affiliate"
+          element={<Login customerType="affiliate" />}
         />
 
         {/* Affiliated routes */}
-        <Route path="/affiliated" element={<Layout />}>
+        <Route path="/affiliate" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="payment" element={<Payment />} />
