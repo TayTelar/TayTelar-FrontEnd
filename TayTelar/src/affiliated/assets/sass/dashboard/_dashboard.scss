@@ -14,7 +14,7 @@
   .report-loyalty-stats-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    gap: 50px;
     grid-column: 1 / span 2;
     margin-top: 20px;
 
@@ -82,7 +82,6 @@
     .report-loyalty-stats-container {
       grid-template-columns: 1fr;
       grid-template-rows: auto auto;
-      gap: 20px;
 
       .report {
         grid-row: 1;

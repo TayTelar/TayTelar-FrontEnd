@@ -10,10 +10,24 @@ const Slider = () => {
     { id: 4, content: "Card 4" },
     { id: 5, content: "Card 5" },
   ];
-  const numVisibleCards = 3;
+  
+  const [numVisibleCards, setNumVisibleCards] = useState(3);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const updateVisibleCards = () => {
+    setNumVisibleCards(window.innerWidth < 450 ? 1 : 3);
+  };
+
+  useEffect(() => {
+    updateVisibleCards(); // Initial check
+    window.addEventListener('resize', updateVisibleCards);
+    
+    return () => {
+      window.removeEventListener('resize', updateVisibleCards);
+    };
+  }, []);
 
   const extendedCards = [...cards, ...cards.slice(0, numVisibleCards - 1)];
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePrevSlide = () => {
     setCurrentIndex((prevIndex) =>
@@ -29,7 +43,7 @@ const Slider = () => {
 
   useEffect(() => {
     const intervalId = setInterval(handleNextSlide, 3000);
-
+    
     return () => clearInterval(intervalId);
   }, [currentIndex]);
 
@@ -39,6 +53,7 @@ const Slider = () => {
         className="slider-wrapper"
         style={{
           transform: `translateX(-${currentIndex * (100 / numVisibleCards)}%)`,
+          transition: 'transform 0.5s ease-in-out', // Add transition for smooth sliding
         }}
       >
         {extendedCards.map((card) => (

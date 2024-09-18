@@ -62,7 +62,7 @@ const Sidebar: React.FC = () => {
                   </a>
                 </li>
                 <li>
-                  <a  className="logout-button">
+                  <a href="/login/affiliate" className="logout-button">
                     <CgLogOut className="icon" />
                     Logout
                   </a>

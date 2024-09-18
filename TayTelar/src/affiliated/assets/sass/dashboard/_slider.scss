@@ -37,7 +37,7 @@
   flex-direction: column;
   gap: 15px;
 
-  p{
+  p {
     font-size: 12px;
   }
 }
@@ -90,5 +90,16 @@ h3 {
 
 .arrow.right {
   right: 10px;
+}
+
+@media (max-width: 450px) {
+  .slider-wrapper {
+    width: calc(100% * 1); 
+  }
+
+  .card {
+    flex: 0 0 100%; 
+    margin: 10px 0;
+  }
 }
 
