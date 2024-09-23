@@ -1,5 +1,5 @@
 .product {
-    height: 100rem;
+ 
    
 
     .productlist-heading {
@@ -154,7 +154,8 @@
     margin-left: 3rem;
     padding-top: 2rem;
 }
-.review-button  button{
+.review-button 
+{ button{
     background-color: #3b3b3b;
     color: white;
     width: 13rem;
@@ -168,7 +169,16 @@
    align-items: center;
    cursor: pointer;
 
+
+}
+.rate-star{
+    color: "white";
+     position: "relative";
+      left: "0.2rem";
+       bottom: "0.1rem";
+     
     
+}
   }
 
   
@@ -189,6 +199,7 @@
         background-color: #ccc;
     }
     .most-recent select{
+        position: relative;
         font-size: 1rem;
     height: 2rem;
     border: none; /* Removes the border */
@@ -259,6 +270,12 @@
 
 .main-review{
     text-align: center;
+    .rating-container{
+        .star-inner{
+            width: 2rem;
+            height: 2rem;
+        }
+    }
 }
 .title{
     height: 3rem;
@@ -322,6 +339,795 @@
     color: white;
     cursor: pointer;
 }
+}
+@media (min-width: 320px) and (max-width: 374px) {
+    .product{
+        .outlet{
+            margin: 1rem;
+            font-size: 0.5rem;
+        }
+        .productlist-heading{
+            &::before,
+            &::after{
+              width: 20%;  
+             
+            }
+            &::before {
+                left: 1rem;
+               
+                 // Position the line on the left
+            }
+        
+            &::after {
+                right: 1rem;
+         // Position the line on the right
+            }
+            li{
+                padding: 0;
+            }
+            ul{
+            
+                font-size: 0.35rem;
+                padding-right: 6rem;
+                padding-left: 6rem;
+            }
+            .details.active,.shipping.active,.reviews.active{
+                
+       
+        /* Optional: Match underline color with text color */
+        text-decoration-thickness: 0.7px; /* Thickness of the underline */
+        text-underline-offset: 3px; /* Space between text and underline */
+        text-decoration-skip-ink: auto
+            }
+    }
+}
+.review-container{
+    .main-review{
+        .rating-container{
+            .star-inner{
+                width: 1rem;
+                height: 1rem;
+            }
+        }
+    }
+    .cancel {
+        width: 6rem;
+        height: 1.5rem;
+        font-size: 0.7rem;
+        margin-bottom: 1rem;
+    }
+    .submit{
+        width: 6rem;
+        height: 1.5rem;
+        font-size: 0.7rem;
+    }
+    .most-recent{
+        padding: 0.2rem;
+       height: 2.5rem;
+        select{
+            font-size: 0.6rem;
+            height: 1.7rem;
+          
+           
+          
+        }
+        label{
+            font-size: 10px;
+            margin-bottom: 0;
+        }
+    }
+    .comments{
+        font-size: 0.6rem;
+        height: 6rem;
+        width: 18rem;
+    }
+    .write-review{
+        padding:0.2rem;
+    }
+    p{
+        font-size: 0.7rem;
+    }
+    .primary-review-container{
+        padding: 0rem;
+        
+    }
+    .review-balancer{
+        padding-left: 0.4rem;
+    }
+    .review-button{
+        margin-left: 0.2rem;
+        button{
+            width: 4rem;
+            height: 1.2rem;
+            font-size: 0.55rem;
+            right: 0;
+            top: 1rem;
+        }
+        .rate-star{
+            font-size: 0.7rem;
+        }
+    }
+    h2{
+        font-size: 0.8rem;
+    }
+    .customer-review{
+        padding-right: 0.3rem;
+    }
+   
+    .box{
+        height: 0.5rem;
+        width: 4.5rem;
+        margin-left: 0.5rem;
+        margin-top: 0.08rem;
+    }
+    .review-num{
+        font-size: 0.5rem;
+        margin-left: 0.5rem;
+        margin-top: 0rem;
+    }
+    .review-star{
+        padding-top: 0rem;
+        margin-top: 3rem;
+        margin-left: 1rem;
+        padding-right: 1rem;
+       
+       
+        
+      
+    }
+    .outof{
+        font-size: 0.5rem;
+        left: 0.2rem;
+        bottom: 1rem;
+    }
+    .based{
+        font-size: 0.6rem;
+        width: 3rem;
+       bottom: 1.3rem;
+    }
+   
+}
+
+
+}
+@media (min-width: 375px) and (max-width: 424px){
+.product{
+    .outlet{
+        margin: 1rem;
+        font-size: 0.5rem;
+    }
+    .productlist-heading{
+        &::before,
+        &::after{
+          width: 20%;  
+         
+        }
+        &::before {
+            left: 1rem;
+           
+             // Position the line on the left
+        }
+    
+        &::after {
+            right: 1rem;
+     // Position the line on the right
+        }
+        li{
+            padding: 0;
+        }
+        ul{
+        
+            font-size: 0.45rem;
+            padding-right: 6rem;
+            padding-left: 6rem;
+        }
+        .details.active,.shipping.active,.reviews.active{
+            
+   
+    /* Optional: Match underline color with text color */
+    text-decoration-thickness: 0.7px; /* Thickness of the underline */
+    text-underline-offset: 3px; /* Space between text and underline */
+    text-decoration-skip-ink: auto
+        }
+}
+}
+.review-container{
+.main-review{
+    .rating-container{
+        .star-inner{
+            width: 1rem;
+            height: 1rem;
+        }
+    }
+}
+.cancel {
+    width: 6rem;
+    height: 1.5rem;
+    font-size: 0.7rem;
+    margin-bottom: 1rem;
+}
+.submit{
+    width: 6rem;
+    height: 1.5rem;
+    font-size: 0.7rem;
+}
+.most-recent{
+    padding: 0.2rem;
+   height: 2.5rem;
+    select{
+        font-size: 0.6rem;
+        height: 1.7rem;
+      
+       
+      
+    }
+    label{
+        font-size: 10px;
+        margin-bottom: 0;
+    }
+}
+.comments{
+    font-size: 0.6rem;
+    height: 6rem;
+    width: 18rem;
+}
+.write-review{
+    padding:0.2rem;
+}
+p{
+    font-size: 0.7rem;
+}
+.primary-review-container{
+    padding: 0rem;
+    
+}
+.review-balancer{
+    padding-left: 0.4rem;
+}
+.review-button{
+    margin-left: 0.2rem;
+    button{
+        width: 5rem;
+        height: 1.5rem;
+        font-size: 0.55rem;
+        left: 4%;
+        top: 1rem;
+    }
+    .rate-star{
+        font-size: 0.7rem;
+    }
+}
+h2{
+    font-size: 0.8rem;
+}
+.customer-review{
+    padding-right: 0.5rem;
+}
+
+.box{
+    height: 0.5rem;
+    width: 4.5rem;
+    margin-left: 0.5rem;
+    margin-top: 0.08rem;
+}
+.review-num{
+    font-size: 0.5rem;
+    margin-left: 0.5rem;
+    margin-top: 0rem;
+}
+.review-star{
+    padding-top: 0rem;
+    margin-top: 3rem;
+    margin-left: 1rem;
+    padding-right: 1rem;
+   
+   
+    
+  
+}
+.outof{
+    font-size: 0.5rem;
+    left: 0.2rem;
+    bottom: 1rem;
+}
+.based{
+    font-size: 0.6rem;
+    width: 3rem;
+   bottom: 1.3rem;
+}
+.review-star::after, .customer-review::after {
+   
+    top: 40%; 
+    height: 70%; 
+    width: 0.8px;
+}
+
+}
+
+
+
+}
+@media (min-width: 425px) and (max-width: 767px){
+    .product{
+        .outlet{
+            margin: 1rem;
+            font-size: 0.6rem;
+        }
+        .productlist-heading{
+            &::before,
+            &::after{
+              width: 20%;  
+             
+            }
+            &::before {
+                left: 1rem;
+               
+                 // Position the line on the left
+            }
+        
+            &::after {
+                right: 1rem;
+         // Position the line on the right
+            }
+            li{
+                padding: 0;
+            }
+            ul{
+            
+                font-size: 0.55rem;
+                padding-right: 7rem;
+                padding-left: 7rem;
+            }
+            .details.active,.shipping.active,.reviews.active{
+                
+       
+        /* Optional: Match underline color with text color */
+        text-decoration-thickness: 0.7px; /* Thickness of the underline */
+        text-underline-offset: 3px; /* Space between text and underline */
+        text-decoration-skip-ink: auto
+            }
+    }
+    }
+    .review-container{
+    .main-review{
+        .rating-container{
+            .star-inner{
+                width: 1.2rem;
+                height: 1.2rem;
+            }
+        }
+    }
+    .cancel {
+        width: 6rem;
+        height: 1.5rem;
+        font-size: 0.7rem;
+        margin-bottom: 1rem;
+    }
+    .submit{
+        width: 6rem;
+        height: 1.5rem;
+        font-size: 0.7rem;
+    }
+    .most-recent{
+        padding: 0.2rem;
+       height: 2.5rem;
+        select{
+            font-size: 0.6rem;
+            height: 1.7rem;
+          
+           
+          
+        }
+        label{
+            font-size: 10px;
+            margin-bottom: 0;
+        }
+    }
+    .comments{
+        font-size: 0.6rem;
+        height: 6rem;
+        width: 20rem;
+    }
+    .write-review{
+        padding:0.2rem;
+    }
+    p{
+        font-size: 0.7rem;
+    }
+    .primary-review-container{
+        padding: 0rem;
+        
+    }
+    .review-balancer{
+        padding-left: 0.4rem;
+    }
+    .review-button{
+        margin-left: 0.2rem;
+        button{
+            width: 5.5rem;
+            height: 1.6rem;
+            font-size: 0.58rem;
+            left: 4%;
+            top: 1rem;
+        }
+        .rate-star{
+            font-size: 0.8rem;
+        }
+    }
+    h2{
+        font-size: 0.8rem;
+    }
+    .customer-review{
+        padding-right: 0.5rem;
+    }
+    
+    .box{
+        height: 0.5rem;
+        width: 4.5rem;
+        margin-left: 0.5rem;
+        top: 0.1rem;
+    }
+    .review-num{
+        font-size: 0.5rem;
+        margin-left: 0.5rem;
+        margin-top: 0rem;
+        margin-top:0.4rem
+    }
+    .review-star{
+        padding-top: 0rem;
+        margin-top: 3rem;
+        margin-left: 1rem;
+        padding-right: 1rem;
+       
+       
+        
+      
+    }
+    .outof{
+        font-size: 0.65rem;
+        left: 0.2rem;
+        bottom: 1rem;
+    }
+    .based{
+        font-size: 0.7rem;
+        width: 4rem;
+       bottom: 1.3rem;
+    }
+    .review-star::after, .customer-review::after {
+       
+        top: 40%; 
+        height: 70%; 
+        width: 0.8px;
+    }
+    
+    }
+    
+    
+    
+    }
+    @media (min-width: 768px) and (max-width: 1023px){
+        .product{
+            .outlet{
+                margin: 1rem;
+                font-size: 0.7rem;
+            }
+            .productlist-heading{
+                &::before,
+                &::after{
+                  width: 25%;  
+                 
+                }
+                &::before {
+                    left: 1rem;
+                   
+                     // Position the line on the left
+                }
+            
+                &::after {
+                    right: 1rem;
+             // Position the line on the right
+                }
+                li{
+                    padding: 0;
+                }
+                ul{
+                
+                    font-size: 0.7rem;
+                    padding-right: 14rem;
+                    padding-left: 14rem;
+                }
+                .details.active,.shipping.active,.reviews.active{
+                    
+           
+            /* Optional: Match underline color with text color */
+            text-decoration-thickness: 0.7px; /* Thickness of the underline */
+            text-underline-offset: 3px; /* Space between text and underline */
+            text-decoration-skip-ink: auto
+                }
+        }
+        }
+        .review-container{
+        .main-review{
+            .rating-container{
+                .star-inner{
+                    width: 1.4rem;
+                    height: 1.4rem;
+                }
+            }
+        }
+        .cancel {
+            width: 6.5rem;
+            height: 1.8rem;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        .submit{
+            width: 6.5rem;
+            height: 1.8rem;
+            font-size: 0.8rem;
+        }
+        .most-recent{
+            padding: 0.2rem;
+           height: 2.5rem;
+            select{
+                font-size: 0.7rem;
+                height: 1.7rem;
+                
+              
+               
+              
+            }
+            label{
+                font-size: 12px;
+                margin-bottom: 0;
+            }
+        }
+        .comments{
+            font-size: 0.8rem;
+            height: 8rem;
+            width: 25rem;
+        }
+        .write-review{
+            padding:0.2rem;
+        }
+        p{
+            font-size: 0.9rem;
+        }
+        .primary-review-container{
+            padding: 0rem;
+            
+        }
+        .review-balancer{
+            padding-left: 0.7rem;
+        }
+        .review-button{
+            margin-left: 0.2rem;
+            button{
+                width: 6.5rem;
+                height: 2rem;
+                font-size: 0.7rem;
+                left: 4%;
+                top: 1rem;
+            }
+            .rate-star{
+                font-size: 1rem;
+            }
+        }
+        h2{
+            font-size: 1rem;
+        }
+        .customer-review{
+            padding-right: 3rem;
+            padding-bottom: 1rem;
+        }
+        
+        .box{
+            height: 0.7rem;
+            width: 6rem;
+            margin-left: 0.5rem;
+            top: 0.7rem;
+        }
+        .review-num{
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+            
+            margin-top:1rem
+        }
+        .review-star{
+            padding-top: 0rem;
+            margin-top: 3rem;
+            
+            padding-right: 1rem;
+           
+           
+            
+          
+        }
+        .outof{
+            font-size: 0.8rem;
+            left: 0.2rem;
+            bottom: 1rem;
+        }
+        .based{
+            font-size: 0.9rem;
+            width: 8rem;
+           bottom: 1.3rem;
+        }
+        .review-star::after {
+           
+            top: 40%; 
+            height: 70%; 
+            width: 0.8px;
+        }
+        
+        }
+        
+        
+        
+        }
+    
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .product{
+        .outlet{
+            font-size:0.9rem
+                
+            
+        }
+        .productlist-heading{
+            &::before,
+            &::after{
+              width: 25%;  
+            }
+
+            ul{
+                font-size: 0.9rem;
+                padding-left: 20rem;
+                padding-right: 20rem;
+            }
+           
+
+        } 
+
+    }
+         .review-container{
+            .main-review{
+                .rating-container{
+                    .star-inner{
+                        width: 1.4rem;
+                        height: 1.4rem;
+                    }
+                }
+            }
+            .cancel {
+                width: 6.5rem;
+                height: 1.8rem;
+                font-size: 0.8rem;
+                margin-bottom: 1rem;
+            }
+            .submit{
+                width: 6.5rem;
+                height: 1.8rem;
+                font-size: 0.8rem;
+            }
+            .most-recent{
+              
+                .select{
+                    top: 1rem;
+                }
+            }
+            .comments{
+                font-size: 0.8rem;
+                height: 8rem;
+                width: 25rem;
+            }
+            .write-review{
+                padding:0.2rem;
+            }
+            p{
+                font-size: 0.9rem;
+            }
+            .primary-review-container{
+                padding: 0rem;
+                
+            }
+            .review-balancer{
+                padding-left: 0.7rem;
+            }
+            .review-button{
+                margin-left: 0.2rem;
+                button{
+                    width: 6.5rem;
+                    height: 2rem;
+                    font-size: 0.7rem;
+                    left: 4%;
+                    top: 1rem;
+                }
+                .rate-star{
+                    font-size: 1rem;
+                }
+            }
+            h2{
+                font-size: 1rem;
+            }
+            .customer-review{
+                padding-right: 3rem;
+                padding-bottom: 1rem;
+            }
+            
+            .box{
+                height: 0.7rem;
+                width: 6rem;
+                margin-left: 0.5rem;
+                top: 0.7rem;
+            }
+            .review-num{
+                font-size: 0.7rem;
+                margin-left: 0.5rem;
+                
+                margin-top:1rem
+            }
+            .review-star{
+                padding-top: 0rem;
+                margin-top: 3rem;
+                
+                padding-right: 1rem;
+               
+               
+                
+              
+            }
+            .outof{
+                font-size: 0.8rem;
+                left: 0.2rem;
+                bottom: 1rem;
+            }
+            .based{
+                font-size: 0.9rem;
+                width: 8rem;
+               bottom: 1.3rem;
+            }
+            .review-star::after {
+               
+                top: 40%; 
+                height: 70%; 
+                width: 0.8px;
+            }
+            
+            }
+
+    }
+
+@media (min-width: 1440px) {
+    .product {
+        .productlist-heading {
+            ul{
+                padding-left: 31rem;
+                padding-right: 31rem;
+            }
+
+        }
+
+    }
+    
+    .review-container{
+
+     .review-button{
+        button{
+            right: 3rem;
+            top: 2rem;
+        }
+
+     } 
+    }
+    .review-container {
+        .most-recent {
+            select{
+               
+                bottom: 0.8rem;
+            }
+
+    }
+  }
 }
 
 

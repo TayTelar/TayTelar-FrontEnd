@@ -1,7 +1,7 @@
 import "../../assets/sass/pages/_cart.scss";
 import item from "../../assets/images/hover_img_4.webp";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import { useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
@@ -109,6 +109,141 @@ const CartModal: React.FC = () => {
   const handleChangeAddress = () => {
     navigate("/checkout");
   };
+
+  const loadScript = (src: any) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  };
+
+  useEffect(() => {
+    loadScript("https://checkout.razorpay.com/v1/checkout.js");
+  });
+
+  async function displayRazorpay(
+    orderId: string,
+    userId: string,
+    totalAmount: number,
+    paymentMethod:string
+  ) {
+    let requestBody = {
+      orderId: "TT1084534993",
+      userId: "UID168250",
+      totalAmount: 1000,
+      paymentMethod: "G Pay"
+    };
+
+    // let baseUrl =
+      // "http://app-vehicle-lb-1832405950.ap-south-1.elb.amazonaws.com/";
+    let baseUrl = "http://localhost:8085/api/payment/";
+
+    try {
+      const response = await fetch(`${baseUrl}createPayment`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      console.log(data);
+
+      const options = {
+        key: "rzp_test_nHgaZ8pP0SqyOm",
+        currency: data.currency,
+        amount: totalAmount * 100,
+        name: "Pay Now",
+        description: "Wallet Transaction",
+        image: "http://localhost:5173/src/assets/images/logo.png",
+        order_id: data.razorPayOrderId,
+        handler: async function (response: any) {
+          alert("PAYMENT ID ::" + response.razorpay_payment_id);
+          alert("ORDER ID :: " + response.razorpay_order_id);
+          alert("Signature:: " + response.razorpay_signature);
+          console.log(response);
+
+          try {
+            const postData = {
+              razorPayPaymentId: response.razorpay_payment_id,
+              razorPayOrderId: response.razorpay_order_id,
+              razorPaySignature: response.razorpay_signature,
+            };
+
+            const postResponse = await fetch(`${baseUrl}verifySignature`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(postData),
+            }).then((t) => t.json());
+
+            console.log(postResponse);
+
+            if (postResponse.statusCode === 200) {
+              // Handle success
+              console.log("response from razor pay:" + postResponse);
+            } else {
+              // Handle error
+              console.error("Unable to validate Signature");
+            }
+          } catch (error) {
+            console.error("An error occurred during the POST API call:", error);
+          }
+        },
+        prefill: {
+          name: orderId,
+          email: "example@gmail.com",
+          contact: userId,
+        },
+      };
+
+      const rzp1 = new (window as any).Razorpay(options);
+
+      rzp1.on("payment.failed", function (response: any) {
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+      });
+
+      rzp1.open();
+
+      // const razorpayContainer = document.getElementsByClassName('razorpay-container') as HTMLElement;
+      // if (razorpayContainer) {
+      //   razorpayContainer.style.height = '100px'; // Set the desired height here
+      // }
+    } catch (error) {
+      console.error(
+        "An error occurred during the fetch or JSON parsing:",
+        error
+      );
+    }
+  }
+
+  const razorpay: MouseEventHandler<HTMLButtonElement> = async (event) => {
+    const amount = 1000;
+    await displayRazorpay("abcd123", "UID168250", amount,"G pay");
+    console.log("Request Body:" + "abcd123" + "," + "6360120872" + "," + amount);
+  };
+
+
 
   return (
     <div className="cart-modal">
@@ -256,7 +391,7 @@ const CartModal: React.FC = () => {
                   )}
                 </span>
               </div>
-              <button className="place-order" onClick={handleCheckout}>
+              <button className="place-order" onClick={razorpay}>
                 CHECKOUT
               </button>
               <div className="trust-indicators">

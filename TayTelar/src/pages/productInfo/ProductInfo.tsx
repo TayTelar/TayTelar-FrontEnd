@@ -115,7 +115,8 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
   };
   return (
     <div className={`main-container ${isModalOpen ? "blur-background" : ""}`}>
-      <div className="bread-crumbs">
+      <div className="
+      -crumbs">
       <Breadcrumbs crumbs={breadcrumbData}/>
       </div>
       
@@ -134,6 +135,8 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
                 onClick={() => {handleImageChange(index);console.log(index)}}
               />
             ))}
+
+            
           </Slider>
         </div>
         <div className="primary-image-container">

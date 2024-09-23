@@ -8,16 +8,9 @@ export const CustomPrevArrow = (props: any) => {
     <div
       className="custom-prev-arrow"
       onClick={onClick}
-      style={{ 
-        display: 'block', 
-        position: 'relative',
-       top:"93.5%",
-      
-        transform: 'rotate(270deg)',
-        zIndex: 20
-      }}
+     
     >
-      <ArrowBackIosIcon style={{ color: 'black', fontSize: '16px' }} />
+      <ArrowBackIosIcon  className='custom-arrow-prev'/>
     </div>
   );
 };
@@ -28,16 +21,9 @@ export const CustomNextArrow = (props: any) => {
     <div
       className="custom-next-arrow"
       onClick={onClick}
-      style={{
-        display: 'block',
-        position: 'absolute',
-        top: '-5px',
-        right: '35%',
-        transform: 'rotate(270deg)',
-        zIndex: 2
-      }}
+      
     >
-      <ArrowForwardIosIcon style={{ color: 'black', fontSize: '16px' }} />
+      <ArrowForwardIosIcon className='custom-arrow-next' />
     </div>
   );
 };

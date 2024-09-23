@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import CreateIcon from "@mui/icons-material/Create";
 import PaymentIcon from "@mui/icons-material/Payment";
 import GradingIcon from "@mui/icons-material/Grading";
@@ -25,6 +26,7 @@ interface ProgressBarProps {
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep }) => {
+   
   const stepIcons = [
     <CreateIcon key="address" />,
     <PaymentIcon key="payment" />,
@@ -53,8 +55,32 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep }) => {
 };
 
 const Checkout: React.FC = () => {
+  const location = useLocation();
+  
+  const exchange = (location.state as { exchange?: boolean })?.exchange || false;
+ 
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [currentStep, setCurrentStep] = useState<number>(1);
+  const [subtotal, setSubtotal] = useState<number>(2675); // Initial subtotal value
+  const [total, setTotal] = useState<number>(2675);
+  const [isExchange, setIsExchange] = useState<boolean>(false);
+
+  useEffect(() => {
+    // Fetching 'exchange' from URL query params
+    const params = new URLSearchParams(location.search);
+    const exchangeParam = params.get("exchange") === "true";
+    setIsExchange(exchangeParam);
+
+    if (exchangeParam) {
+      // If exchange offer is true, set subtotal and total to 0
+      setSubtotal(0);
+      setTotal(0);
+    } else {
+      // Otherwise, set to the original values
+      setSubtotal(2675);
+      setTotal(2675);
+    }
+  }, [location.search]);
 
   const addAddress = (address: Address) => {
     setAddresses([...addresses, address]);
@@ -84,6 +110,7 @@ const Checkout: React.FC = () => {
     <>
       <ProgressBar currentStep={currentStep} />
       <div className="checkout_content">
+        {/* Step 1: Address */}
         {currentStep === 1 && (
           <div className="checkout_content_left">
             <AddressList
@@ -95,18 +122,25 @@ const Checkout: React.FC = () => {
             <AddressForm addAddress={addAddress} />
           </div>
         )}
+        
+        {/* Step 2: Payment */}
         {currentStep === 2 && (
           <div>
             <AddPayment onProceed={proceedToReview} />
           </div>
         )}
+
+        {/* Step 3: Review */}
         {currentStep === 3 && (
           <div>
             <ReviewOrder />
           </div>
         )}
+
+        {/* Order Summary Section */}
         <div className="checkout_content_right">
-          <OrderSummary />
+          {/* Pass `isExchange` as a prop to OrderSummary */}
+          <OrderSummary exchange={exchange} />
         </div>
       </div>
     </>
