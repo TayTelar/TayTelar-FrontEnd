@@ -25,6 +25,7 @@ import Payment from "./affiliated/page/Payment";
 import Products from "./affiliated/page/Products";
 import Profile from "./affiliated/page/Profile";
 import Support from "./affiliated/page/Support";
+import { OrderProvider } from "./customer/pages/orders/OrderContext";
 
 const App = () => {
   const location = useLocation();
@@ -41,7 +42,9 @@ const App = () => {
         <Route path="/shop" element={<Shop />} />
         <Route path="/cart" element={<CartModal />} />
         <Route path="/checkout" element={<Checkout />} />
-        <Route path="/order" element={<Orders />} />
+        
+        <Route path="/order" element={<OrderProvider><Orders /></OrderProvider>} />
+        
         <Route
           path="/productinfo"
           element={
