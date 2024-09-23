@@ -1,0 +1,29 @@
+.report-container {
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 270px;
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  canvas {
+    width: 100%;
+  }
+}
+@media (max-width: 450px) {
+  .report-container {
+    padding: 10px; 
+  }
+
+  canvas {
+    width: 100% !important; 
+    max-width: 100%; 
+  }
+}

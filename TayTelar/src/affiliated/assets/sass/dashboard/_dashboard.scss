@@ -1,0 +1,101 @@
+.dashboard-container {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr 2fr;
+
+  .slider {
+    grid-column: span 2 / span 2;
+  }
+
+  .widgets {
+    grid-column: 1 / span 2;
+  }
+
+  .report-loyalty-stats-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    grid-column: 1 / span 2;
+    margin-top: 20px;
+
+    .loyalty-stats-container {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .table {
+    grid-column: 1 / span 2;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+
+    .dropdown-button {
+      background-color: #3b3b3b;
+      color: #fff;
+      border: none;
+      padding: 8px 25px;
+      font-size: 12px;
+      cursor: pointer;
+      outline: none;
+      transition: background-color 0.3s;
+      margin-bottom: 10px;
+
+      .fa-caret-down {
+        margin-left: 8px;
+        font-size: 14px;
+      }
+    }
+
+    .dropdown-menu {
+      display: block;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #fff;
+      border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      width: 50%;
+      margin-top: 2px;
+
+      .dropdown-item {
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #f1f1f1;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+
+    .report-loyalty-stats-container {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+
+      .report {
+        grid-row: 1;
+      }
+
+      .loyalty-stats-container {
+        grid-row: 2;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    .widgets {
+      grid-column: 1;
+    }
+  }
+}

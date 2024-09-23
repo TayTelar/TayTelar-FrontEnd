@@ -1,0 +1,40 @@
+.dashboard-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #3b3b3b;
+  color: white;
+  max-width: 300px;
+  padding: 10px;
+  margin-bottom: 10px;
+
+  .dashboard-card-header {
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      font-size: 0.6rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .dashboard-icon {
+      font-size: 25px;
+    }
+  }
+
+  .dashboard-card-body {
+    .points {
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .dashboard-card {
+    margin: 15px auto;
+    width: 90%;
+    max-width: none;
+    height: auto;
+  }
+}
