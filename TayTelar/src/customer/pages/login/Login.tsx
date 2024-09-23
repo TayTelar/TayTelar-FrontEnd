@@ -7,12 +7,7 @@ import Input from "@mui/material/Input";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 // @ts-ignore
-import {
-  LoginSocialGoogle,
-  LoginSocialFacebook,
-  LoginSocialApple,
-  IResolveParams,
-} from "reactjs-social-login";
+import {  LoginSocialGoogle, LoginSocialFacebook, LoginSocialApple, IResolveParams} from "reactjs-social-login";
 import {
   GoogleLoginButton,
   FacebookLoginButton,

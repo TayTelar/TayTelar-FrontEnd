@@ -7,6 +7,7 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
 import StraightenIcon from "@mui/icons-material/Straighten";
 import empty_cart from "../../assets/images/empty_cart.png";
+import axios from "axios";
 
 interface CartItem {
   id: number;
@@ -19,69 +20,52 @@ interface CartItem {
   quantity: number;
   isChecked: boolean;
   image: string;
+  productColor: string;
+  productColorCode: string;
 }
 
 const CartModal: React.FC = () => {
   const navigate = useNavigate();
 
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: 1,
-      name: "Camel Stretch Pants",
-      description: "White Accordion Pleated A-Line Formal Pant",
-      price: 2675,
-      originalPrice: 2899,
-      discount: "50% OFF",
-      size: "36",
-      quantity: 1,
-      isChecked: true,
-      image: item,
-    },
-    {
-      id: 2,
-      name: "Camel Stretch Pants",
-      description: "White Accordion Pleated A-Line Formal Pant",
-      price: 2675,
-      originalPrice: 2899,
-      discount: "50% OFF",
-      size: "36",
-      quantity: 1,
-      isChecked: false,
-      image: item,
-    },
-    {
-      id: 3,
-      name: "Camel Stretch Pants",
-      description: "White Accordion Pleated A-Line Formal Pant",
-      price: 2675,
-      originalPrice: 2899,
-      discount: "50% OFF",
-      size: "36",
-      quantity: 1,
-      isChecked: false,
-      image: item,
-    },
-  ]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const handleQuantityChange = (id: number, increment: boolean = true) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              quantity: increment
-                ? item.quantity + 1
-                : Math.max(1, item.quantity - 1),
-            }
-          : item
-      )
-    );
-  };
+  const handleQuantityChange = async (id: number, increment: boolean = true) => {
+    const itemToUpdate = cartItems.find(item => item.id === id);
+    if (!itemToUpdate) return;
 
-  const handleSizeChange = (id: number, size: string) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) => (item.id === id ? { ...item, size } : item))
-    );
+    const newQuantity = increment ? itemToUpdate.quantity + 1 : Math.max(1, itemToUpdate.quantity - 1);
+
+    const requestBody = {
+      userId: "UID240099",
+      cartItemRequests: [
+        {
+          cartItemId: itemToUpdate.id.toString(),
+          productId: "P12349",
+          productName: itemToUpdate.name,
+          productSize: itemToUpdate.size,
+          productColor: itemToUpdate.productColor,
+          productColorCode: itemToUpdate.productColorCode,
+          quantity: newQuantity,
+          price: itemToUpdate.price,
+        }
+      ]
+    };
+
+    try {
+      const response = await axios.put("http://localhost:8085/api/cart/updateCartItem", requestBody);
+
+      if (response.status === 200) {
+        setCartItems((prevItems) =>
+          prevItems.map((item) =>
+            item.id === id ? { ...item, quantity: newQuantity } : item
+          )
+        );
+      } else {
+        console.error("Failed to update quantity", response);
+      }
+    } catch (error) {
+      console.error("Error updating quantity", error);
+    }
   };
 
   const handleCheckboxChange = (id: number) => {
@@ -92,23 +76,81 @@ const CartModal: React.FC = () => {
     );
   };
 
-  const handleRemoveItem = (id: number) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  const handleRemoveItem = async (id: number) => {
+    const itemToUpdate = cartItems.find(item => item.id === id);
+    if (!itemToUpdate) return;
+  
+    const requestBody = {
+      userId: "UID240099",
+      cartItemRequests: [
+        {
+          cartItemId: itemToUpdate.id.toString(),
+          productId: "P12349", 
+          productName: itemToUpdate.name,
+          productSize: itemToUpdate.size,
+          productColor: itemToUpdate.productColor,
+          productColorCode: itemToUpdate.productColorCode,
+          quantity: itemToUpdate.quantity,
+          price: itemToUpdate.price,
+        }
+      ]
+    };
+  
+    try {
+      const response = await axios.delete("http://localhost:8085/api/cart/deleteCartItem", {
+        data: requestBody
+      });
+  
+      if (response.data.statusCode === 200) {
+        setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+      } else {
+        console.error("Failed to remove item", response);
+      }
+    } catch (error) {
+      console.error("Error removing item", error);
+    }
   };
+  
+
 
   const selectedItemsCount = cartItems.filter((item) => item.isChecked).length;
-
-  const handleCheckout = () => {
-    navigate("/checkout");
-  };
 
   const addItems = () => {
     navigate("/shop");
   };
 
-  const handleChangeAddress = () => {
-    navigate("/checkout");
+  const getCartItems = async () => {
+    const userId = "UID240099";
+    try {
+      const response = await axios.get(
+        `http://localhost:8085/api/cart/getCartItems?userId=${userId}`
+      );
+
+      const items = response.data.cartItemResponses.map((item: any) => ({
+        id: item.cartItemId,
+        name: item.productName,
+        price: item.price,
+        size: item.productSize.toString(),
+        quantity: item.quantity,
+        image: item.productImagesUrl,
+        productColor: item.productColor,
+        productColorCode: item.productColorCode,
+        isChecked: true,
+        originalPrice: Math.ceil(item.price * 1.3 * 100) / 100,
+        description: item.description,
+        discount: "30% OFF",
+      }));
+
+      setCartItems(items);
+      console.log("Cart items loaded successfully", items);
+    } catch (error: any) {
+      console.log("Couldn't load cart items", error);
+    }
   };
+
+  useEffect(() => {
+    getCartItems();
+  }, [])
 
   const loadScript = (src: any) => {
     return new Promise((resolve) => {
@@ -132,17 +174,17 @@ const CartModal: React.FC = () => {
     orderId: string,
     userId: string,
     totalAmount: number,
-    paymentMethod:string
+    paymentMethod: string
   ) {
     let requestBody = {
       orderId: "TT1084534993",
-      userId: "UID168250",
+      userId: "UID240099",
       totalAmount: 1000,
       paymentMethod: "G Pay"
     };
 
     // let baseUrl =
-      // "http://app-vehicle-lb-1832405950.ap-south-1.elb.amazonaws.com/";
+    // "http://app-vehicle-lb-1832405950.ap-south-1.elb.amazonaws.com/";
     let baseUrl = "http://localhost:8085/api/payment/";
 
     try {
@@ -239,7 +281,7 @@ const CartModal: React.FC = () => {
 
   const razorpay: MouseEventHandler<HTMLButtonElement> = async (event) => {
     const amount = 1000;
-    await displayRazorpay("abcd123", "UID168250", amount,"G pay");
+    await displayRazorpay("abcd123", "UID168250", amount, "G pay");
     console.log("Request Body:" + "abcd123" + "," + "6360120872" + "," + amount);
   };
 
@@ -262,18 +304,6 @@ const CartModal: React.FC = () => {
                 <h5>
                   {selectedItemsCount} OUT OF {cartItems.length} ITEMS SELECTED
                 </h5>
-                <div className="default-address">
-                  <div>
-                    <span>Kavya Shree</span>
-                    <button onClick={handleChangeAddress}>
-                      CHANGE ADDRESS
-                    </button>
-                  </div>
-                  <p>
-                    Shekar Sound System, Suncalpet Cross, Ganesh Street, Kolar
-                    563101
-                  </p>
-                </div>
                 <p onClick={addItems} className="items-to-cart">
                   Add Few More Items To Cart{" "}
                 </p>
@@ -303,26 +333,15 @@ const CartModal: React.FC = () => {
                       </div>
                       <span>{item.description}</span>
                       <div className="cart-item-price">
-                        <span className="price">Rs. {item.price}</span>
+                        <span className="price">Rs. {(item.price * item.quantity).toFixed(2)}</span>
                         <span className="original-price">
-                          Rs. {item.originalPrice}
+                          Rs. {(item.originalPrice * item.quantity).toFixed(2)}
                         </span>
                         <span className="discount">{item.discount}</span>
                       </div>
                       <div className="cart-item-options">
                         <div className="size-dropdown">
-                          <select
-                            id="size"
-                            value={item.size}
-                            onChange={(e) =>
-                              handleSizeChange(item.id, e.target.value)
-                            }
-                          >
-                            <option value="32">32</option>
-                            <option value="34">34</option>
-                            <option value="36">36</option>
-                            <option value="38">38</option>
-                          </select>
+                          size: {item.size}
                         </div>
                         <div className="quantity-control">
                           <button
@@ -353,23 +372,29 @@ const CartModal: React.FC = () => {
                 <span>Total MRP</span>
                 <span>
                   Rs.{" "}
-                  {cartItems.reduce(
-                    (acc, item) =>
-                      acc + (item.isChecked ? item.originalPrice : 0),
-                    0
-                  )}
+                  {cartItems
+                    .reduce(
+                      (acc, item) =>
+                        acc + (item.isChecked ? item.originalPrice * item.quantity : 0),
+                      0
+                    )
+                    .toFixed(2)}
                 </span>
               </div>
               <div>
                 <span>Discount on MRP</span>
                 <span>
                   - Rs.{" "}
-                  {cartItems.reduce(
-                    (acc, item) =>
-                      acc +
-                      (item.isChecked ? item.originalPrice - item.price : 0),
-                    0
-                  )}
+                  {cartItems
+                    .reduce(
+                      (acc, item) =>
+                        acc +
+                        (item.isChecked
+                          ? (item.originalPrice - item.price) * item.quantity
+                          : 0),
+                      0
+                    )
+                    .toFixed(2)}
                 </span>
               </div>
               <div>
@@ -385,10 +410,12 @@ const CartModal: React.FC = () => {
                 <span>TOTAL AMOUNT</span>
                 <span>
                   Rs.{" "}
-                  {cartItems.reduce(
-                    (acc, item) => acc + (item.isChecked ? item.price : 0),
-                    0
-                  )}
+                  {cartItems
+                    .reduce(
+                      (acc, item) => acc + (item.isChecked ? item.price * item.quantity : 0),
+                      0
+                    )
+                    .toFixed(2)}
                 </span>
               </div>
               <button className="place-order" onClick={razorpay}>

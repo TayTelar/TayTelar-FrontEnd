@@ -1,162 +1,28 @@
 import "../../assets/sass/pages/_shop.scss";
 import banner from "../../assets/images/products_banner.png";
-import img1 from "../../assets/images/image_1 (1).png";
-import hover_1 from "../../assets/images/hover_img_1.webp";
-import hover_2 from "../../assets/images/hover_img_2.webp";
-import hover_4 from "../../assets/images/hover_img_4.webp";
-import img2 from "../../assets/images/image_1 (2).png";
-import img3 from "../../assets/images/image_1 (3).png";
-import img4 from "../../assets/images/image_1 (4).png";
-import img5 from "../../assets/images/image_1 (1).png";
-import img6 from "../../assets/images/image_1 (2).png";
-import img7 from "../../assets/images/image_1 (3).png";
-import img8 from "../../assets/images/image_1 (4).png";
-import hover_3 from "../../assets/images/hover_img_3webp.webp";
 import StarIcon from "@mui/icons-material/Star";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Breadcrumbs from "../../components/breadcrumb/Breadcrumbs";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 interface Product {
   img: string;
   hoverImg: string;
-  title: string;
+  productName: string;
   price: string;
   rating: string;
   reviews: string;
+  productId: string;
+  productDescription: string;
+  productMaterialType: string;
+  productPattern: string;
+  productStatus: string;
+  stockQuantityResponseList: any[];
+  video: string;
 }
 
-const products: Product[] = [
-  {
-    img: img1,
-    hoverImg: hover_2,
-    title: "Ebony Black Stretch Pants",
-    price: "Rs. 2,990",
-    rating: "4.9",
-    reviews: "303 reviews",
-  },
-  {
-    img: img2,
-    hoverImg: hover_3,
-    title: "Mineral Gray Stretch Pants",
-    price: "Rs. 2,990",
-    rating: "4.9",
-    reviews: "673 reviews",
-  },
-  {
-    img: img3,
-    hoverImg: hover_1,
-    title: "Eco Navy Stretch Pants",
-    price: "Rs. 2,990",
-    rating: "4.9",
-    reviews: "543 reviews",
-  },
-  {
-    img: img4,
-    hoverImg: hover_4,
-    title: "Camel Stretch Pants",
-    price: "Rs. 2,990",
-    rating: "4.9",
-    reviews: "500 reviews",
-  },
-  {
-    img: img5,
-    hoverImg: hover_2,
-    title: "Ebony Black Stretch Pants",
-    price: "Rs. 2,990",
-    rating: "4.9",
-    reviews: "387 reviews",
-  },
-  {
-    img: img6,
-    hoverImg: hover_3,
-    title: "Mineral Gray Stretch Pants",
-    price: "Rs. 2,990",
-    rating: "4.9",
-    reviews: "309 reviews",
-  },
-  {
-    img: img7,
-    hoverImg: hover_1,
-    title: "Eco Navy Stretch Pants",
-    price: "Rs. 2,990",
-    rating: "4.9",
-    reviews: "783 reviews",
-  },
-  {
-    img: img8,
-    hoverImg: hover_4,
-    title: "Camel Stretch Pants",
-    price: "Rs. 2,990",
-    rating: "4.9",
-    reviews: "129 reviews",
-  },
-  {
-    img: img1,
-    hoverImg: hover_2,
-    title: "Ebony Black Stretch Pants",
-    price: "Rs. 2,990",
-    rating: "4.9",
-    reviews: "303 reviews",
-  },
-  {
-    img: img2,
-    hoverImg: hover_3,
-    title: "Mineral Gray Stretch Pants",
-    price: "Rs. 2,990",
-    rating: "4.9",
-    reviews: "673 reviews",
-  },
-  {
-    img: img3,
-    hoverImg: hover_1,
-    title: "Eco Navy Stretch Pants",
-    price: "Rs. 2,990",
-    rating: "4.9",
-    reviews: "543 reviews",
-  },
-  {
-    img: img4,
-    hoverImg: hover_4,
-    title: "Camel Stretch Pants",
-    price: "Rs. 2,990",
-    rating: "4.9",
-    reviews: "500 reviews",
-  },
-  {
-    img: img5,
-    hoverImg: hover_2,
-    title: "Ebony Black Stretch Pants",
-    price: "Rs. 2,990",
-    rating: "4.9",
-    reviews: "387 reviews",
-  },
-  {
-    img: img6,
-    hoverImg: hover_3,
-    title: "Mineral Gray Stretch Pants",
-    price: "Rs. 2,990",
-    rating: "4.9",
-    reviews: "309 reviews",
-  },
-  {
-    img: img7,
-    hoverImg: hover_1,
-    title: "Eco Navy Stretch Pants",
-    price: "Rs. 2,990",
-    rating: "4.9",
-    reviews: "783 reviews",
-  },
-  {
-    img: img8,
-    hoverImg: hover_4,
-    title: "Camel Stretch Pants",
-    price: "Rs. 2,990",
-    rating: "4.9",
-    reviews: "129 reviews",
-  },
-];
 
 const filters = [
   {
@@ -173,7 +39,8 @@ const filters = [
 const Shop: React.FC = () => {
   const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop" }];
   const [selectedFilters, setSelectedFilters] = useState<Set<string>>(new Set());
-  const navigate=useNavigate();
+  const [products, setProducts] = useState<Product[]>([]);
+  const navigate = useNavigate();
 
   const handleFilterChange = (filter: string) => {
     setSelectedFilters((prev) => {
@@ -194,6 +61,49 @@ const Shop: React.FC = () => {
       return newFilters;
     });
   };
+
+  const getAllProducts = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8085/api/product/getAllProducts"
+      );
+
+      const productData = response.data.categoryResponses[0]
+        .subCategoryResponses[0].productDataResponses;
+
+      const formattedProducts = productData.map((product: any) => {
+        const images = product.images;
+        const imageKeys = Object.keys(images);
+
+        const img = imageKeys.find(key => images[key] === 1); 
+        const hoverImg = imageKeys.find(key => images[key] === 2); 
+        return {
+          img: img, 
+          hoverImg: hoverImg, 
+          productName: product.productName,
+          price: product.productPrice,
+          rating: "4.9", 
+          reviews: "200 reviews",
+          productId: product.productId,
+          productDescription: product.productDescription,
+          productMaterialType: product.productMaterialType,
+          productPattern: product.productPattern,
+          productStatus:product.productStatus,
+          stockQuantityResponseList: product.stockQuantityResponseList,
+          video: product.video,
+          images
+        };
+      });
+
+      setProducts(formattedProducts);
+    } catch (error: any) {
+      console.error("Products not found:", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
 
   return (
     <div className="shop-container">
@@ -225,32 +135,22 @@ const Shop: React.FC = () => {
           </div>
           <div className="images-section">
             {products.map((product, index) => (
-              <div key={index} className="product-card">
+              <div key={index} className="product-card" onClick={() => navigate("/productinfo", { state: { product } })}>
                 <div className="image-container">
                   <img
                     src={product.img}
-                    alt={product.title}
+                    alt={product.productName}
                     className="section-image"
-                   
                   />
                   <img
                     src={product.hoverImg}
-                    alt={product.title}
+                    alt={product.productName}
                     className="section-image-hover"
-                    onClick={()=>navigate('/productinfo')}
                   />
-                  {Math.floor(index / 4) === 0 && (
-                    <span className="label">New Arrival</span>
-                  )}
-                  {Math.floor(index / 4) === 1 && (
-                    <span className="label">Limited Edition</span>
-                  )}
-                  {Math.floor(index / 4) === 2 && (
-                    <span className="label">Trending</span>
-                  )}
+                    <span className="label">{product.productStatus}</span>
                 </div>
                 <div className="product-info">
-                  <span className="product-title">{product.title}</span>
+                  <span className="product-title">{product.productName}</span>
                   <span className="product-price">{product.price}</span>
                   <div className="product-rating">
                     <StarIcon className="star-icon" />
@@ -267,6 +167,7 @@ const Shop: React.FC = () => {
   );
 };
 
+
 export default Shop;
 
 interface FilterProps {
@@ -279,12 +180,12 @@ const Filter: React.FC<FilterProps> = ({
   onFilterChange,
   selectedFilters,
 }) => {
-  const [hiddenItems, setHiddenItems] = useState<string[]>([]); 
+  const [hiddenItems, setHiddenItems] = useState<string[]>([]);
   const [clickedSize, setClickedSize] = useState<number | null>(null);
 
 
   const handleSizeClick = (size: number) => {
-    setClickedSize(size === clickedSize ? null : size); 
+    setClickedSize(size === clickedSize ? null : size);
     onFilterChange(size.toString());
   };
 
@@ -336,16 +237,15 @@ const Filter: React.FC<FilterProps> = ({
           {colors.map((color) => (
             <div
               key={color}
-              className={`color-item ${
-                hiddenItems.includes(color) ? "hidden" : ""
-              }`}
+              className={`color-item ${hiddenItems.includes(color) ? "hidden" : ""
+                }`}
               style={{
                 backgroundColor: color,
                 border: "none",
                 width: "30px",
                 height: "30px",
                 borderRadius: "50%",
-              }} 
+              }}
               onClick={() => handleItemClick(color)}
             ></div>
           ))}

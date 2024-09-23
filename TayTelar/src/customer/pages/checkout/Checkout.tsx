@@ -31,7 +31,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep }) => {
     <GradingIcon key="review" />,
   ];
 
-  const steps = ["Add Address", "Payment", "Review"];
+  const steps = ["Checkout", "Payment", "Review"];
 
   return (
     <div>

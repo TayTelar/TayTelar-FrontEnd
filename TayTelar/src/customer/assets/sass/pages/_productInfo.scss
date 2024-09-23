@@ -53,7 +53,6 @@ html, body {
   margin-left: 15rem;
   overflow: hidden; /* Hide images that are out of view */
   position: relative;
-  z-index: 10;
 }
 .slide-container .slick-prev,.slick-next{
   display: none;
@@ -67,9 +66,7 @@ html, body {
   margin-bottom: 1.8px;
   display: block;
   cursor: pointer;
-  overflow: hidden;
   transition: opacity 0.5s ease-in-out;
- 
 }
 .modal {
   position: fixed;
@@ -150,14 +147,13 @@ html, body {
   right: 20rem;
   height: 47rem;
   overflow: hidden;
-  z-index: 1;
 
   .primary-image {
     position: absolute;
     cursor: zoom-in;
     
     top: 1.3rem;
-    left: 10rem;
+    left: 7rem;
     
     width:50%;
     height: 85%;
@@ -166,17 +162,17 @@ html, body {
 
   .slide-in {
     transform: translateX(100%);
-    opacity: 0; 
+    opacity: 0; /* Initial state off-screen to the right */
   }
 
   .slide-out {
     transform: translateX(100%); 
-    opacity: 0;
+    opacity: 0;/* Slide out to the left */
   }
 
   .slide-active {
     transform: translateX(0);
-    opacity: 1; 
+    opacity: 1; /* Bring image to the center */
   }
 }
 
@@ -184,11 +180,10 @@ html, body {
   
   position: absolute; /* Position it absolutely within the main container */
   top: 10.5rem; /* Adjust as needed to vertically center the heading */
-  left: 48rem;
+  left: 58rem;
   
   gap: 0px;
   opacity: 0px;
-  z-index: 1;
   /* Center it vertically relative to the primary image */
 }
 .product-name{
@@ -488,5 +483,32 @@ html, body {
     margin-top: 5rem;
   }
 }
+.color.disabled {
+  opacity: 0.5;
+  pointer-events: none; /* Prevent interaction */
+}
+
+.out-of-stock {
+  color: red;
+  font-size: 0.75rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.color.disabled {
+  opacity: 0.5;
+  pointer-events: none; /* Prevent interaction */
+}
+
+.out-of-stock {
+  color: red;
+  font-size: 0.75rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 
 
