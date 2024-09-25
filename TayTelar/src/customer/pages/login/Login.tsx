@@ -6,7 +6,6 @@ import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-// @ts-ignore
 import {
   LoginSocialGoogle,
   LoginSocialFacebook,
@@ -521,7 +520,7 @@ const Login: React.FC<customerType> = ({ customerType }) => {
                   {/* Facebook */}
                   <LoginSocialFacebook
                     appId="1317999665724935"
-                    onResolve={({ response }: IResolveParams) => {
+                    onResolve={({ response }: any) => {
                       console.log(response);
                     }}
                     onReject={(err: any) => {
