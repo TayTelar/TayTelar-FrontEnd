@@ -61,9 +61,9 @@ const Checkout: React.FC = () => {
  
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [currentStep, setCurrentStep] = useState<number>(1);
-  const [subtotal, setSubtotal] = useState<number>(2675); // Initial subtotal value
-  const [total, setTotal] = useState<number>(2675);
-  const [isExchange, setIsExchange] = useState<boolean>(false);
+  const [_subtotal, setSubtotal] = useState<number>(2675); // Initial subtotal value
+  const [_total, setTotal] = useState<number>(2675);
+  const [_isExchange, setIsExchange] = useState<boolean>(false);
 
   useEffect(() => {
     // Fetching 'exchange' from URL query params
