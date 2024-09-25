@@ -32,6 +32,7 @@ import ViewOrder from "./admin/pages/orders/ViewOrder";
 import Settings from "./admin/pages/settings/Settings";
 import AddProduct from "./admin/pages/items management/AddProduct";
 import ShowProduct from "./admin/pages/items management/ShowProduct";
+import { OrderProvider } from "./customer/pages/orders/OrderContext";
 
 const App = () => {
   const location = useLocation();
@@ -49,7 +50,9 @@ const App = () => {
         <Route path="/shop" element={<Shop />} />
         <Route path="/cart" element={<CartModal />} />
         <Route path="/checkout" element={<Checkout />} />
-        <Route path="/order" element={<Orders />} />
+        
+        <Route path="/order" element={<OrderProvider><Orders /></OrderProvider>} />
+        
         <Route
           path="/productinfo"
           element={

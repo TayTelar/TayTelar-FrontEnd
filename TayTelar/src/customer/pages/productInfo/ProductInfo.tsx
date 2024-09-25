@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate ,useLocation} from "react-router-dom";
 import Slider from "react-slick";
 
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
@@ -19,23 +20,38 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import Breadcrumbs from "../../components/breadcrumb/Breadcrumbs";
 import ImageModal from "./ImageModal";
 
+
 const images = [image1, image2, image3, image4, image5];
 const colors: string[] = ["black", "white", "grey", "blue"];
 const sizes: string[] = ["30", "32", "34", "36"];
 const limitedSize = "34";
 const ProductInfo = () => {
+  const location = useLocation(); 
+  const params = new URLSearchParams(location.search);
+  const exchange = params.get('exchange') === 'true';
+  console.log(exchange); // Access location to get query parameters
+
+  const [price, setPrice] = useState<number>(2675);
+  
+    useEffect(() => {
+      // Scroll to the top of the page when the component mounts
+      window.scrollTo(0, 0);
+    }, []);
+    useEffect(() => {
+      // Check if the price should be Rs. 0 based on query parameters or state
+      const params = new URLSearchParams(location.search);
+      if (params.get('exchange') === 'true') {
+        setPrice(0);
+      } else {
+        setPrice(2675);
+      }
+    }, [location.search]);
   
 const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/shop" },{label:"Blog",path:'/'},{label:"Contact Us",path:'/contactUs'}];
 
   const { reviews, averageRating } = useReviews();
   const [rating, setRating] = useState<number>(averageRating);
-  
-
-  
-
-
-
-  
+  const navigate=useNavigate();
   useEffect(() => {
     setRating(averageRating); // Update local state when context changes
   }, [averageRating]);
@@ -99,7 +115,8 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
   };
   return (
     <div className={`main-container ${isModalOpen ? "blur-background" : ""}`}>
-      <div className="bread-crumbs">
+      <div className="
+      -crumbs">
       <Breadcrumbs crumbs={breadcrumbData}/>
       </div>
       
@@ -115,9 +132,11 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
                 className={`stacked-images ${
                   activeImage === index ? "active" : ""
                 }`}
-                onClick={() => handleImageChange(index)}
+                onClick={() => {handleImageChange(index);console.log(index)}}
               />
             ))}
+
+            
           </Slider>
         </div>
         <div className="primary-image-container">
@@ -170,8 +189,9 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
             </div>
           </div>
           <div className="price">
-            <h4 className="rupees">$ 2,999</h4>
-            <h5 className="discount">60% OFF</h5>
+        <h4 className="rupees">Rs. {price}</h4>
+        {price === 0 ? <h5 className="discount">Exchange Offer</h5>:<h5 className="discount">60% OFF</h5>}
+            
           </div>
           <div className="Mrp">M.R.P. Incl. of all taxes</div>
           <div className="size">
@@ -211,11 +231,11 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
                 +
               </span>
             </div>
-            <button className="cart">
+            <button className="cart" onClick={()=>{navigate('/cart')}}>
               <ShoppingBagOutlinedIcon className="shopping-bag" />
               ADD TO CART
             </button>
-            <button className="buy">BUY NOW</button>
+            <button className="buy" onClick={()=>{navigate("/checkout", { state: { exchange } })}}>BUY NOW</button>
           </div>
           <div className="info-container">
             <div className="info-item">
