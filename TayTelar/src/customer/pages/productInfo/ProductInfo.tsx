@@ -50,7 +50,7 @@ const ProductInfo = () => {
 const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/shop" },{label:"Blog",path:'/'},{label:"Contact Us",path:'/contactUs'}];
 
   const { reviews, averageRating } = useReviews();
-  const [rating, setRating] = useState<number>(averageRating);
+  const [_rating, setRating] = useState<number>(averageRating);
   const navigate=useNavigate();
   useEffect(() => {
     setRating(averageRating); // Update local state when context changes

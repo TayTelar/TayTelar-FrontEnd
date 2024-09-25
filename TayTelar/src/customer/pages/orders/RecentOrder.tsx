@@ -67,12 +67,7 @@ const closeReturnOrExchangeModal = () => {
   };
 
   const cancelItem = recentOrders.find((item) => item.id === cancelItemId);
-  const isReturnPolicyExpired = (orderDate: string) => {
-    const orderDateObj = new Date(orderDate);
-    const returnPolicyDeadline = new Date(orderDateObj);
-    returnPolicyDeadline.setDate(returnPolicyDeadline.getDate() + 30); // Assuming 30 days return policy
-    return new Date() > returnPolicyDeadline;
-  };
+  
 
   return (
     <div>
@@ -244,7 +239,7 @@ const closeReturnOrExchangeModal = () => {
 export default RecentOrder;
 
 
-const TrackOrder: React.FC<{ status: string }> = ({ status }) => {
+const TrackOrder: React.FC<{ status: string }> = () => {
   const stages = [
     "Order Placed",
     "Dispatched",

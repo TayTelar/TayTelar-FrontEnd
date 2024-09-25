@@ -6,7 +6,7 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import WriteReview from './WriteReview';
 import '../../assets/sass/pages/_product.scss';
 import { useReviews } from './contexts/ReviewContext';
-import { Sidebar, SignalZero } from 'lucide-react';
+
 
 const Review: React.FC = () => {
   const { reviews, averageRating } = useReviews(); // Use the context hook
