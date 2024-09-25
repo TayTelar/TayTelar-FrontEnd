@@ -6,7 +6,6 @@ import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-// @ts-ignore
 import {  LoginSocialGoogle, LoginSocialFacebook, LoginSocialApple, IResolveParams} from "reactjs-social-login";
 import {
   GoogleLoginButton,
@@ -154,7 +153,7 @@ const Login: React.FC<customerType> = ({ customerType }) => {
         requestbody
       );
 
-      if (response.status === 200) {
+      if (response.data.statusCode === 200) {
         console.log("OTP Verified!");
         return true;
       } else {
@@ -259,6 +258,10 @@ const Login: React.FC<customerType> = ({ customerType }) => {
 
       if (response.status === 200) {
         console.log("Login successful!");
+        const { id } = response.data;
+      
+        localStorage.setItem('userId', id);
+        console.log("User ID stored in localStorage:", id);
 
         if (customerType === "customer") {
           console.log("Navigating to /home");
@@ -516,7 +519,7 @@ const Login: React.FC<customerType> = ({ customerType }) => {
                   {/* Facebook */}
                   <LoginSocialFacebook
                     appId="1317999665724935"
-                    onResolve={({ response }: IResolveParams) => {
+                    onResolve={({ response }:any) => {
                       console.log(response);
                     }}
                     onReject={(err: any) => {
