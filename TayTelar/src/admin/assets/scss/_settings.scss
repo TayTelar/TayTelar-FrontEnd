@@ -1,0 +1,136 @@
+.site-settings {
+  .__edit__button,
+  .__delete__button {
+    background-color: white;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+  }
+ 
+  .main__header {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #3b3b3b;
+  }
+
+  .sub__header {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    color: #858585;
+    font-weight: 600;
+  }
+
+  .section {
+    margin-bottom: 25px;
+
+    table {
+      width: 80%;
+      border-collapse: collapse;
+
+      th,
+      td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ccc;
+      }
+
+      th {
+        color: #a8a8a8;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      td {
+        font-size: 13px;
+      }
+
+      .actions {
+        button {
+          margin-right: 10px;
+          padding: 8px 10px;
+          border: none;
+          background-color: #3b3b3b;
+          color: white;
+          font-size: 12px;
+          cursor: pointer;
+          &:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+          }
+        }
+
+        .__edit__delete__buttons {
+          button {
+            &:last-child {
+              background-color: #fff;
+              border: 1.5px solid #3b3b3b;
+              color: #3b3b3b;
+              font-weight: 500;
+            }
+          }
+        }
+      }
+    }
+
+    .add-button {
+      margin-top: 10px;
+      padding: 8px 6px;
+      border: 1.5px solid #3b3b3b;
+      background-color: #fff;
+      color: #3b3b3b;
+      font-weight: 500;
+      cursor: pointer;
+      font-size: 12px;
+    }
+  }
+
+  .form-popup {
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  .input__fields {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .form-group {
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+  }
+
+  .actionbuttons {
+    display: flex;
+  }
+
+  .save-button,
+  .close-button {
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 8px 18px;
+    border: none;
+    background-color: #3b3b3b;
+    color: white;
+    cursor: pointer;
+  }
+
+  .close-button {
+    background-color: #fff;
+    color: #3b3b3b;
+    border: 1.2px solid #3b3b3b;
+  }
+}

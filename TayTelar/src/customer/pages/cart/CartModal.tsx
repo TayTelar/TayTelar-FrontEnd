@@ -98,10 +98,6 @@ const CartModal: React.FC = () => {
 
   const selectedItemsCount = cartItems.filter((item) => item.isChecked).length;
 
-  const handleCheckout = () => {
-    navigate("/checkout");
-  };
-
   const addItems = () => {
     navigate("/shop");
   };
@@ -132,7 +128,6 @@ const CartModal: React.FC = () => {
     orderId: string,
     userId: string,
     totalAmount: number,
-    paymentMethod:string
   ) {
     let requestBody = {
       orderId: "TT1084534993",
@@ -141,8 +136,6 @@ const CartModal: React.FC = () => {
       paymentMethod: "G Pay"
     };
 
-    // let baseUrl =
-      // "http://app-vehicle-lb-1832405950.ap-south-1.elb.amazonaws.com/";
     let baseUrl = "http://localhost:8085/api/payment/";
 
     try {
@@ -237,9 +230,9 @@ const CartModal: React.FC = () => {
     }
   }
 
-  const razorpay: MouseEventHandler<HTMLButtonElement> = async (event) => {
+  const razorpay: MouseEventHandler<HTMLButtonElement> = async () => {
     const amount = 1000;
-    await displayRazorpay("abcd123", "UID168250", amount,"G pay");
+    await displayRazorpay("abcd123", "UID168250", amount);
     console.log("Request Body:" + "abcd123" + "," + "6360120872" + "," + amount);
   };
 
