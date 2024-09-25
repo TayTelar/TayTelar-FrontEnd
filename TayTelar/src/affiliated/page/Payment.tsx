@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 interface AddPaymentProps {
-  onProceed: () => void;
+  onProceed?: () => void;
 }
 
 const banksList = [
@@ -200,7 +200,7 @@ const Payment: React.FC<AddPaymentProps> = ({ onProceed }) => {
               <div className="upi-input-container">
                 <div className="input-group">
                   <label>Enter UPI ID</label>
-                  <input type="text"/>
+                  <input type="text" />
                 </div>
                 <button className="btn-verify">Proceed</button>
               </div>

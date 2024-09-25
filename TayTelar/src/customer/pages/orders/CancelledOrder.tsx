@@ -14,8 +14,7 @@ interface CancelledOrder {
   }
 
 const CancelledOrder = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [items, setItems] = useState<CancelledOrder[]>([
+  const [items, _setItems] = useState<CancelledOrder[]>([
     {
       id: 1,
       name: "Camel Stretch Pants",
@@ -27,8 +26,6 @@ const CancelledOrder = () => {
       image: item,
     },
   ]);
-
-  // const [items, setItems] = useState<MyOrder[]>([]);
 
   return (
     <div className="canceled-order">

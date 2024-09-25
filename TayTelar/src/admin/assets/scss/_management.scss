@@ -1,0 +1,31 @@
+.tab-bar {
+  display: flex;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+  font-size: 14px;
+  color: #3b3b3b;
+  font-weight: 400;
+}
+
+.tab:last-child {
+  border-right: none;
+}
+
+.tab.active {
+  border-bottom: 1.5px solid #3b3b3b;
+  font-weight: 700;
+}
+
+.tab-content {
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: -1px;
+}

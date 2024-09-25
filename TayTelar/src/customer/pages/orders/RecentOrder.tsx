@@ -22,8 +22,7 @@ interface MyOrder {
 }
 
 const RecentOrder = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [items, setItems] = useState<MyOrder[]>([
+  const [items, _setItems] = useState<MyOrder[]>([
     {
       id: 1,
       name: "Camel Stretch Pants",
@@ -65,7 +64,7 @@ const RecentOrder = () => {
   // const [items, setItems] = useState<MyOrder[]>([]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [cancelItemId, setCancelItemId] = useState<number | null>(null);
+  const [_cancelItemId, setCancelItemId] = useState<number | null>(null);
   const [showCancelForm, setShowCancelForm] = useState<boolean>(false);
   const [selectedReason, setSelectedReason] = useState<string | null>(null);
 
