@@ -1,5 +1,4 @@
 import "../../assets/sass/pages/_cart.scss";
-import item from "../../assets/images/hover_img_4.webp";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { MouseEventHandler, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +7,7 @@ import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
 import StraightenIcon from "@mui/icons-material/Straighten";
 import empty_cart from "../../assets/images/empty_cart.png";
 import axios from "axios";
+import ErrorModal from "../../components/modal/ErrorModal";
 
 interface CartItem {
   id: number;
@@ -28,6 +28,8 @@ const CartModal: React.FC = () => {
   const navigate = useNavigate();
 
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState<boolean>(false);
+
 
   const handleQuantityChange = async (id: number, increment: boolean = true) => {
     const itemToUpdate = cartItems.find(item => item.id === id);
@@ -61,9 +63,11 @@ const CartModal: React.FC = () => {
           )
         );
       } else {
+        setIsErrorModalOpen(true);
         console.error("Failed to update quantity", response);
       }
     } catch (error) {
+      setIsErrorModalOpen(true);
       console.error("Error updating quantity", error);
     }
   };
@@ -79,13 +83,13 @@ const CartModal: React.FC = () => {
   const handleRemoveItem = async (id: number) => {
     const itemToUpdate = cartItems.find(item => item.id === id);
     if (!itemToUpdate) return;
-  
+
     const requestBody = {
       userId: "UID240099",
       cartItemRequests: [
         {
           cartItemId: itemToUpdate.id.toString(),
-          productId: "P12349", 
+          productId: "P12349",
           productName: itemToUpdate.name,
           productSize: itemToUpdate.size,
           productColor: itemToUpdate.productColor,
@@ -95,22 +99,24 @@ const CartModal: React.FC = () => {
         }
       ]
     };
-  
+
     try {
       const response = await axios.delete("http://localhost:8085/api/cart/deleteCartItem", {
         data: requestBody
       });
-  
+
       if (response.data.statusCode === 200) {
         setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
       } else {
         console.error("Failed to remove item", response);
+        setIsErrorModalOpen(true);
       }
     } catch (error) {
       console.error("Error removing item", error);
+      setIsErrorModalOpen(true);
     }
   };
-  
+
 
 
   const selectedItemsCount = cartItems.filter((item) => item.isChecked).length;
@@ -145,6 +151,7 @@ const CartModal: React.FC = () => {
       console.log("Cart items loaded successfully", items);
     } catch (error: any) {
       console.log("Couldn't load cart items", error);
+      setIsErrorModalOpen(true);
     }
   };
 
@@ -285,8 +292,44 @@ const CartModal: React.FC = () => {
     console.log("Request Body:" + "abcd123" + "," + "6360120872" + "," + amount);
   };
 
-
-
+  const handleCheckout = () => {
+    const selectedProducts = cartItems.filter((item) => item.isChecked).map((item) => ({
+      productID: item.id,
+      name: item.name,
+      color: item.productColor,
+      quantity: item.quantity,
+      size: item.size,
+      price: item.price,
+      image: item.image, 
+    }));
+    
+    const totalMRP = cartItems.reduce(
+      (acc, item) => acc + (item.isChecked ? item.originalPrice * item.quantity : 0),
+      0
+    );
+  
+    const totalDiscount = cartItems.reduce(
+      (acc, item) => acc + (item.isChecked ? (item.originalPrice - item.price) * item.quantity : 0),
+      0
+    );
+  
+    const totalAmount = cartItems.reduce(
+      (acc, item) => acc + (item.isChecked ? item.price * item.quantity : 0),
+      0
+    );
+  
+    navigate('/checkout', {
+      state: {
+        selectedProducts,
+        pricingDetails: {
+          totalMRP: totalMRP.toFixed(2),
+          totalDiscount: totalDiscount.toFixed(2),
+          totalAmount: totalAmount.toFixed(2),
+        }
+      }
+    });
+  };
+  
   return (
     <div className="cart-modal">
       <div className="cart-content">
@@ -418,9 +461,10 @@ const CartModal: React.FC = () => {
                     .toFixed(2)}
                 </span>
               </div>
-              <button className="place-order" onClick={razorpay}>
+              <button className="place-order" onClick={() => handleCheckout()}>
                 CHECKOUT
               </button>
+
               <div className="trust-indicators">
                 <div className="indicator">
                   <LocalShippingIcon className="icon" />
@@ -439,6 +483,13 @@ const CartModal: React.FC = () => {
           </>
         )}
       </div>
+      <ErrorModal
+        open={isErrorModalOpen}
+        onClose={() => setIsErrorModalOpen(false)}
+        title="Error!"
+        content="Something went wrong. Please try again later."
+        buttonText="Close"
+      />
     </div>
   );
 };

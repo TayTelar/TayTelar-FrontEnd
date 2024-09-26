@@ -16,6 +16,7 @@ import ImageModal from "./ImageModal";
 import axios from "axios";
 import SuccessModal from "../../components/modal/SuccessModal";
 import ErrorModal from "../../components/modal/ErrorModal";
+import { useNavigate } from "react-router-dom";
 
 const ProductInfo = () => {
   const breadcrumbData = [
@@ -47,19 +48,63 @@ const ProductInfo = () => {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
   const [isErrorModalOpen, setIsErrorModalOpen] = useState<boolean>(false);
 
-
-  // Modified colors state to store both color and its quantity
   const [colors, setColors] = useState<{
     colorCode: string; color: string, quantity: number
   }[]>([]);
-  const [limitedSizeData, setLimitedSizeData] = useState<{ [key: string]: number }>({});
 
-  // Update rating when the context changes
+  const [limitedSizeData, setLimitedSizeData] = useState<{ [key: string]: number }>({});
+  const [selectedSizePrice, setSelectedSizePrice] = useState<number>(product.stockQuantityResponseList[0].productPrice);
+  const [originalPrice, setOriginalPrice] = useState<number>(selectedSizePrice);
+
   useEffect(() => {
     setRating(averageRating);
   }, [averageRating]);
 
-  // Handle image change with animation
+  const navigate = useNavigate();
+
+
+  const navigateToCheckout = () => {
+    const selectedProduct = {
+      productID: product.productId,
+      name: product.productName,
+      color: selectedColor || colors[0]?.color,
+      quantity: count,
+      size: selectSize || sizes[0],
+      price: selectedSizePrice,
+      image: images[activeImage],
+      originalPrice: originalPrice, 
+    };
+  
+    const selectedProducts = [selectedProduct];
+  
+    const totalMRP = selectedProducts.reduce(
+      (acc, item) => acc + item.originalPrice * item.quantity,
+      0
+    );
+  
+    const totalDiscount = selectedProducts.reduce(
+      (acc, item) => acc + (item.originalPrice - item.price) * item.quantity,
+      0
+    );
+  
+    const totalAmount = selectedProducts.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
+  
+    navigate("/checkout", {
+      state: {
+        selectedProducts,
+        pricingDetails: {
+          totalMRP: totalMRP.toFixed(2),
+          totalDiscount: totalDiscount.toFixed(2),
+          totalAmount: totalAmount.toFixed(2),
+        },
+      },
+    });
+  };
+  
+
   const handleImageChange = (index: number) => {
     if (index !== activeImage) {
       setAnimationClass("slide-out");
@@ -77,62 +122,70 @@ const ProductInfo = () => {
 
   const handleSizeChange = (size: string) => {
     setSelectSize(size);
+    
     const selectedSizeData = product.stockQuantityResponseList.find(
       (sizeData: any) => sizeData.size === parseInt(size)
     );
-
+  
     if (selectedSizeData) {
-      // Update colors to include both color and quantity
       const availableColors = selectedSizeData.colorQuantityResponses.map(
         (colorData: any) => ({
           color: colorData.color,
           colorCode: colorData.colorCode,
-          quantity: colorData.quantity
+          quantity: colorData.quantity,
         })
       );
       setColors(availableColors);
-      // Automatically select the first available color with quantity > 0
-      const firstAvailableColor = availableColors.find((colorData: { quantity: number; }) => colorData.quantity > 0);
+  
+      const discountedPrice = selectedSizeData.productPrice;
+      setSelectedSizePrice(discountedPrice);
+  
+      const offerPercentage = product.offerPercent || 0; 
+      let originalPrice = discountedPrice;
+  
+      if (offerPercentage > 0) {
+        originalPrice = discountedPrice / (1 - (offerPercentage / 100));
+      }
+  
+      setOriginalPrice(parseFloat(originalPrice.toFixed(2)));
+  
+      const firstAvailableColor = availableColors.find(
+        (colorData: { quantity: number }) => colorData.quantity > 0
+      );
       setSelectedColor(firstAvailableColor ? firstAvailableColor.color : "");
     } else {
       setColors([]);
     }
   };
+  
+  
 
   useEffect(() => {
     if (product && product.stockQuantityResponseList) {
-      // Map available sizes from product stock data
       const availableSizes = product.stockQuantityResponseList.map(
         (sizeData: any) => sizeData.size.toString()
       );
 
       setSizes(availableSizes);
 
-      // Set the first size as the default selected size
       if (availableSizes.length > 0) {
         setSelectSize(availableSizes[0]);
-        handleSizeChange(availableSizes[0]); // Call handleSizeChange here to fetch the colors for the default size
+        handleSizeChange(availableSizes[0]);
       }
 
-      // Create a data structure to store sizes where total quantity of colors is less than 6
       const limitedData: { [key: string]: number } = {};
 
-      // Loop through each size and calculate the total quantity of all colors
       product.stockQuantityResponseList.forEach((sizeData: any) => {
         let totalQuantity = 0;
 
-        // Sum the quantities for all colors in this size
         sizeData.colorQuantityResponses.forEach((colorData: any) => {
           totalQuantity += colorData.quantity;
         });
 
-        // If the total quantity for this size is less than 6, add it to limitedData
         if (totalQuantity < 6) {
           limitedData[sizeData.size] = totalQuantity;
         }
       });
-
-      // Set the limited size data state
       setLimitedSizeData(limitedData);
     }
   }, [product]);
@@ -159,7 +212,7 @@ const ProductInfo = () => {
           productColor: selectedColor || defaultColor,
           productColorCode: selectedColorCode,
           quantity: count,
-          price: product.price,
+          price: selectedSizePrice,
         }
       ]
     };
@@ -285,8 +338,9 @@ const ProductInfo = () => {
             </div>
           </div>
           <div className="price">
-            <h4 className="rupees">Rs {product.price}</h4>
-            <h5 className="discount">60% OFF</h5>
+            <h4 className="rupees">Rs {selectedSizePrice}</h4>
+            <h5 className="discount">{product.offerPercent}% OFF</h5>
+            <div className="original-price">Original Price: Rs {originalPrice}</div>
           </div>
           <div className="Mrp">M.R.P. Incl. of all taxes</div>
           <div className="size">
@@ -306,7 +360,6 @@ const ProductInfo = () => {
                     ) : (
                       size
                     )}
-                    {/* Show the limited text if the quantity is less than 6 and not 0 */}
                     {limitedSizeData[size] !== undefined && limitedSizeData[size] > 0 && (
                       <div className="limited-text">{limitedSizeData[size]} left</div>
                     )}
@@ -336,7 +389,9 @@ const ProductInfo = () => {
               <ShoppingBagOutlinedIcon className="shopping-bag" />
               ADD TO CART
             </button>
-            <button className="buy">BUY NOW</button>
+            <button className="buy" onClick={navigateToCheckout}>
+              BUY NOW
+            </button>
           </div>
           <div className="info-container">
             <div className="info-item">

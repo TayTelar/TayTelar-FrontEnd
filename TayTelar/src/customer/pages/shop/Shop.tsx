@@ -11,7 +11,6 @@ interface Product {
   img: string;
   hoverImg: string;
   productName: string;
-  price: string;
   rating: string;
   reviews: string;
   productId: string;
@@ -22,7 +21,6 @@ interface Product {
   stockQuantityResponseList: any[];
   video: string;
 }
-
 
 const filters = [
   {
@@ -81,7 +79,6 @@ const Shop: React.FC = () => {
           img: img, 
           hoverImg: hoverImg, 
           productName: product.productName,
-          price: product.productPrice,
           rating: "4.9", 
           reviews: "200 reviews",
           productId: product.productId,
@@ -91,7 +88,8 @@ const Shop: React.FC = () => {
           productStatus:product.productStatus,
           stockQuantityResponseList: product.stockQuantityResponseList,
           video: product.video,
-          images
+          images,
+          offerPercent:product.productOfferPercentage
         };
       });
 
@@ -151,7 +149,7 @@ const Shop: React.FC = () => {
                 </div>
                 <div className="product-info">
                   <span className="product-title">{product.productName}</span>
-                  <span className="product-price">{product.price}</span>
+                  <span className="product-price">Rs.{product.stockQuantityResponseList[0].productPrice}</span>
                   <div className="product-rating">
                     <StarIcon className="star-icon" />
                     <span className="rating">{product.rating}</span>

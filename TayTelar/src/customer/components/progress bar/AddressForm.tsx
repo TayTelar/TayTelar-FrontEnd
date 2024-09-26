@@ -1,5 +1,19 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import "../../assets/sass/components/_address.scss";
+
+interface Address {
+  addressId?: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  buildingName: string;
+  streetName: string;
+  cityName: string;
+  stateName: string;
+  countryName: string;
+  pinCode: string;
+  typeOfAddress: "HOME" | "WORK" | "OTHERS";
+}
 
 interface FormData {
   name: string;
@@ -14,10 +28,11 @@ interface FormData {
 }
 
 interface AddressFormProps {
-  addAddress: (address: FormData) => void;
+  addAddress: (address: Address) => void;
+  address?: Address | null;
 }
 
-const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
+const AddressForm: React.FC<AddressFormProps> = ({ addAddress, address }) => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     mobileNumber: "",
@@ -30,50 +45,71 @@ const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
     defaultAddress: false,
   });
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value, type, checked } = e.target as HTMLInputElement;
+  useEffect(() => {
+    if (address) {
+      setFormData({
+        name: `${address.firstName} ${address.lastName}`,
+        mobileNumber: address.phoneNumber,
+        addressLine1: address.buildingName || "",
+        addressLine2: address.streetName || "",
+        city: address.cityName || "",
+        pinCode: address.pinCode || "",
+        state: address.stateName || "",
+        addressType: address.typeOfAddress || "HOME",
+        defaultAddress: false,
+      });
+    }
+  }, [address]);
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target as HTMLInputElement | HTMLSelectElement;
+  
     if (type === "checkbox") {
-      setFormData({
-        ...formData,
-        [name]: checked,
-      });
+      const target = e.target as HTMLInputElement;
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: target.checked,
+      }));
     } else {
-      setFormData({
-        ...formData,
+      setFormData((prevState) => ({
+        ...prevState,
         [name]: value,
-      });
+      }));
     }
   };
 
   const handleAddressTypeChange = (type: "HOME" | "WORK" | "OTHERS") => {
-    setFormData({
-      ...formData,
+    setFormData((prevState) => ({
+      ...prevState,
       addressType: type,
-    });
+    }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addAddress(formData);
-    setFormData({
-      name: "",
-      mobileNumber: "",
-      addressLine1: "",
-      addressLine2: "",
-      city: "",
-      pinCode: "",
-      state: "",
-      addressType: "HOME",
-      defaultAddress: false,
-    });
+
+    const [firstName = "", lastName = ""] = formData.name.split(" ");
+
+    const updatedAddress: Address = {
+      addressId: address?.addressId || undefined,
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: formData.mobileNumber,
+      buildingName: formData.addressLine1,
+      streetName: formData.addressLine2,
+      cityName: formData.city,
+      stateName: formData.state,
+      countryName: "India",
+      pinCode: formData.pinCode,
+      typeOfAddress: formData.addressType,
+    };
+
+    addAddress(updatedAddress); 
   };
 
   return (
     <form className="address-form" onSubmit={handleSubmit}>
-      <p>Add New Address</p>
+      <p>{address ? "Edit Address" : "Add New Address"}</p>
       <div className="form-group">
         <label>Name</label>
         <input
@@ -158,8 +194,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
           <p
             onClick={() => handleAddressTypeChange("HOME")}
             style={{
-              borderColor:
-                formData.addressType === "HOME" ? "#3B3B3B" : "#e0e0e0",
+              borderColor: formData.addressType === "HOME" ? "#3B3B3B" : "#e0e0e0",
             }}
           >
             HOME
@@ -167,8 +202,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
           <p
             onClick={() => handleAddressTypeChange("WORK")}
             style={{
-              borderColor:
-                formData.addressType === "WORK" ? "#3B3B3B" : "#e0e0e0",
+              borderColor: formData.addressType === "WORK" ? "#3B3B3B" : "#e0e0e0",
             }}
           >
             WORK
@@ -176,8 +210,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
           <p
             onClick={() => handleAddressTypeChange("OTHERS")}
             style={{
-              borderColor:
-                formData.addressType === "OTHERS" ? "#3B3B3B" : "#e0e0e0",
+              borderColor: formData.addressType === "OTHERS" ? "#3B3B3B" : "#e0e0e0",
             }}
           >
             OTHERS
@@ -185,7 +218,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ addAddress }) => {
         </div>
       </div>
       <button type="submit" className="add-address-btn">
-        Add Address
+        {address ? "Update Address" : "Add Address"}
       </button>
     </form>
   );

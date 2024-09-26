@@ -2,23 +2,11 @@ import React, { useState } from "react";
 import CreateIcon from "@mui/icons-material/Create";
 import PaymentIcon from "@mui/icons-material/Payment";
 import GradingIcon from "@mui/icons-material/Grading";
-import AddressForm from "../../components/progress bar/AddressForm";
-import AddressList from "../../components/progress bar/AddressList";
-import OrderSummary from "../../components/progress bar/OrderSummary";
 import AddPayment from "../../components/progress bar/AddPayment";
 import ReviewOrder from "../../components/progress bar/ReviewOrder";
 import "../../assets/sass/pages/_checkout.scss";
-
-interface Address {
-  name: string;
-  addressLine1: string;
-  addressLine2: string;
-  city: string;
-  state: string;
-  pinCode: string;
-  mobileNumber: string;
-  addressType: "HOME" | "WORK" | "OTHERS";
-}
+import OrderDetails from "../../components/progress bar/OrderDetails";
+import { useLocation } from "react-router-dom";
 
 interface ProgressBarProps {
   currentStep: number;
@@ -39,9 +27,8 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep }) => {
         {steps.map((step, index) => (
           <div
             key={index}
-            className={`progress-step ${
-              currentStep === index ? "active" : ""
-            } ${currentStep > index ? "completed" : ""}`}
+            className={`progress-step ${currentStep === index ? "active" : ""
+              } ${currentStep > index ? "completed" : ""}`}
           >
             <div className="step-icon">{stepIcons[index]}</div>
             <p className="step-label">{step}</p>
@@ -53,24 +40,9 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep }) => {
 };
 
 const Checkout: React.FC = () => {
-  const [addresses, setAddresses] = useState<Address[]>([]);
+  const location = useLocation();
+  const { selectedProducts, pricingDetails } = location.state || { selectedProducts: [] };
   const [currentStep, setCurrentStep] = useState<number>(1);
-
-  const addAddress = (address: Address) => {
-    setAddresses([...addresses, address]);
-  };
-
-  const removeAddress = (index: number) => {
-    setAddresses(addresses.filter((_, i) => i !== index));
-  };
-
-  const handleSave = (index: number, updatedAddress: Address) => {
-    setAddresses((prevAddresses) => {
-      const updatedAddresses = [...prevAddresses];
-      updatedAddresses[index] = updatedAddress;
-      return updatedAddresses;
-    });
-  };
 
   const proceedToPayment = () => {
     setCurrentStep(2);
@@ -86,13 +58,7 @@ const Checkout: React.FC = () => {
       <div className="checkout_content">
         {currentStep === 1 && (
           <div className="checkout_content_left">
-            <AddressList
-              addresses={addresses}
-              onRemove={removeAddress}
-              onProceed={proceedToPayment}
-              onSave={handleSave}
-            />
-            <AddressForm addAddress={addAddress} />
+            <OrderDetails products={selectedProducts} pricingDetails={pricingDetails} />
           </div>
         )}
         {currentStep === 2 && (
@@ -105,12 +71,8 @@ const Checkout: React.FC = () => {
             <ReviewOrder />
           </div>
         )}
-        <div className="checkout_content_right">
-          <OrderSummary />
-        </div>
       </div>
     </>
   );
 };
-
 export default Checkout;
