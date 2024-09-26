@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import CreateIcon from "@mui/icons-material/Create";
 import PaymentIcon from "@mui/icons-material/Payment";
@@ -7,7 +7,6 @@ import AddPayment from "../../components/progress bar/AddPayment";
 import ReviewOrder from "../../components/progress bar/ReviewOrder";
 import "../../assets/sass/pages/_checkout.scss";
 import OrderDetails from "../../components/progress bar/OrderDetails";
-import { useLocation } from "react-router-dom";
 
 interface ProgressBarProps {
   currentStep: number;
