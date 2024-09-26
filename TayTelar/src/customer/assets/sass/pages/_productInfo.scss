@@ -70,9 +70,7 @@
   margin-bottom: 1.8px;
   display: block;
   cursor: pointer;
-  overflow: hidden;
   transition: opacity 0.5s ease-in-out;
- 
 }
 .modal {
   position: fixed;
@@ -177,17 +175,17 @@
 
   .slide-in {
     transform: translateX(100%);
-    opacity: 0; 
+    opacity: 0; /* Initial state off-screen to the right */
   }
 
   .slide-out {
     transform: translateX(100%); 
-    opacity: 0;
+    opacity: 0;/* Slide out to the left */
   }
 
   .slide-active {
     transform: translateX(0);
-    opacity: 1; 
+    opacity: 1; /* Bring image to the center */
   }
 }
 
@@ -200,7 +198,6 @@
   
   gap: 0px;
   opacity: 0px;
-  z-index: 1;
   /* Center it vertically relative to the primary image */
 }
 .product-name{

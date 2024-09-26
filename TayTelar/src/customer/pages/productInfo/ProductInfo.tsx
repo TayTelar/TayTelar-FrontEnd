@@ -1,14 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate ,useLocation} from "react-router-dom";
 import Slider from "react-slick";
-
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { CustomPrevArrow, CustomNextArrow } from "./customArrows";
-import image1 from "../../assets/images/pant1.webp";
-import image2 from "../../assets/images/pant5.webp";
-import image3 from "../../assets/images/pant2.webp";
-import image4 from "../../assets/images/pant3.jpg";
-import image5 from "../../assets/images/pant4.jpg";
 import "../../assets/sass/pages/_productInfo.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -19,47 +13,233 @@ import StarHalfIcon from "@mui/icons-material/StarHalf";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import Breadcrumbs from "../../components/breadcrumb/Breadcrumbs";
 import ImageModal from "./ImageModal";
+import axios from "axios";
+import SuccessModal from "../../components/modal/SuccessModal";
+import ErrorModal from "../../components/modal/ErrorModal";
 
-
-const images = [image1, image2, image3, image4, image5];
-const colors: string[] = ["black", "white", "grey", "blue"];
-const sizes: string[] = ["30", "32", "34", "36"];
-const limitedSize = "34";
 const ProductInfo = () => {
-  const location = useLocation(); 
-  const params = new URLSearchParams(location.search);
-  const exchange = params.get('exchange') === 'true';
-  console.log(exchange); // Access location to get query parameters
-
-  const [price, setPrice] = useState<number>(2675);
-  
-    useEffect(() => {
-      // Scroll to the top of the page when the component mounts
-      window.scrollTo(0, 0);
-    }, []);
-    useEffect(() => {
-      // Check if the price should be Rs. 0 based on query parameters or state
-      const params = new URLSearchParams(location.search);
-      if (params.get('exchange') === 'true') {
-        setPrice(0);
-      } else {
-        setPrice(2675);
-      }
-    }, [location.search]);
-  
-const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/shop" },{label:"Blog",path:'/'},{label:"Contact Us",path:'/contactUs'}];
+  const breadcrumbData = [
+    { label: "Home", path: "/" },
+    { label: "Shop", path: "/shop" },
+    { label: "Blog", path: "/" },
+    { label: "Contact Us", path: "/contactUs" },
+  ];
 
   const { reviews, averageRating } = useReviews();
   const [_rating, setRating] = useState<number>(averageRating);
-  const navigate=useNavigate();
+
+  const location = useLocation();
+  const { product } = location.state || {};
+  const video = product.video || {};
+  const images: string[] = product.images ? Object.keys(product.images) : [];
+
+  if (!product) {
+    return <div>No product details available.</div>;
+  }
+
+  const [activeImage, setActiveImage] = useState<number>(0);
+  const [selectedColor, setSelectedColor] = useState<string>("");
+  const [sizes, setSizes] = useState<string[]>([]);
+  const [selectSize, setSelectSize] = useState<string>(sizes[0]);
+  const [count, setCount] = useState<number>(1);
+  const [animationClass, setAnimationClass] = useState<string>("slide-active");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState<boolean>(false);
+
+  const [colors, setColors] = useState<{
+    colorCode: string; color: string, quantity: number
+  }[]>([]);
+
+  const [limitedSizeData, setLimitedSizeData] = useState<{ [key: string]: number }>({});
+  const [selectedSizePrice, setSelectedSizePrice] = useState<number>(product.stockQuantityResponseList[0].productPrice);
+  const [originalPrice, setOriginalPrice] = useState<number>(selectedSizePrice);
+
   useEffect(() => {
-    setRating(averageRating); // Update local state when context changes
+    setRating(averageRating);
   }, [averageRating]);
 
+  const navigate = useNavigate();
+
+
+  const navigateToCheckout = () => {
+    const selectedProduct = {
+      productID: product.productId,
+      name: product.productName,
+      color: selectedColor || colors[0]?.color,
+      quantity: count,
+      size: selectSize || sizes[0],
+      price: selectedSizePrice,
+      image: images[activeImage],
+      originalPrice: originalPrice, 
+    };
+  
+    const selectedProducts = [selectedProduct];
+  
+    const totalMRP = selectedProducts.reduce(
+      (acc, item) => acc + item.originalPrice * item.quantity,
+      0
+    );
+  
+    const totalDiscount = selectedProducts.reduce(
+      (acc, item) => acc + (item.originalPrice - item.price) * item.quantity,
+      0
+    );
+  
+    const totalAmount = selectedProducts.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
+  
+    navigate("/checkout", {
+      state: {
+        selectedProducts,
+        pricingDetails: {
+          totalMRP: totalMRP.toFixed(2),
+          totalDiscount: totalDiscount.toFixed(2),
+          totalAmount: totalAmount.toFixed(2),
+        },
+      },
+    });
+  };
+  
+
+  const handleImageChange = (index: number) => {
+    if (index !== activeImage) {
+      setAnimationClass("slide-out");
+
+      setTimeout(() => {
+        setActiveImage(index);
+        setAnimationClass("slide-in");
+      }, 200);
+
+      setTimeout(() => {
+        setAnimationClass("slide-active");
+      }, 200);
+    }
+  };
+
+  const handleSizeChange = (size: string) => {
+    setSelectSize(size);
+    
+    const selectedSizeData = product.stockQuantityResponseList.find(
+      (sizeData: any) => sizeData.size === parseInt(size)
+    );
+  
+    if (selectedSizeData) {
+      const availableColors = selectedSizeData.colorQuantityResponses.map(
+        (colorData: any) => ({
+          color: colorData.color,
+          colorCode: colorData.colorCode,
+          quantity: colorData.quantity,
+        })
+      );
+      setColors(availableColors);
+  
+      const discountedPrice = selectedSizeData.productPrice;
+      setSelectedSizePrice(discountedPrice);
+  
+      const offerPercentage = product.offerPercent || 0; 
+      let originalPrice = discountedPrice;
+  
+      if (offerPercentage > 0) {
+        originalPrice = discountedPrice / (1 - (offerPercentage / 100));
+      }
+  
+      setOriginalPrice(parseFloat(originalPrice.toFixed(2)));
+  
+      const firstAvailableColor = availableColors.find(
+        (colorData: { quantity: number }) => colorData.quantity > 0
+      );
+      setSelectedColor(firstAvailableColor ? firstAvailableColor.color : "");
+    } else {
+      setColors([]);
+    }
+  };
+  
+  
+
+  useEffect(() => {
+    if (product && product.stockQuantityResponseList) {
+      const availableSizes = product.stockQuantityResponseList.map(
+        (sizeData: any) => sizeData.size.toString()
+      );
+
+      setSizes(availableSizes);
+
+      if (availableSizes.length > 0) {
+        setSelectSize(availableSizes[0]);
+        handleSizeChange(availableSizes[0]);
+      }
+
+      const limitedData: { [key: string]: number } = {};
+
+      product.stockQuantityResponseList.forEach((sizeData: any) => {
+        let totalQuantity = 0;
+
+        sizeData.colorQuantityResponses.forEach((colorData: any) => {
+          totalQuantity += colorData.quantity;
+        });
+
+        if (totalQuantity < 6) {
+          limitedData[sizeData.size] = totalQuantity;
+        }
+      });
+      setLimitedSizeData(limitedData);
+    }
+  }, [product]);
+
+  const addToCart = async () => {
+
+    const defaultSize = sizes[0] || "N/A";
+    const defaultColor = colors[0]?.color || "N/A";
+    const defaultColorCode = colors[0]?.colorCode || "#FFFFFF";
+
+    const selectedSize = selectSize || defaultSize;
+    const selectedColorCode = selectedColor
+      ? colors.find(c => c.color === selectedColor)?.colorCode
+      : defaultColorCode;
+
+    const requestbody = {
+      userId: "UID240099",
+      cartItemRequests: [
+        {
+          cartItemId: "",
+          productId: product.productId,
+          productName: product.productName,
+          productSize: selectedSize,
+          productColor: selectedColor || defaultColor,
+          productColorCode: selectedColorCode,
+          quantity: count,
+          price: selectedSizePrice,
+        }
+      ]
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8085/api/cart/addToCart",
+        requestbody
+      );
+      if (response.data.statusCode === 200) {
+        setIsSuccessModalOpen(true);
+        console.log("Product added to cart successfully", response.data);
+      }
+      else {
+        setIsErrorModalOpen(true);
+      }
+    } catch (error: any) {
+      setIsErrorModalOpen(true);
+      console.log("Couldn't add the product to cart", error);
+    }
+  };
+
+
+
   const renderStars = (rating: number) => {
-    const fullStars = Math.floor(rating); // Number of full stars
-    const hasHalfStar = rating % 1 !== 0; // Check if there is a fractional part
-    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); // Remaining empty stars
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
     return (
       <>
@@ -72,30 +252,6 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
         ))}
       </>
     );
-  };
-
-  const [activeImage, setActiveImage] = useState<number>(0);
-  const [selectedColor, setSelectedColor] = useState<string>("grey");
-  const [selectSize, setselectSize] = useState<string>("");
-  const [count, setCount] = useState<number>(1);
-  const [animationClass, setAnimationClass] = useState<string>("slide-active");
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  
-
-  
-  const handleImageChange = (index: number) => {
-    if (index !== activeImage) {
-      setAnimationClass("slide-out"); // Start slide out animation
-
-      setTimeout(() => {
-        setActiveImage(index); // Change the image
-        setAnimationClass("slide-in"); // Start slide in animation
-      }, 200); // Wait for slide-out to complete
-
-      setTimeout(() => {
-        setAnimationClass("slide-active"); // Reset to active state
-      }, 200); // Wait for slide-in to complete
-    }
   };
 
   const settings = {
@@ -113,26 +269,24 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+
   return (
     <div className={`main-container ${isModalOpen ? "blur-background" : ""}`}>
-      <div className="
-      -crumbs">
-      <Breadcrumbs crumbs={breadcrumbData}/>
+      <div className="bread-crumbs">
+        <Breadcrumbs crumbs={breadcrumbData} />
       </div>
-      
+
       <div className="secondary-container">
-      
+
         <div className="slider-container">
           <Slider {...settings}>
-            {images.map((image, index) => (
+            {images.map((image: string, index: number) => (
               <img
                 src={image}
                 key={index}
                 alt={`Image ${index + 1}`}
-                className={`stacked-images ${
-                  activeImage === index ? "active" : ""
-                }`}
-                onClick={() => {handleImageChange(index);console.log(index)}}
+                className={`stacked-images ${activeImage === index ? "active" : ""}`}
+                onClick={() => handleImageChange(index)}
               />
             ))}
 
@@ -140,18 +294,16 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
           </Slider>
         </div>
         <div className="primary-image-container">
-        <img
+          <img
             src={images[activeImage]}
             alt="main-image"
             className={`primary-image ${animationClass}`}
-            onClick={()=>{toggleModal(),console.log(activeImage)}}
+            onClick={() => { toggleModal(), console.log(activeImage) }}
           />
-
-          
         </div>
         <div className="content">
-        
-          <h1 className="product-name">Came Stretch Pants</h1>
+
+          <h1 className="product-name">{product.productName}</h1>
           <div className="star">
             {renderStars(averageRating)}
             <pre className="review">
@@ -159,11 +311,7 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
             </pre>
           </div>
           <div className="information">
-            Most of us are familiar with the iconic design of the egg shaped
-            chair floating in the air. The Hanging Egg Chair is a critically
-            acclaimed design that has enjoyed praise world wide ever since the
-            distinctive sculptural shape was created. The Hanging Egg Chair is a
-            critically acclaimed design that has enjoyed praise world wide.
+            {product.productDescription}
           </div>
           <div>
             <div className="header">
@@ -176,45 +324,52 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
               </span>
             </div>
             <div className="color-shade">
-              {colors.map((color) => (
+              {colors.map((colorData) => (
                 <div
-                  key={color}
-                  className={`color ${
-                    selectedColor === color ? "selected" : ""
-                  }`}
-                  style={{ backgroundColor: color }}
-                  onClick={() => setSelectedColor(color)}
+                  key={colorData.color}
+                  className={`color ${selectedColor === colorData.color ? "selected" : ""}`}
+                  style={{
+                    backgroundColor: colorData.colorCode,
+                    cursor: colorData.quantity === 0 ? "not-allowed" : "pointer",
+                    opacity: colorData.quantity === 0 ? 0.5 : 1,
+                  }}
+                  onClick={() => colorData.quantity > 0 && setSelectedColor(colorData.color)}
                 ></div>
               ))}
             </div>
           </div>
           <div className="price">
-        <h4 className="rupees">Rs. {price}</h4>
-        {price === 0 ? <h5 className="discount">Exchange Offer</h5>:<h5 className="discount">60% OFF</h5>}
-            
+            <h4 className="rupees">Rs {selectedSizePrice}</h4>
+            <h5 className="discount">{product.offerPercent}% OFF</h5>
+            <div className="original-price">Original Price: Rs {originalPrice}</div>
           </div>
           <div className="Mrp">M.R.P. Incl. of all taxes</div>
           <div className="size">
             <span className="size-label">SELECT SIZE</span>
             <div className="size-num">
-              {sizes.map((size) => (
-                <div
-                  key={size}
+              {sizes.map((size) => {
+                const isUnavailable = limitedSizeData[size] === 0;
+                return (
+                  <div
+                    key={size}
+                    className={`num ${selectSize === size ? "sizeselected" : ""} ${isUnavailable ? "unavailable-size" : ""
+                      }`}
+                    onClick={() => !isUnavailable && handleSizeChange(size)}
+                  >
+                    {isUnavailable ? (
+                      <span className="crossed-size">{size}</span>
+                    ) : (
+                      size
+                    )}
+                    {limitedSizeData[size] !== undefined && limitedSizeData[size] > 0 && (
+                      <div className="limited-text">{limitedSizeData[size]} left</div>
+                    )}
 
-                  
-                  className={`num ${selectSize === size ? "sizeselected" : ""}`}
-                  onClick={() => setselectSize(size)}
-                >
-                  {size}
-                  {size === limitedSize && (
-                    <div className="limited-text">2 left</div>
-                  )}
-                </div>
-              ))}
-              <div className="num unavailable-size">
-                <span className="crossed-size">38</span>
-              </div>
+                  </div>
+                );
+              })}
             </div>
+
           </div>
           <div className="blocks">
             <div className="add-sub">
@@ -231,11 +386,13 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
                 +
               </span>
             </div>
-            <button className="cart" onClick={()=>{navigate('/cart')}}>
+            <button className="cart" onClick={addToCart}>
               <ShoppingBagOutlinedIcon className="shopping-bag" />
               ADD TO CART
             </button>
-            <button className="buy" onClick={()=>{navigate("/checkout", { state: { exchange } })}}>BUY NOW</button>
+            <button className="buy" onClick={navigateToCheckout}>
+              BUY NOW
+            </button>
           </div>
           <div className="info-container">
             <div className="info-item">
@@ -258,24 +415,27 @@ const breadcrumbData = [{ label: "Home", path: "/" }, { label: "Shop",path:"/sho
           isModalOpen={isModalOpen}
           toggleModal={toggleModal}
           images={images}
-          activeImage={activeImage} 
-          
-        />
-      
-        
-      </div>
-      
+          activeImage={activeImage}
 
+        />
+      </div>
+      <SuccessModal
+        open={isSuccessModalOpen}
+        onClose={() => setIsSuccessModalOpen(false)}
+        title="Success!"
+        content="The item has been successfully added to your cart."
+        buttonText="Go to Cart"
+        navigateTo="/cart"
+      />
+      <ErrorModal
+        open={isErrorModalOpen}
+        onClose={() => setIsErrorModalOpen(false)}
+        title="Error!"
+        content="Something went wrong. Please try again later."
+        buttonText="Close"
+      />
       <div className="video-container">
-        <iframe
-          width="100%"
-          height="400"
-          src="https://www.youtube.com/embed/Jg0X4OkKOd0"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
+        <video src={video} autoPlay controls></video>
       </div>
       <div className="product-info-container">
         <Product />

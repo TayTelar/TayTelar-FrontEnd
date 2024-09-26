@@ -158,7 +158,7 @@ const Login: React.FC<customerType> = ({ customerType }) => {
         requestbody
       );
 
-      if (response.status === 200) {
+      if (response.data.statusCode === 200) {
         console.log("OTP Verified!");
         return true;
       } else {
@@ -263,6 +263,10 @@ const Login: React.FC<customerType> = ({ customerType }) => {
 
       if (response.status === 200) {
         console.log("Login successful!");
+        const { id } = response.data;
+      
+        localStorage.setItem('userId', id);
+        console.log("User ID stored in localStorage:", id);
 
         if (customerType === "customer") {
           console.log("Navigating to /home");
