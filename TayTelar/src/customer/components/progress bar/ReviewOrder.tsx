@@ -19,7 +19,7 @@ interface CartItem {
 }
 
 const ReviewOrder = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
+  const [cartItems, _setCartItems] = useState<CartItem[]>([
     {
       id: 1,
       name: "Camel Stretch Pants",
@@ -64,10 +64,6 @@ const ReviewOrder = () => {
     setIsModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
   return (
     <div className="cart-items">
       <div className="cart-items-list">
@@ -103,18 +99,14 @@ const ReviewOrder = () => {
       <button className="place-order-btn" onClick={handlePlaceOrder}>
         Place Order
       </button>
-      {isModalOpen && <Confirmation onClose={handleCloseModal} />}
+      {isModalOpen && <Confirmation />}
     </div>
   );
 };
 
 export default ReviewOrder;
 
-interface ConfirmationProps {
-  onClose: () => void;
-}
-
-const Confirmation: React.FC<ConfirmationProps> = ({ onClose }) => {
+const Confirmation: React.FC = () => {
   const navigate = useNavigate();
 
   const navigateToYourOrder = () => {

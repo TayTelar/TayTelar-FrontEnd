@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import CreateIcon from "@mui/icons-material/Create";
 import PaymentIcon from "@mui/icons-material/Payment";
 import GradingIcon from "@mui/icons-material/Grading";
@@ -13,6 +14,7 @@ interface ProgressBarProps {
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep }) => {
+   
   const stepIcons = [
     <CreateIcon key="address" />,
     <PaymentIcon key="payment" />,
@@ -56,16 +58,21 @@ const Checkout: React.FC = () => {
     <>
       <ProgressBar currentStep={currentStep} />
       <div className="checkout_content">
+        {/* Step 1: Address */}
         {currentStep === 1 && (
           <div className="checkout_content_left">
             <OrderDetails products={selectedProducts} pricingDetails={pricingDetails} />
           </div>
         )}
+        
+        {/* Step 2: Payment */}
         {currentStep === 2 && (
           <div>
             <AddPayment onProceed={proceedToReview} />
           </div>
         )}
+
+        {/* Step 3: Review */}
         {currentStep === 3 && (
           <div>
             <ReviewOrder />

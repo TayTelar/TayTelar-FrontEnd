@@ -97,14 +97,14 @@ const WriteReview: React.FC<{ onReview: (isReviewing: boolean) => void }> = ({ o
                 <form onSubmit={formik.handleSubmit}>
                     <h2>Write a Review</h2>
                     <p>Rating</p>
-                    <div className="rating-container">
+                    <div className="rating-container" >
                         {[...Array(5)].map((_, i) => (
                             <StarRoundedIcon
                                 key={i}
                                 className="star-inner"
                                 style={{
-                                    width: '2rem',
-                                    height: '2rem',
+                                    // width: '2rem',
+                                    // height: '2rem',
                                     color: i < rating ? 'black' : 'grey',
                                     cursor: 'pointer',
                                 }}
@@ -113,6 +113,7 @@ const WriteReview: React.FC<{ onReview: (isReviewing: boolean) => void }> = ({ o
                                     setRatingDescription(getRatingDescription(i + 1));
                                     formik.setFieldValue('rating', i + 1);
                                 }}
+                               
                             />
                         ))}
                         <p className="rating-description" style={{ fontWeight: '1000', fontSize: '1.1rem' }}>{ratingDescription}</p>

@@ -1,11 +1,12 @@
 /* Base styles - apply to all screen sizes */
-html, body {
-  overflow-x: hidden;
+ html, body {
+ overflow-x: hidden;
 }
+
 .main-container {
-
- 
-
+  padding: 2px;
+  position: relative;
+  
 .bread-crumbs{
   margin-left: 10rem;
   padding: 15px 10px 15px 30px;
@@ -18,19 +19,16 @@ html, body {
 
 .enlarged-image {
   position: relative; /* Position relative to the modal container */
-  width: 75vw; /* Adjust the width as needed */
-  height: 200vh; /* Adjust the height as needed */
+  width: 40%; /* Adjust the width as needed */
+  height: 100%; /* Adjust the height as needed */
   transition: transform 0.3s ease;
   cursor: pointer;
   will-change: transform;
   top: var(--scroll-position-y, 0); /* Adjust the top position based on scroll */
 }
 
-
-
-
-
 .secondary-container {
+  
   display: flex;
   align-items: center; /* Center align items vertically */
   justify-content: space-between; /* Distribute space between items */
@@ -50,17 +48,23 @@ html, body {
  width: 4rem;
  gap: 10px;
 
-  margin-left: 15rem;
+  margin-left: 8%;
   overflow: hidden; /* Hide images that are out of view */
   position: relative;
+  z-index: 10;
+ 
+  
 }
-.slide-container .slick-prev,.slick-next{
-  display: none;
+
+/* Only hide default Slick arrows within slider container */
+.slider-container .slick-prev,
+.slider-container .slick-next {
+  display: none!important;
 }
 
 .stacked-images {
   border: 1px solid #c2c2c2;
-  width: 55px;
+  width:5%;
   height: 70px;
   margin: 0 auto;
   margin-bottom: 1.8px;
@@ -144,9 +148,18 @@ html, body {
 .primary-image-container {
   position: relative;
   width: 60%;
-  right: 20rem;
+  right: 30%;
   height: 47rem;
   overflow: hidden;
+  z-index:1;
+  .primary-image:hover {
+    transform: scale(1.1); /* Grows the image on hover */
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+  
+  .enlarged-image:hover {
+    transform: scale(1.05); /* Slight zoom for the enlarged image */
+  } 
 
   .primary-image {
     position: absolute;
@@ -154,7 +167,7 @@ html, body {
     
     top: 1.3rem;
     left: 7rem;
-    
+   
     width:50%;
     height: 85%;
     transition: transform 0.5s ease-in-out , opacity 0.5s ease-in-out; /* Smooth slide effect */
@@ -179,8 +192,9 @@ html, body {
 .content {
   
   position: absolute; /* Position it absolutely within the main container */
-  top: 10.5rem; /* Adjust as needed to vertically center the heading */
-  left: 58rem;
+  /* Adjust as needed to vertically center the heading */
+  left: 50%;
+  top: 3rem;
   
   gap: 0px;
   opacity: 0px;
@@ -218,9 +232,13 @@ html, body {
   box-sizing: border-box;
 }
 
+
+
+
+
   .information {
-    width: 38rem;
-    height: 4.4rem;
+   
+  
     position: relative;
     top: 1.11rem;
     font-size: 0.85rem;
@@ -231,7 +249,7 @@ html, body {
   }
 
   .price {
-    width: 160px;
+    width: 200px;
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -240,7 +258,7 @@ html, body {
 
   .rupees {
     font-size: 1.54rem;
-    color: #3b3b3b;
+    color: #525151;
     font-weight: 600;
     margin-top: 2.46rem;
   }
@@ -251,14 +269,14 @@ html, body {
   }
 
   .size-label {
-    color: #3b3b3b;
+    color: #525151;
     font-weight: 600;
     font-size: 1rem;
   }
 
 .Mrp {
   position: absolute;
- bottom: 20rem;
+ bottom: 19rem;
   font-size: 0.8rem;
   font-weight: 400;
   line-height: 1.13rem;
@@ -483,32 +501,945 @@ html, body {
     margin-top: 5rem;
   }
 }
-.color.disabled {
-  opacity: 0.5;
-  pointer-events: none; /* Prevent interaction */
-}
+.custom-prev-arrow{
+  
+  display: block; 
+  position: relative;
+ top:93.5%;
 
-.out-of-stock {
-  color: red;
-  font-size: 0.75rem;
+  transform: rotate(270deg);
+  z-Index: 20;
+  .custom-arrow-prev{
+    color: black;
+     font-size: 16px; 
+  }
+
+}
+.custom-next-arrow{
+
+  display: block;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.color.disabled {
-  opacity: 0.5;
-  pointer-events: none; /* Prevent interaction */
+  top: -5px;
+  right: 35%;
+  transform: rotate(270deg);
+  z-Index: 2;
+.custom-arrow-next
+{
+  color: black;
+   font-size: 16px
 }
 
-.out-of-stock {
-  color: red;
+}
+
+/* Mobile S - 320px to 374px */
+@media (min-width: 320px) and (max-width: 374px) {
+  .bread-crumbs{
+    padding: 3px;
+   
+    ul{
+     font-size: 0.5rem;
+   position: relative;
+   right: 140%;
+   bottom: 2rem;
+    }
+  }
+  .main-container{
+    flex-wrap: wrap;
+   .product-name{
+    font-size: 0.75rem;
+   }
+   .star{
+    line-height: 0.8rem;
+   }
+   .star-inner{
+    width:0.6rem;
+    margin-top: -0.5rem;
+    
+   }
+   .review{
+    font-size:0.5rem;
+      top: -0.6rem;
+      left: 4.5rem;
+     
+   }
+   .star{
+    top: 1.5rem;
+   }
+ .information{
+  font-size:0.4rem;
+  line-height: 0.4rem;
+
+ 
+ }
+ .header{
+  font-size: 0.55rem;
+  padding: 2px;
+  margin-top: 1.5rem;
+ }
+ .color{
+  height: 1rem;
+  width: 1rem;
+ }
+ .color-shade{
+  width: 7rem;
+ }
+ .rupees{
+  font-size: 0.9rem;
+ }
+ .discount{
+  margin-right: 5.5rem;
+  margin-top: 2.6rem;
+  font-size: 0.5rem;
+
+ }
+ .blocks{
+  width: 10rem;
+  flex-direction: column;
+ align-items: flex-start;
+ margin-top: 0.8rem;
+ gap: 3px;
+  .add-sub{
+   height: 2rem;
+   width: 5rem;
+   font-size: 0.8rem;
+   margin-bottom: 3px;
+  }
+  .shopping-bag{
+    font-size: 0.9rem;
+    top: -0.1rem;
+  }
+  .cart{
+    width: 7rem;
+    height: 1.8rem;
+    font-size: 0.6rem;
+    
+    
+  }
+  .buy{
+    width:7rem;
+    height: 1.8rem;
+    font-size: 0.6rem;
+    
+  }
+ }
+
+
+ 
+ .Mrp{
+  font-size: 0.5rem;
+  bottom: 15rem;
+ }
+ .price{
+  bottom:1.8rem
+ }
+ .size{
+  margin-top: -2rem;
+ }
+.size-label
+{
+  font-size: 0.65rem;
+}
+.num{
+  height: 1.1rem;
+  width: 1.1rem;
+  font-size: 0.6rem;
+}
+
+.limited-text{
+  width: 0.9rem;
+  font-size: 0.35rem;
+  height: 0.5rem;
+  left: 0.55rem;
+  top: 0.85rem;
+}
+.size-num{
+  gap: 0px;
+}
+ .content{
+  left: 51%;
+  top: 1.5%;
+ }
+ .info-container{
+  width: 10rem;
+  margin-top: 1.5rem;
+ 
+ }
+ .info-item{
+  font-size: 0.55rem;
+ }
+ .slider-container{
+  width: 3.75%;
+ 
+  height: 20rem;
+  margin-left: 5%;
+ position: absolute;
+ top: 3%;
+  
+ 
+  
+  }
+  .stacked-images{
+    width: 2%;
+    object-fit: contain;
+  }
+      .primary-image-container{
+       width: 220px;
+      left: -22%;
+      height: 30rem;
+      bottom: 1rem;
+      
+      
+       object-fit: contain;
+        .primary-image{
+         
+          width: 50%;
+           height: 35%;
+           
+         
+          
+        }
+       
+      }
+    }
+    .custom-prev-arrow{
+    right: 10%;
+  
+  .custom-arrow-prev{
+    font-size: 9px;
+  }
+    
+     
+    
+  }
+  .custom-next-arrow{
+  left: 65%;
+  top: 8%;
+  font-size: 1px;
+  .custom-arrow-next{
+    font-size: 9px;
+  }
+     
+     
+    
+  }
+
+  /* CSS rules for screens between 320px and 374px wide */
+}
+
+
+
+/* Mobile M - 375px to 424px */
+@media (min-width: 375px) and (max-width: 424px) {
+  /* CSS rules for screens between 375px and 424px wide */
+  .bread-crumbs{
+    padding: 3px;
+   
+    ul{
+     font-size: 0.5rem;
+   position: relative;
+   right: 140%;
+   bottom: 2rem;
+    }
+  }
+  .main-container{
+    flex-wrap: wrap;
+   .product-name{
+    font-size: 0.8rem;
+   }
+   .star{
+    line-height: 0.8rem;
+   }
+   .star-inner{
+    width:0.6rem;
+    margin-top: -0.5rem;
+    
+   }
+   .review{
+    font-size:0.5rem;
+      top: -0.6rem;
+      left: 4.5rem;
+     
+   }
+   .star{
+    top: 1.5rem;
+   }
+ .information{
+  font-size:0.4rem;
+  line-height: 0.4rem;
+
+ 
+ }
+ .header{
+  font-size: 0.55rem;
+  padding: 2px;
+  margin-top: 1.5rem;
+ }
+ .color{
+  height: 1rem;
+  width: 1rem;
+ }
+ .color-shade{
+  width: 7rem;
+ }
+ .rupees{
+  font-size: 0.9rem;
+ }
+ .discount{
+  margin-right: 5.5rem;
+  margin-top: 2.6rem;
+  font-size: 0.5rem;
+
+ }
+ .blocks{
+  width: 10rem;
+  flex-direction: column;
+ align-items: flex-start;
+ margin-top: 0.8rem;
+ gap: 3px;
+  .add-sub{
+   height: 2rem;
+   width: 5rem;
+   font-size: 0.8rem;
+   margin-bottom: 3px;
+  }
+  .shopping-bag{
+    font-size: 0.9rem;
+    top: -0.1rem;
+  }
+  .cart{
+    width: 7rem;
+    height: 1.8rem;
+    font-size: 0.6rem;
+    
+    
+  }
+  .buy{
+    width:7rem;
+    height: 1.8rem;
+    font-size: 0.6rem;
+    
+  }
+ }
+
+
+ 
+ .Mrp{
+  font-size: 0.5rem;
+  bottom: 15rem;
+ }
+ .price{
+  bottom:1.8rem
+ }
+ .size{
+  margin-top: -2rem;
+ }
+.size-label
+{
+  font-size: 0.65rem;
+}
+.num{
+  height: 1.1rem;
+  width: 1.1rem;
+  font-size: 0.6rem;
+}
+
+.limited-text{
+  width: 0.9rem;
+  font-size: 0.35rem;
+  height: 0.5rem;
+  left: 0.55rem;
+  top: 0.85rem;
+}
+.size-num{
+  gap: 0px;
+}
+ .content{
+  left: 48%;
+  top: 2%;
+ }
+ .info-container{
+  width: 10rem;
+  margin-top: 1.5rem;
+ 
+ }
+ .info-item{
+  font-size: 0.55rem;
+ }
+ .slider-container{
+  width: 1rem;
+ 
+  height: 20rem;
+  margin-left: 5%;
+ position: absolute;
+ top: 2.5%;
+  
+ 
+  
+  }
+  .stacked-images{
+    width: 2%;
+    object-fit: contain;
+  }
+      .primary-image-container{
+       width: 245px;
+      left: -18%;
+      height: 33rem;
+      
+   
+      
+      
+       object-fit: contain;
+        .primary-image{
+         
+          width: 50%;
+           height: 35%;
+           
+         
+          
+        }
+       
+      }
+    }
+    .custom-prev-arrow{
+    right: 10%;
+  
+  .custom-arrow-prev{
+    font-size: 9px;
+  }
+    
+     
+    
+  }
+  .custom-next-arrow{
+  left: 57%;
+  top: 8%;
+  font-size: 1px;
+  .custom-arrow-next{
+    font-size: 9px;
+  }
+     
+     
+    
+  }
+
+  /* CSS rules for screens between 320px and 374px wide */
+}
+
+
+/* Mobile L - 425px to 767px */
+@media (min-width: 425px) and (max-width: 767px) {
+  .bread-crumbs{
+    padding: 3px;
+   
+    ul{
+     font-size: 0.5rem;
+   position: relative;
+   right: 140%;
+   bottom: 2rem;
+    }
+  }
+  .main-container{
+    flex-wrap: wrap;
+   .product-name{
+    font-size: 1rem;
+   }
+   .star{
+    line-height: 0.9rem;
+   }
+   .star-inner{
+    width:0.8rem;
+    margin-top: -0.1rem;
+    
+   }
+   .review{
+    font-size:0.6rem;
+      top: -0.35rem;
+      left: 4.5rem;
+     
+   }
+   .star{
+    top: 1.5rem;
+   }
+ .information{
+  font-size:0.5rem;
+  line-height: 0.6rem;
+  top: 0.5rem;
+
+ 
+ }
+ .header{
   font-size: 0.75rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  padding: 0px;
+margin-top: 0.8rem;
+ }
+ .color{
+  height: 1.2rem;
+  width: 1.2rem;
+ }
+ .color-shade{
+  width: 8rem;
+ }
+ .rupees{
+  font-size: 1rem;
+  margin-top: 2.1rem;
+ }
+ .discount{
+  margin-right: 5rem;
+  margin-top: 2.4rem;
+  font-size: 0.6rem;
+
+ }
+ .blocks{
+  width: 12rem;
+  flex-direction: column;
+ align-items: flex-start;
+ margin-top: 0.8rem;
+ gap: 4px;
+  .add-sub{
+   height: 2rem;
+   width: 5rem;
+   font-size: 0.8rem;
+   margin-bottom: 3px;
+  }
+  .shopping-bag{
+    font-size: 0.9rem;
+    top: -0.1rem;
+  }
+  .cart{
+    width: 7rem;
+    height: 1.8rem;
+    font-size: 0.6rem;
+    
+    
+  }
+  .buy{
+    width:7rem;
+    height: 1.8rem;
+    font-size: 0.6rem;
+    
+  }
+ }
+
+
+ 
+ .Mrp{
+  font-size: 0.55rem;
+  bottom: 15.6rem;
+ }
+ .price{
+  bottom:1.8rem
+ }
+ .size{
+  margin-top: -2rem;
+ }
+.size-label
+{
+  font-size: 0.7rem;
+}
+.num{
+  height: 1.5rem;
+  width: 1.5rem;
+  font-size: 0.6rem;
 }
 
+.limited-text{
+  width: 1.4rem;
+  font-size: 0.45rem;
+  height: 0.7rem;
+  left: 0.72rem;
+  top: 1.1rem;
+}
+.size-num{
+  gap: 0px;
+}
+ .content{
+  left: 51%;
+  top: 2%;
+ }
+ .info-container{
+  width: 10rem;
+  margin-top: 1.5rem;
+ 
+ }
+ .info-item{
+  font-size: 0.6rem;
+ }
+ .slider-container{
+  width: 1.4rem;
+ 
+  height: 20rem;
+  margin-left: 5%;
+ position: absolute;
+ top: 3.8%;
+  
+ 
+  
+  }
+  .stacked-images{
+    width: 2%;
+    object-fit: contain;
+  }
+      .primary-image-container{
+       width: 300px;
+      left: -14%;
+      height: 30rem;
+      
+   
+      
+      
+       object-fit: contain;
+        .primary-image{
+         
+          width: 50%;
+           height: 55%;
+           
+         
+          
+        }
+       
+      }
+    }
+    .custom-prev-arrow{
+    right: 2%;
+  
+  .custom-arrow-prev{
+    font-size: 11px;
+  }
+    
+     
+    
+  }
+  .custom-next-arrow{
+  left: 4%;
+  top: 3%;
+  font-size: 1px;
+  .custom-arrow-next{
+    font-size: 11px;
+  }
+     
+     
+    
+  }
 
+  /* CSS rules for screens between 425px and 767px wide */
+}
+
+/* Tablet - 768px to 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* CSS rules for screens between 768px and 1023px wide */
+  .bread-crumbs{
+    padding: 3px;
+   
+    ul{
+     font-size: 0.5rem;
+   position: relative;
+   right: 140%;
+   bottom: 2rem;
+    }
+  }
+  .main-container{
+    flex-wrap: wrap;
+   .product-name{
+    font-size: 1.3rem;
+   }
+   .star{
+    line-height: 1rem;
+   }
+   .star-inner{
+    width:1rem;
+    margin-top: 0.6rem;
+    
+   }
+   .review{
+    font-size:0.8rem;
+      top: 0.1rem;
+      left: 6rem;
+     
+   }
+   .star{
+    top: 1.5rem;
+   }
+ .information{
+  font-size:0.7rem;
+  line-height: 0.8rem;
+  top: 0.4rem;
+
+ 
+ }
+ .header{
+  font-size: 0.9rem;
+  padding: 0px;
+margin-top: 0.8rem;
+ }
+ .color{
+  height: 1.4rem;
+  width: 1.4rem;
+ }
+ .color-shade{
+  width: 10rem;
+ }
+ .rupees{
+  font-size: 1.2rem;
+  margin-top: 2.2rem;
+ }
+ .discount{
+  margin-right: 4.5rem;
+  margin-top: 2.5rem;
+  font-size: 0.7rem;
+
+ }
+ .price{
+  width: 220px;
+ }
+ .blocks{
+ width: 22rem;
+  
+ 
+ margin-top: 1rem;
+ gap: 4px;
+  .add-sub{
+   height: 2rem;
+   width: 5rem;
+   font-size: 0.8rem;
+   margin-bottom: 3px;
+  }
+  .shopping-bag{
+    font-size: 0.9rem;
+    top: -0.1rem;
+  }
+  .cart{
+    width: 8rem;
+    height: 2rem;
+    font-size: 0.75rem;
+    
+    
+  }
+  .buy{
+    width:8rem;
+    height: 2rem;
+    font-size: 0.75rem;
+    
+  }
+ }
+
+
+ 
+ .Mrp{
+  font-size: 0.6rem;
+  bottom: 13rem;
+ }
+ .price{
+  bottom:1.8rem
+ }
+ .size{
+  margin-top: -2rem;
+ }
+.size-label
+{
+  font-size: 0.8rem;
+}
+.num{
+  height: 1.7rem;
+  width: 1.7rem;
+  font-size: 0.8rem;
+}
+
+.limited-text{
+  width: 1.6rem;
+  font-size: 0.45rem;
+  height: 0.7rem;
+  left: 0.8rem;
+  top: 1.2rem;
+}
+.size-num{
+  gap: 1px;
+}
+ .content{
+  left: 51%;
+  top: 2%;
+ }
+ .info-container{
+  width: 15rem;
+  margin-top: 1.5rem;
+ 
+ }
+ .info-item{
+  font-size: 0.8rem;
+ }
+ .slider-container{
+  width: 2.3rem;
+ 
+  height: 20rem;
+  margin-left: 5%;
+ position: absolute;
+ top: 5%;
+  
+ 
+  
+  }
+  .stacked-images{
+    width: 2%;
+    object-fit: contain;
+  }
+      .primary-image-container{
+       width: 550px;
+      left: -1.2rem;
+      height: 35rem;
+      
+   
+      
+      
+       object-fit: contain;
+        .primary-image{
+         
+          width: 50%;
+           height: 75%;
+           
+         
+          
+        }
+       
+      }
+    }
+    .custom-prev-arrow{
+    right: 2%;
+    top: 94%;
+    
+  
+  .custom-arrow-prev{
+    font-size: 15px;
+  }
+    
+     
+    
+  }
+  .custom-next-arrow{
+  left: 30%;
+  top: 1%;
+ 
+  font-size: 1px;
+  .custom-arrow-next{
+    font-size: 15px;
+  }
+     
+     
+    
+  }
+
+  /* CSS rules for screens between 425px and 767px wide */
+}
+
+/* Laptop - 1024px to 1439px */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  // html, body {
+  //     overflow-x: hidden;
+  //   }
+ .main-container{
+ 
+  .secondary-container{
+    .slider-container{
+      height: 2%;
+      width: 5%;
+      margin-left: 5%;
+
+     
+      
+      }
+    }
+    .primary-image-container{
+      right: 35%;
+      height: 35rem;
+     
+    }
+    .content{
+      width: 50%;
+     width: auto;
+     top: 3rem;
+    }
+    .product-name{
+      font-size: 1.9rem;
+    }
+    .information{
+      font-size: 0.7rem;
+      top: 0.8rem;
+
+    }
+    .header{
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+    .color{
+      height: 1.3rem;
+      width: 1.3rem;
+      border-radius: 50%;
+    }
+    .rupees{
+      font-size: 1.4rem;
+
+    }
+    .size-label{
+      font-size: 0.9rem;
+    }
+    .num{
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+    .limited-text{
+      width: 2.1rem;
+      left: 1.3rem;
+      top: 1.9rem;
+    }
+    .blocks{
+      width: 28rem;
+      .add-sub{
+        height: 3rem;
+      }
+      .cart{
+        height: 2.7rem;
+        width: 8rem;
+        font-size: 0.7rem;
+      }
+      .buy{
+        height: 2.7rem;
+        width: 8rem;
+        font-size: 0.7rem;
+      }
+
+      
+    }
+    .info-item{
+      font-size:0.9rem
+
+     
+    }
+    .Mrp{
+      font-size: 0.7rem;
+      bottom: 18rem;
+    }
+  }
+ 
+
+  /* CSS rules for screens between 1024px and 1439px wide */
+}
+.review-container{
+.rating-container{
+  .star-inner{
+    width: 1rem;
+    height: 1rem;
+  }
+}
+}
+
+/* Laptop L - 1440px and wider */
+@media (min-width: 1440px) {
+  
+  .main-container{
+  .content{
+ 
+    left: 50%;
+
+  }
+}
+  /* CSS rules for screens 1440px wide and wider */
+}
 

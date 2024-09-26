@@ -286,7 +286,7 @@ const CartModal: React.FC = () => {
     }
   }
 
-  const razorpay: MouseEventHandler<HTMLButtonElement> = async (event) => {
+  const razorpay: MouseEventHandler<HTMLButtonElement> = async () => {
     const amount = 1000;
     await displayRazorpay("abcd123", "UID168250", amount, "G pay");
     console.log("Request Body:" + "abcd123" + "," + "6360120872" + "," + amount);

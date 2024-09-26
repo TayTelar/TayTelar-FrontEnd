@@ -3,7 +3,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 export const CustomPrevArrow = (props: any) => {
-  const { className, onClick } = props;
+  const {  onClick } = props;
   return (
     <div
       className="custom-prev-arrow"
@@ -23,7 +23,7 @@ export const CustomPrevArrow = (props: any) => {
 };
 
 export const CustomNextArrow = (props: any) => {
-  const { className, onClick } = props;
+  const { onClick } = props;
   return (
     <div
       className="custom-next-arrow"

@@ -7,6 +7,7 @@ import WriteReview from './WriteReview';
 import '../../assets/sass/pages/_product.scss';
 import { useReviews } from './contexts/ReviewContext';
 
+
 const Review: React.FC = () => {
   const { reviews, averageRating } = useReviews(); // Use the context hook
   const [writeReview, setWriteReview] = useState<string>('Rate Us');
@@ -53,10 +54,10 @@ const Review: React.FC = () => {
       <div className="primary-review-container">
         <div className="review-star">
           {renderStars(averageRating)}
-          <span className="outof">{averageRating.toFixed(1)} out of 5</span>
+          <p className="outof">{averageRating.toFixed(1)} out of 5</p>
           <p className="based">Based on {totalReviews} review{totalReviews > 1 ? 's' : ''}</p>
         </div>
-        <div>
+        <div className='review-balancer'>
           <h2 style={{ textAlign: 'center' }}>Customers Reviews</h2>
           <div className="customer-review">
             {reviewCounts.map((count, index) => {
@@ -82,7 +83,7 @@ const Review: React.FC = () => {
               setShowReview(writeReview === 'Rate Us');
             }}
           >
-            {writeReview}<StarRoundedIcon className='rate-star' style={{ color: "white", position: "relative", left: "0.2rem", bottom: "0.1rem" }} />
+            {writeReview}<StarRoundedIcon className='rate-star' />
           </button>
         </div>
       </div>

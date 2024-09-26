@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate ,useLocation} from "react-router-dom";
 import Slider from "react-slick";
 import { useLocation } from "react-router-dom";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
@@ -290,6 +291,8 @@ const ProductInfo = () => {
                 onClick={() => handleImageChange(index)}
               />
             ))}
+
+            
           </Slider>
         </div>
         <div className="primary-image-container">
