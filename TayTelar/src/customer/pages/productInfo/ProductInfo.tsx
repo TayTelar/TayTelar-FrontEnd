@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate ,useLocation} from "react-router-dom";
 import Slider from "react-slick";
-import { useLocation } from "react-router-dom";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { CustomPrevArrow, CustomNextArrow } from "./customArrows";
 import "../../assets/sass/pages/_productInfo.scss";
@@ -17,7 +16,6 @@ import ImageModal from "./ImageModal";
 import axios from "axios";
 import SuccessModal from "../../components/modal/SuccessModal";
 import ErrorModal from "../../components/modal/ErrorModal";
-import { useNavigate } from "react-router-dom";
 
 const ProductInfo = () => {
   const breadcrumbData = [
@@ -28,7 +26,7 @@ const ProductInfo = () => {
   ];
 
   const { reviews, averageRating } = useReviews();
-  const [rating, setRating] = useState<number>(averageRating);
+  const [_rating, setRating] = useState<number>(averageRating);
 
   const location = useLocation();
   const { product } = location.state || {};

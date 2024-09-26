@@ -1,6 +1,6 @@
 import "../../assets/sass/pages/_cart.scss";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import { MouseEventHandler, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
@@ -159,7 +159,46 @@ const CartModal: React.FC = () => {
     getCartItems();
   }, [])
 
-  const loadScript = (src: any) => {
+  
+  const handleCheckout = () => {
+    const selectedProducts = cartItems.filter((item) => item.isChecked).map((item) => ({
+      productID: item.id,
+      name: item.name,
+      color: item.productColor,
+      quantity: item.quantity,
+      size: item.size,
+      price: item.price,
+      image: item.image, 
+    }));
+    
+    const totalMRP = cartItems.reduce(
+      (acc, item) => acc + (item.isChecked ? item.originalPrice * item.quantity : 0),
+      0
+    );
+  
+    const totalDiscount = cartItems.reduce(
+      (acc, item) => acc + (item.isChecked ? (item.originalPrice - item.price) * item.quantity : 0),
+      0
+    );
+  
+    const totalAmount = cartItems.reduce(
+      (acc, item) => acc + (item.isChecked ? item.price * item.quantity : 0),
+      0
+    );
+  
+    navigate('/checkout', {
+      state: {
+        selectedProducts,
+        pricingDetails: {
+          totalMRP: totalMRP.toFixed(2),
+          totalDiscount: totalDiscount.toFixed(2),
+          totalAmount: totalAmount.toFixed(2),
+        }
+      }
+    });
+  };
+  {/* 
+    const loadScript = (src: any) => {
     return new Promise((resolve) => {
       const script = document.createElement("script");
       script.src = src;
@@ -243,10 +282,8 @@ const CartModal: React.FC = () => {
             console.log(postResponse);
 
             if (postResponse.statusCode === 200) {
-              // Handle success
               console.log("response from razor pay:" + postResponse);
             } else {
-              // Handle error
               console.error("Unable to validate Signature");
             }
           } catch (error) {
@@ -276,7 +313,7 @@ const CartModal: React.FC = () => {
 
       // const razorpayContainer = document.getElementsByClassName('razorpay-container') as HTMLElement;
       // if (razorpayContainer) {
-      //   razorpayContainer.style.height = '100px'; // Set the desired height here
+      //   razorpayContainer.style.height = '100px'; 
       // }
     } catch (error) {
       console.error(
@@ -292,44 +329,7 @@ const CartModal: React.FC = () => {
     console.log("Request Body:" + "abcd123" + "," + "6360120872" + "," + amount);
   };
 
-  const handleCheckout = () => {
-    const selectedProducts = cartItems.filter((item) => item.isChecked).map((item) => ({
-      productID: item.id,
-      name: item.name,
-      color: item.productColor,
-      quantity: item.quantity,
-      size: item.size,
-      price: item.price,
-      image: item.image, 
-    }));
-    
-    const totalMRP = cartItems.reduce(
-      (acc, item) => acc + (item.isChecked ? item.originalPrice * item.quantity : 0),
-      0
-    );
-  
-    const totalDiscount = cartItems.reduce(
-      (acc, item) => acc + (item.isChecked ? (item.originalPrice - item.price) * item.quantity : 0),
-      0
-    );
-  
-    const totalAmount = cartItems.reduce(
-      (acc, item) => acc + (item.isChecked ? item.price * item.quantity : 0),
-      0
-    );
-  
-    navigate('/checkout', {
-      state: {
-        selectedProducts,
-        pricingDetails: {
-          totalMRP: totalMRP.toFixed(2),
-          totalDiscount: totalDiscount.toFixed(2),
-          totalAmount: totalAmount.toFixed(2),
-        }
-      }
-    });
-  };
-  
+    */}
   return (
     <div className="cart-modal">
       <div className="cart-content">

@@ -45,9 +45,9 @@ const Checkout: React.FC = () => {
   const { selectedProducts, pricingDetails } = location.state || { selectedProducts: [] };
   const [currentStep, setCurrentStep] = useState<number>(1);
 
-  const proceedToPayment = () => {
-    setCurrentStep(2);
-  };
+  // const proceedToPayment = () => {
+  //   setCurrentStep(2);
+  // };
 
   const proceedToReview = () => {
     setCurrentStep(3);
