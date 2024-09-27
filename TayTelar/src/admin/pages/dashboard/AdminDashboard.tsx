@@ -8,6 +8,8 @@ import Widgets from "../../components/dashboard/Widgets";
 import { BsFillPeopleFill } from "react-icons/bs";
 import LineGraph from "../../components/dashboard/LineGraph";
 import OTPGraph from "../../components/dashboard/OTPGraph";
+import AffiliatedUsers from "../../components/dashboard/AffiliatedUsers";
+import TopProducts from "../../components/dashboard/TopProducts";
 
 const AdminDashboard: React.FC = () => {
   const [timeframe, setTimeframe] = useState("Weekly");
@@ -77,9 +79,26 @@ const AdminDashboard: React.FC = () => {
       <div className="__widget__container">
         <Widgets widgets={widgetData} />
       </div>
-      <div className="__brand__graphs">
-        <LineGraph />
-        <OTPGraph />
+      <div className="_graph__top_container">
+        <div className="graph-row">
+          <div className="line-graph-container">
+            <LineGraph />
+          </div>
+          <div className="affiliated-users-container">
+            <AffiliatedUsers />
+          </div>
+        </div>
+      </div>
+      <div className="_graph__top_container">
+        <div className="graph-row">
+          <div className="line-graph-container">
+          <OTPGraph />
+          </div>
+          <div className="affiliated-users-container">
+            <TopProducts />
+
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -33,6 +33,7 @@ import Settings from "./admin/pages/settings/Settings";
 import AddProduct from "./admin/pages/items management/AddProduct";
 import ShowProduct from "./admin/pages/items management/ShowProduct";
 import { OrderProvider } from "./customer/pages/orders/OrderContext";
+import Affiliation from "./admin/pages/affiliate/Affiliation";
 
 const App = () => {
   const location = useLocation();
@@ -93,6 +94,7 @@ const App = () => {
           <Route path="settings" element={<Settings />} />
           <Route path="add-product" element={<AddProduct />} />
           <Route path="show-products" element={<ShowProduct />} />
+          <Route path="affiliate" element={<Affiliation />} />
         </Route>
 
         {/* Redirect non-matching routes */}
