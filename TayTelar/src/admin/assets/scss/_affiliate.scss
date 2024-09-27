@@ -1,0 +1,75 @@
+.affiliate__container {
+  .main__header {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #3b3b3b;
+    text-align: left;
+  }
+
+  .actionbuttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .custom-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+    width: fit-content;
+
+    .dropdown-header {
+      padding: 5px 15px;
+      border: 1px solid #ccc;
+      background-color: #3b3b3b;
+      color: #fff;
+      cursor: pointer;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .timeframe {
+      background-color: #fff;
+      color: #3b3b3b;
+      border: 1.5px solid #3b3b3b;
+    }
+
+    .secondary {
+      color: #3b3b3b;
+      transition: transform 0.2s;
+    }
+
+    .arrow-icon {
+      color: #fff;
+      transition: transform 0.2s;
+    }
+
+    .dropdown-list {
+      position: absolute;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      font-size: 13px;
+
+      .dropdown-item {
+        padding: 10px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #f0f0f0;
+        }
+      }
+    }
+  }
+}
+
+.sub__header {
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #919191;
+  text-transform: uppercase;
+}

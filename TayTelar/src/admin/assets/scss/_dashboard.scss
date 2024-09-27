@@ -9,6 +9,7 @@
   position: relative;
   display: inline-block;
   margin-bottom: 20px;
+  width: 100px;
 
   .arrow-icon {
     color: #fff;
@@ -53,6 +54,28 @@
 .__brand__graphs {
   margin-top: 25px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr); 
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
+}
+
+._graph__top_container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+}
+
+.graph-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; 
+}
+
+.line-graph-container {
+  flex: 2.5; 
+ 
+}
+
+.affiliated-users-container {
+  flex: 1; 
+  margin-right: 10px;
 }

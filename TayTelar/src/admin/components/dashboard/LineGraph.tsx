@@ -22,7 +22,7 @@ const LineGraph: React.FC = () => {
   return (
     <div className="trends">
       <p className="__header__"> Total Brand Sales Graph</p>
-      <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={350}>
         <LineChart data={data}>
           <XAxis dataKey="day" tick={{ fontSize: 12 }} />
           <YAxis unit="k" tick={{ fontSize: 12 }} />
