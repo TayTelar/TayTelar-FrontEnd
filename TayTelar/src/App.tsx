@@ -15,6 +15,7 @@ import Shipping from "./customer/pages/productInfo/Shipping";
 import Review from "./customer/pages/productInfo/Review";
 import Shop from "./customer/pages/shop/Shop";
 import CartModal from "./customer/pages/cart/CartModal";
+import MyProfile from "./customer/pages/myProfile/MyProfile";
 import Checkout from "./customer/pages/checkout/Checkout";
 import Orders from "./customer/pages/orders/Orders";
 import Login from "./customer/pages/login/Login";
@@ -50,6 +51,8 @@ const App = () => {
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/cart" element={<CartModal />} />
+      <Route path="/myProfile" element={<MyProfile />} />
+      
         <Route path="/checkout" element={<Checkout />} />
         
         <Route path="/order" element={<OrderProvider><Orders /></OrderProvider>} />

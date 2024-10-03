@@ -1,0 +1,88 @@
+// Base styles
+.edit-address-modal {
+  position: absolute;
+  right: 1000;
+  top: 0;
+  left: 0%;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999999;
+
+  
+
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    height: 500px;
+    border-radius: 10px;
+    overflow-y: scroll;
+    position: relative;
+
+    .input-field {
+      margin-bottom: 15px;
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      input {
+        width: 100%; // Full width for inputs
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      button {
+        font-family: Montserrat, sans-serif;
+        background-color: #3b3b3b;
+        padding: 10px 20px;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:first-of-type {
+        margin-right: auto;
+      }
+    }
+  }
+}
+
+// Mobile devices
+@media (max-width: 414px) {
+  .modal-content {
+    .button-container {
+      flex-direction: column;
+      button {
+        width: 100%;
+        margin-top: 10px;
+      }
+      button:first-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+// Tablet devices
+@media (min-width: 768px) and (max-width: 1024px) {
+  .edit-address-modal .modal-content {
+    width: 80%;
+    padding: 15px;
+  }
+}
+
+// Laptop devices
+@media (min-width: 1025px) {
+  .edit-address-modal .modal-content {
+    width: 60%;
+    padding: 20px;
+  }
+}
