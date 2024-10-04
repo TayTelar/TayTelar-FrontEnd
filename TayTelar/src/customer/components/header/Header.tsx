@@ -9,6 +9,9 @@ import { useNavigate } from "react-router-dom";
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
 import ClearSharpIcon from '@mui/icons-material/ClearSharp';
 import { useState } from "react";
+import AccountCircleIcon  from '@mui/icons-material/AccountCircle';
+
+
 
 const Header = () => {
   const navigate = useNavigate();
@@ -16,6 +19,9 @@ const Header = () => {
 
   const handleCartClick = () => {
     navigate("/cart");
+  };
+  const handleMyProfileClick = () => {
+    navigate('/myProfile'); 
   };
 
   const toggleMenu = () => {
@@ -106,6 +112,9 @@ const Header = () => {
                   </li>
                   <li>
                     <LocalMallIcon onClick={handleCartClick} className="icon" />
+                  </li>
+                  <li>
+                    <AccountCircleIcon  onClick={handleMyProfileClick} className="icon" />
                   </li>
                 </ul>
               </div>

@@ -198,6 +198,7 @@
   
   gap: 0px;
   opacity: 0px;
+  z-index: 1;
   /* Center it vertically relative to the primary image */
 }
 .product-name{
@@ -238,7 +239,6 @@
 
   .information {
    
-  
     position: relative;
     top: 1.11rem;
     font-size: 0.85rem;
@@ -257,16 +257,26 @@
   }
 
   .rupees {
-    font-size: 1.54rem;
+    font-size: 1.5rem;
     color: #525151;
     font-weight: 600;
     margin-top: 2.46rem;
+    white-space: nowrap;
   }
 
   .discount {
     color:#aeacac;
     margin-top: 3.08rem;
+    white-space: nowrap;
   }
+  .original-price{
+    position :relative;
+    color: #636363;
+  top: 5.5rem;
+right: 11.3rem;
+font-size: 1rem;
+text-decoration: line-through; 
+white-space: nowrap; }
 
   .size-label {
     color: #525151;
@@ -276,7 +286,7 @@
 
 .Mrp {
   position: absolute;
- bottom: 19rem;
+ bottom: 20rem;
   font-size: 0.8rem;
   font-weight: 400;
   line-height: 1.13rem;
@@ -294,17 +304,18 @@
   }
 
   .color {
-    height: 1.5rem;
-    width: 1.5rem;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: border;
-    border: 0.1px solid rgb(182, 180, 180);
-  }
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+  cursor: pointer;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+  border: 0.1px solid rgb(182, 180, 180);
+}
 
   .color-shade {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     width: 10rem;
     margin-top: 0.49rem;
   }
