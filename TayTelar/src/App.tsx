@@ -35,6 +35,7 @@ import AddProduct from "./admin/pages/items management/AddProduct";
 import ShowProduct from "./admin/pages/items management/ShowProduct";
 import { OrderProvider } from "./customer/pages/orders/OrderContext";
 import Affiliation from "./admin/pages/affiliate/Affiliation";
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   const location = useLocation();
@@ -43,6 +44,7 @@ const App = () => {
 
   return (
     <>
+     <Toaster position="top-right" />
       {!isAffiliated && !isAdmin && <Header />}
       <Routes>
         {/* Main application routes */}
