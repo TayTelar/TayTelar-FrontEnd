@@ -1,0 +1,148 @@
+.address-form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.address-form {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  width: 100%;
+  max-width: 800px;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+
+  input,
+  select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 12px;
+  }
+
+  .form-actions {
+    // display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .submit-button,
+  .cancel-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+
+    &.submit-button {
+      background-color: black;
+    }
+
+    &.cancel-button {
+      background-color: #0e0b0b;
+    }
+  }
+}
+
+/* Responsive Styles */
+
+/* Laptop size (from 1024px and up) */
+@media (max-width: 1024px) {
+  .address-form {
+    max-width: 700px;
+    padding: 15px;
+  }
+
+  .form-actions {
+    align-items: center;
+  }
+
+  .submit-button, .cancel-button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+/* Tablet size (from 768px to 1023px) */
+@media (max-width: 1023px) {
+  .address-form {
+    max-width: 600px;
+    padding: 15px;
+  }
+
+  .form-actions {
+    align-items: center;
+  }
+
+  .submit-button, .cancel-button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+/* Mobile size (up to 767px) */
+@media (max-width: 767px) {
+  .address-form-container {
+    padding: 10px;
+    
+  }
+
+  .address-form {
+    width: 100%;
+    top:0%;
+    height: 100vh;
+    display: flexbox;
+    align-items: center;
+
+    justify-content: center;
+    z-index: 1000;
+    position: absolute;
+    z-index: 99999;
+  }
+
+  h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+
+  input, select {
+    align-items: center;
+  }
+
+  .form-actions {
+    align-items: center;
+    flex-direction: column;
+
+  }
+
+  .submit-button, .cancel-button {
+    width: 100%;
+    margin-bottom: 10px;
+    flex-direction: column;
+  }
+  .cancel-button{
+    margin-top: 90px;
+    flex-direction: column;
+  }
+}
