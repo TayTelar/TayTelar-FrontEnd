@@ -19,11 +19,11 @@
             &_left {
                 width: 60%;
 
-                .address {
-                    background-color: #ddd;
+                .address,.payment {
                     padding: 5px 10px;
                     border-radius: 10px;
                     margin-bottom: 20px;
+                    border: 1px solid #ddd;
 
                     &_section {
                         display: flex;

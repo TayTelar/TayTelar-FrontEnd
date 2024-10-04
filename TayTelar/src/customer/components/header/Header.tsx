@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import TopBar from "./TopBar";
 import SearchIcon from "@mui/icons-material/Search";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
@@ -7,10 +7,19 @@ import "../../assets/sass/components/_header.scss";
 import logo from "../../assets/images/logo.png";
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
 import ClearSharpIcon from '@mui/icons-material/ClearSharp';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [username, setUsername] = useState<string | null>(null); 
+  const location = useLocation();
+
+  useEffect(() => {
+    const storedFirstName = location.state?.firstName || localStorage.getItem("userName");
+    if (storedFirstName) {
+      setUsername(storedFirstName); 
+    }
+  }, [location.state]);
 
   const toggleMenu = () => {
     const centerMenu = document.querySelector('.center');
@@ -29,7 +38,26 @@ const Header = () => {
       }
     }
   };
+  const handleLoginChange = () => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUsername(JSON.parse(storedUser));
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userId"); 
+    localStorage.removeItem("userName"); 
+    setUsername(null);
+  };
   
+  useEffect(() => {
+    window.addEventListener("storageChanged", handleLoginChange);
+    return () => {
+      window.removeEventListener("storageChanged", handleLoginChange);
+    };
+  }, []);
+
   return (
     <>
       <TopBar />
@@ -86,15 +114,28 @@ const Header = () => {
               </div>
               <div className="list_right">
                 <ul>
-                  <li>
-                    <NavLink
-                      to="/login"
-                      className={({ isActive }) => (isActive ? "active" : "")}
-                    >
-                      <PermIdentityIcon className="icon" />
-                      &nbsp; <p>Login / Register</p>
-                    </NavLink>
-                  </li>
+                {username ? (
+                    <>
+                      <li>
+                        <NavLink to="/profile">
+                          <PermIdentityIcon className="icon" />
+                          &nbsp;<p>{username}</p>
+                        </NavLink>
+                      </li>
+                      <li onClick={handleLogout} >
+                        <p>Logout</p>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li>
+                        <NavLink to="/login">
+                          <PermIdentityIcon className="icon" />
+                          &nbsp;<p>Login / Register</p>
+                        </NavLink>
+                      </li>
+                    </>
+                  )}
                   <li>
                     <SearchIcon className="icon" />
                   </li>

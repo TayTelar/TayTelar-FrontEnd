@@ -260,20 +260,19 @@ const Login: React.FC<customerType> = ({ customerType }) => {
         "http://localhost:8085/api/user/login",
         requestbody
       );
-
       if (response.status === 200) {
-        console.log("Login successful!");
-        const { id } = response.data;
-      
+
+        const { id, firstName } = response.data;
         localStorage.setItem('userId', id);
-        console.log("User ID stored in localStorage:", id);
+        localStorage.setItem('userName', firstName);
+        await mergeCartAfterLogin(id);
 
         if (customerType === "customer") {
-          console.log("Navigating to /home");
-          navigate("/home");
+          navigate("/home", { state: { firstName } });
+
         } else if (customerType === "affiliate") {
           console.log("Navigating to /affiliated/dashboard");
-          navigate("/affiliated/dashboard");
+          navigate("/affiliated/dashboard", { state: { firstName } });
         }
       } else {
         console.log("Login failed.");
@@ -299,7 +298,34 @@ const Login: React.FC<customerType> = ({ customerType }) => {
       handleErrorModal();
     }
   };
+  const getGuestCart = () => {
+    const cart = localStorage.getItem("guestCart");
+    return cart ? JSON.parse(cart) : [];
+  };
 
+  const mergeCartAfterLogin = async (userId: string) => {
+    const guestCart = getGuestCart();
+  
+    if (guestCart.length === 0) return;
+  
+    const requestBody = {
+      userId, 
+      cartItemRequests: guestCart,
+    };
+  
+    try {
+      const response = await axios.post("http://localhost:8085/api/cart/addToCart", requestBody);
+      if (response.data.statusCode === 200) {
+        console.log("Cart merged successfully");
+        localStorage.removeItem("guestCart"); 
+      } else {
+        console.log("Failed to merge guest cart");
+      }
+    } catch (error: any) {
+      console.log("Error merging guest cart", error);
+    }
+  };
+  
   const validationSchema = Yup.object().shape({
     phoneNumber: Yup.string()
       .required("Phone Number is required")
@@ -377,8 +403,8 @@ const Login: React.FC<customerType> = ({ customerType }) => {
                 ? "Registration for Customer"
                 : "Registration for Affiliate User"
               : customerType === "customer"
-              ? "Login to Taytelar Customer"
-              : "Login to Taytelar Affiliate User"}
+                ? "Login to Taytelar Customer"
+                : "Login to Taytelar Affiliate User"}
           </h3>
         </div>
         <div className="login_container_section">
@@ -403,7 +429,7 @@ const Login: React.FC<customerType> = ({ customerType }) => {
                     }
                     helperText={
                       formik.touched.phoneNumber &&
-                      formik.errors.phoneNumber ? (
+                        formik.errors.phoneNumber ? (
                         formik.errors.phoneNumber
                       ) : otpSentSuccess ? (
                         <span style={{ color: "green" }}>

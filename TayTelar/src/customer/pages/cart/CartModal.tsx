@@ -10,7 +10,9 @@ import axios from "axios";
 import ErrorModal from "../../components/modal/ErrorModal";
 
 interface CartItem {
-  id: number;
+  productOfferPercentage: string;
+  productId: string;
+  cartItemId: number;
   name: string;
   description: string;
   price: number;
@@ -29,94 +31,168 @@ const CartModal: React.FC = () => {
 
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isErrorModalOpen, setIsErrorModalOpen] = useState<boolean>(false);
+  const userId = localStorage.getItem("userId") ?? "";
+  const guestCartItems = localStorage.getItem("guestCart");
+
+  useEffect(() => {
+    if (guestCartItems) {
+      try {
+        const parsedGuestCart = JSON.parse(guestCartItems);
+        if (Array.isArray(parsedGuestCart) && parsedGuestCart.length > 0) {
+          const items = parsedGuestCart.map((item: any, index: number) => ({
+            cartItemId: item.cartItemId || Date.now() + index,
+            productId: item.productId,
+            name: item.productName,
+            originalPrice: item.price,
+            size: item.productSize.toString(),
+            quantity: item.quantity,
+            image: item.image,
+            productColor: item.productColor,
+            productColorCode: item.productColorCode,
+            isChecked: true,
+            price: Math.ceil(item.price * item.productOfferPercentage) / 100,
+            description: item.description,
+            discount: item.productOfferPercentage,
+            productOfferPercentage: item.productOfferPercentage,
+          }));
+
+          setCartItems(items);
+          console.log("Guest cart items set to cartItems", parsedGuestCart);
+        }
+      } catch (error) {
+        console.error("Error parsing guest cart items from localStorage:", error);
+      }
+    }
+
+    if (userId) {
+      getCartItems();
+    }
+  }, [userId,cartItems]);
 
 
-  const handleQuantityChange = async (id: number, increment: boolean = true) => {
-    const itemToUpdate = cartItems.find(item => item.id === id);
+  const handleQuantityChange = async (cartItemId: number, increment: boolean = true) => {
+    let itemToUpdate = cartItems.find((item) => item.cartItemId === cartItemId);
     if (!itemToUpdate) return;
 
     const newQuantity = increment ? itemToUpdate.quantity + 1 : Math.max(1, itemToUpdate.quantity - 1);
 
-    const requestBody = {
-      userId: "UID240099",
-      cartItemRequests: [
-        {
-          cartItemId: itemToUpdate.id.toString(),
-          productId: "P12349",
-          productName: itemToUpdate.name,
-          productSize: itemToUpdate.size,
-          productColor: itemToUpdate.productColor,
-          productColorCode: itemToUpdate.productColorCode,
-          quantity: newQuantity,
-          price: itemToUpdate.price,
+    if (!userId) {
+      const guestCartItems = localStorage.getItem("guestCart");
+      if (guestCartItems) {
+        try {
+          const parsedGuestCart = JSON.parse(guestCartItems);
+
+          const updatedCart = parsedGuestCart.map((item: any) => {
+            if (item.cartItemId === cartItemId) {
+              return { ...item, quantity: newQuantity }; 
+            }
+            return item;
+          });
+
+          localStorage.setItem("guestCart", JSON.stringify(updatedCart));
+          setCartItems(updatedCart);
+        } catch (error) {
+          console.error("Error updating guest cart quantity in localStorage:", error);
         }
-      ]
-    };
-
-    try {
-      const response = await axios.put("http://localhost:8085/api/cart/updateCartItem", requestBody);
-
-      if (response.status === 200) {
-        setCartItems((prevItems) =>
-          prevItems.map((item) =>
-            item.id === id ? { ...item, quantity: newQuantity } : item
-          )
-        );
-      } else {
-        setIsErrorModalOpen(true);
-        console.error("Failed to update quantity", response);
       }
-    } catch (error) {
-      setIsErrorModalOpen(true);
-      console.error("Error updating quantity", error);
+    } else {
+      const requestBody = {
+        userId: userId,
+        cartItemRequests: [
+          {
+            cartItemId: itemToUpdate.cartItemId.toString(),
+            productId: itemToUpdate.productId,
+            productName: itemToUpdate.name,
+            productSize: itemToUpdate.size,
+            productColor: itemToUpdate.productColor,
+            productColorCode: itemToUpdate.productColorCode,
+            quantity: newQuantity,
+            price: itemToUpdate.price,
+            productOfferPercentage: itemToUpdate.discount,
+          }
+        ]
+      };
+
+      try {
+        const response = await axios.put("http://localhost:8085/api/cart/updateCartItem", requestBody);
+        if (response.status === 200) {
+          setCartItems((prevItems) =>
+            prevItems.map((item) =>
+              item.cartItemId === cartItemId ? { ...item, quantity: newQuantity } : item
+            )
+          );
+        } else {
+          setIsErrorModalOpen(true);
+          console.error("Failed to update quantity", response);
+        }
+      } catch (error) {
+        setIsErrorModalOpen(true);
+        console.error("Error updating quantity", error);
+      }
     }
   };
 
-  const handleCheckboxChange = (id: number) => {
+  const handleCheckboxChange = (cartItemId: number) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id ? { ...item, isChecked: !item.isChecked } : item
+        item.cartItemId === cartItemId ? { ...item, isChecked: !item.isChecked } : item
       )
     );
   };
 
-  const handleRemoveItem = async (id: number) => {
-    const itemToUpdate = cartItems.find(item => item.id === id);
-    if (!itemToUpdate) return;
+  const handleRemoveItem = async (cartItemId: number) => {
+    const itemToRemove = cartItems.find((item) => item.cartItemId === cartItemId);
+    if (!itemToRemove) return;
 
-    const requestBody = {
-      userId: "UID240099",
-      cartItemRequests: [
-        {
-          cartItemId: itemToUpdate.id.toString(),
-          productId: "P12349",
-          productName: itemToUpdate.name,
-          productSize: itemToUpdate.size,
-          productColor: itemToUpdate.productColor,
-          productColorCode: itemToUpdate.productColorCode,
-          quantity: itemToUpdate.quantity,
-          price: itemToUpdate.price,
+    if (!userId) {
+      const guestCartItems = localStorage.getItem("guestCart");
+      if (guestCartItems) {
+        try {
+          const parsedGuestCart = JSON.parse(guestCartItems);
+          const updatedCart = parsedGuestCart.filter((item: any) => item.cartItemId !== cartItemId);
+
+          localStorage.setItem("guestCart", JSON.stringify(updatedCart));
+
+          setCartItems(updatedCart);
+        } catch (error) {
+          console.error("Error removing item from guest cart in localStorage:", error);
         }
-      ]
-    };
+      }
+    } else {
+      const requestBody = {
+        userId,
+        cartItemRequests: [
+          {
+            cartItemId: itemToRemove.cartItemId.toString(),
+            productId: itemToRemove.productId,
+            productName: itemToRemove.name,
+            productSize: itemToRemove.size,
+            productColor: itemToRemove.productColor,
+            productColorCode: itemToRemove.productColorCode,
+            quantity: itemToRemove.quantity,
+            price: itemToRemove.price,
+            productOfferPercentage: itemToRemove.discount,
+          }
+        ]
+      };
 
-    try {
-      const response = await axios.delete("http://localhost:8085/api/cart/deleteCartItem", {
-        data: requestBody
-      });
+      try {
+        const response = await axios.delete("http://localhost:8085/api/cart/deleteCartItem", {
+          data: requestBody
+        });
 
-      if (response.data.statusCode === 200) {
-        setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-      } else {
-        console.error("Failed to remove item", response);
+        if (response.data.statusCode === 200) {
+          setCartItems((prevItems) => prevItems.filter((item) => item.cartItemId !== cartItemId));
+        } else {
+          console.error("Failed to remove item", response);
+          setIsErrorModalOpen(true);
+        }
+      } catch (error) {
+        console.error("Error removing item", error);
         setIsErrorModalOpen(true);
       }
-    } catch (error) {
-      console.error("Error removing item", error);
-      setIsErrorModalOpen(true);
     }
   };
-
 
 
   const selectedItemsCount = cartItems.filter((item) => item.isChecked).length;
@@ -126,25 +202,30 @@ const CartModal: React.FC = () => {
   };
 
   const getCartItems = async () => {
-    const userId = "UID240099";
+    if (!userId) {
+      console.log("No userId found, skipping cart items fetch.");
+      return;
+    }
+
     try {
       const response = await axios.get(
         `http://localhost:8085/api/cart/getCartItems?userId=${userId}`
       );
 
       const items = response.data.cartItemResponses.map((item: any) => ({
-        id: item.cartItemId,
+        cartItemId: item.cartItemId,
+        productId: item.productId,
         name: item.productName,
-        price: item.price,
+        originalPrice: item.price,
         size: item.productSize.toString(),
         quantity: item.quantity,
         image: item.productImagesUrl,
         productColor: item.productColor,
         productColorCode: item.productColorCode,
         isChecked: true,
-        originalPrice: Math.ceil(item.price * 1.3 * 100) / 100,
+        price: Math.ceil(item.price * item.productOfferPercentage) / 100,
         description: item.description,
-        discount: "30% OFF",
+        discount: item.productOfferPercentage,
       }));
 
       setCartItems(items);
@@ -157,35 +238,34 @@ const CartModal: React.FC = () => {
 
   useEffect(() => {
     getCartItems();
-  }, [])
+  }, []);
 
-  
   const handleCheckout = () => {
     const selectedProducts = cartItems.filter((item) => item.isChecked).map((item) => ({
-      productID: item.id,
+      productID: item.productId,
       name: item.name,
       color: item.productColor,
       quantity: item.quantity,
       size: item.size,
       price: item.price,
-      image: item.image, 
+      image: item.image,
     }));
-    
+
     const totalMRP = cartItems.reduce(
       (acc, item) => acc + (item.isChecked ? item.originalPrice * item.quantity : 0),
       0
     );
-  
+
     const totalDiscount = cartItems.reduce(
       (acc, item) => acc + (item.isChecked ? (item.originalPrice - item.price) * item.quantity : 0),
       0
     );
-  
+
     const totalAmount = cartItems.reduce(
       (acc, item) => acc + (item.isChecked ? item.price * item.quantity : 0),
       0
     );
-  
+
     navigate('/checkout', {
       state: {
         selectedProducts,
@@ -197,139 +277,7 @@ const CartModal: React.FC = () => {
       }
     });
   };
-  {/* 
-    const loadScript = (src: any) => {
-    return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = src;
-      script.onload = () => {
-        resolve(true);
-      };
-      script.onerror = () => {
-        resolve(false);
-      };
-      document.body.appendChild(script);
-    });
-  };
 
-  useEffect(() => {
-    loadScript("https://checkout.razorpay.com/v1/checkout.js");
-  });
-
-  async function displayRazorpay(
-    orderId: string,
-    userId: string,
-    totalAmount: number,
-    paymentMethod: string
-  ) {
-    let requestBody = {
-      orderId: "TT1084534993",
-      userId: "UID240099",
-      totalAmount: 1000,
-      paymentMethod: "G Pay"
-    };
-
-    // let baseUrl =
-    // "http://app-vehicle-lb-1832405950.ap-south-1.elb.amazonaws.com/";
-    let baseUrl = "http://localhost:8085/api/payment/";
-
-    try {
-      const response = await fetch(`${baseUrl}createPayment`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      console.log(data);
-
-      const options = {
-        key: "rzp_test_nHgaZ8pP0SqyOm",
-        currency: data.currency,
-        amount: totalAmount * 100,
-        name: "Pay Now",
-        description: "Wallet Transaction",
-        image: "http://localhost:5173/src/assets/images/logo.png",
-        order_id: data.razorPayOrderId,
-        handler: async function (response: any) {
-          alert("PAYMENT ID ::" + response.razorpay_payment_id);
-          alert("ORDER ID :: " + response.razorpay_order_id);
-          alert("Signature:: " + response.razorpay_signature);
-          console.log(response);
-
-          try {
-            const postData = {
-              razorPayPaymentId: response.razorpay_payment_id,
-              razorPayOrderId: response.razorpay_order_id,
-              razorPaySignature: response.razorpay_signature,
-            };
-
-            const postResponse = await fetch(`${baseUrl}verifySignature`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(postData),
-            }).then((t) => t.json());
-
-            console.log(postResponse);
-
-            if (postResponse.statusCode === 200) {
-              console.log("response from razor pay:" + postResponse);
-            } else {
-              console.error("Unable to validate Signature");
-            }
-          } catch (error) {
-            console.error("An error occurred during the POST API call:", error);
-          }
-        },
-        prefill: {
-          name: orderId,
-          email: "example@gmail.com",
-          contact: userId,
-        },
-      };
-
-      const rzp1 = new (window as any).Razorpay(options);
-
-      rzp1.on("payment.failed", function (response: any) {
-        alert(response.error.code);
-        alert(response.error.description);
-        alert(response.error.source);
-        alert(response.error.step);
-        alert(response.error.reason);
-        alert(response.error.metadata.order_id);
-        alert(response.error.metadata.payment_id);
-      });
-
-      rzp1.open();
-
-      // const razorpayContainer = document.getElementsByClassName('razorpay-container') as HTMLElement;
-      // if (razorpayContainer) {
-      //   razorpayContainer.style.height = '100px'; 
-      // }
-    } catch (error) {
-      console.error(
-        "An error occurred during the fetch or JSON parsing:",
-        error
-      );
-    }
-  }
-
-  const razorpay: MouseEventHandler<HTMLButtonElement> = async () => {
-    const amount = 1000;
-    await displayRazorpay("abcd123", "UID168250", amount, "G pay");
-    console.log("Request Body:" + "abcd123" + "," + "6360120872" + "," + amount);
-  };
-
-    */}
   return (
     <div className="cart-modal">
       <div className="cart-content">
@@ -353,12 +301,12 @@ const CartModal: React.FC = () => {
               </div>
               <div className="cart-items-list">
                 {cartItems.map((item) => (
-                  <div className="cart-item" key={item.id}>
+                  <div className="cart-item" key={item.cartItemId}>
                     <div className="cart-item-checkbox">
                       <input
                         type="checkbox"
                         checked={item.isChecked}
-                        onChange={() => handleCheckboxChange(item.id)}
+                        onChange={() => handleCheckboxChange(item.cartItemId)}
                       />
                     </div>
                     <div className="cart-item-image">
@@ -369,7 +317,7 @@ const CartModal: React.FC = () => {
                         <h5>{item.name}</h5>
                         <button
                           className="remove-item"
-                          onClick={() => handleRemoveItem(item.id)}
+                          onClick={() => handleRemoveItem(item.cartItemId)}
                         >
                           <RemoveCircleIcon />
                         </button>
@@ -380,7 +328,7 @@ const CartModal: React.FC = () => {
                         <span className="original-price">
                           Rs. {(item.originalPrice * item.quantity).toFixed(2)}
                         </span>
-                        <span className="discount">{item.discount}</span>
+                        <span className="discount">{item.discount}%</span>
                       </div>
                       <div className="cart-item-options">
                         <div className="size-dropdown">
@@ -388,13 +336,13 @@ const CartModal: React.FC = () => {
                         </div>
                         <div className="quantity-control">
                           <button
-                            onClick={() => handleQuantityChange(item.id, false)}
+                            onClick={() => handleQuantityChange(item.cartItemId, false)}
                           >
                             -
                           </button>
                           <span>{item.quantity}</span>
                           <button
-                            onClick={() => handleQuantityChange(item.id, true)}
+                            onClick={() => handleQuantityChange(item.cartItemId, true)}
                           >
                             +
                           </button>
