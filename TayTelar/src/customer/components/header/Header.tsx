@@ -5,18 +5,12 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import "../../assets/sass/components/_header.scss";
 import logo from "../../assets/images/logo.png";
-import { useNavigate } from "react-router-dom";
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
 import ClearSharpIcon from '@mui/icons-material/ClearSharp';
 import { useState } from "react";
 
 const Header = () => {
-  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const handleCartClick = () => {
-    navigate("/cart");
-  };
 
   const toggleMenu = () => {
     const centerMenu = document.querySelector('.center');
@@ -105,7 +99,13 @@ const Header = () => {
                     <SearchIcon className="icon" />
                   </li>
                   <li>
-                    <LocalMallIcon onClick={handleCartClick} className="icon" />
+                    <NavLink
+                      to="/cart"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                      onClick={toggleMenu}
+                    >
+                    <LocalMallIcon />
+                    </NavLink>
                   </li>
                 </ul>
               </div>
