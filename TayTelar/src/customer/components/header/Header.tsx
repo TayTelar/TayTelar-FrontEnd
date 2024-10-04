@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import TopBar from "./TopBar";
 import SearchIcon from "@mui/icons-material/Search";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
@@ -7,18 +7,13 @@ import "../../assets/sass/components/_header.scss";
 import logo from "../../assets/images/logo.png";
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
 import ClearSharpIcon from '@mui/icons-material/ClearSharp';
-import { useState } from "react";
 import AccountCircleIcon  from '@mui/icons-material/AccountCircle';
-
-
 import { useEffect, useState } from "react";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const handleCartClick = () => {
-    navigate("/cart");
-  };
+  const navigate = useNavigate();
+ 
   const handleMyProfileClick = () => {
     navigate('/myProfile'); 
   };
