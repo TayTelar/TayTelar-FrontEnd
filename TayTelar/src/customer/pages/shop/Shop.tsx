@@ -19,7 +19,9 @@ interface Product {
   productPattern: string;
   productStatus: string;
   stockQuantityResponseList: any[];
+  images: Record<string, number>;
   video: string;
+  offerPercent: number;
 }
 
 const filters = [
@@ -66,36 +68,42 @@ const Shop: React.FC = () => {
         "http://localhost:8085/api/product/getAllProducts"
       );
 
-      const productData = response.data.categoryResponses[0]
-        .subCategoryResponses[0].productDataResponses;
+      const categoryResponses = response.data.categoryResponses;
 
-      const formattedProducts = productData.map((product: any) => {
-        const images = product.images;
-        const imageKeys = Object.keys(images);
+      const formattedProducts: Product[] = [];
 
-        const img = imageKeys.find(key => images[key] === 1); 
-        const hoverImg = imageKeys.find(key => images[key] === 2); 
-        return {
-          img: img, 
-          hoverImg: hoverImg, 
-          productName: product.productName,
-          rating: "4.9", 
-          reviews: "200 reviews",
-          productId: product.productId,
-          productDescription: product.productDescription,
-          productMaterialType: product.productMaterialType,
-          productPattern: product.productPattern,
-          productStatus:product.productStatus,
-          stockQuantityResponseList: product.stockQuantityResponseList,
-          video: product.video,
-          images,
-          offerPercent:product.productOfferPercentage
-        };
+      categoryResponses.forEach((category: any) => {
+        category.subCategoryResponses.forEach((subCategory: any) => {
+          subCategory.productDataResponses.forEach((product: any) => {
+            const images = product.images;
+            const imageKeys = Object.keys(images);
+
+            const img = imageKeys.find((key) => images[key] === 1);
+            const hoverImg = imageKeys.find((key) => images[key] === 2);
+
+            formattedProducts.push({
+              img: img || "",
+              hoverImg: hoverImg || "",
+              productName: product.productName,
+              rating: "4.9",
+              reviews: "200 reviews",
+              productId: product.productId,
+              productDescription: product.productDescription,
+              productMaterialType: product.productMaterialType,
+              productPattern: product.productPattern,
+              productStatus: product.productStatus,
+              stockQuantityResponseList: product.stockQuantityResponseList,
+              video: product.video,
+              images,
+              offerPercent: product.productOfferPercentage,
+            });
+          });
+        });
       });
 
       setProducts(formattedProducts);
     } catch (error: any) {
-      console.error("Products not found:", error);
+      console.error("Error fetching products:", error.message || error);
     }
   };
 
@@ -145,7 +153,7 @@ const Shop: React.FC = () => {
                     alt={product.productName}
                     className="section-image-hover"
                   />
-                    <span className="label">{product.productStatus}</span>
+                  <span className="label">{product.productStatus}</span>
                 </div>
                 <div className="product-info">
                   <span className="product-title">{product.productName}</span>
@@ -249,6 +257,6 @@ const Filter: React.FC<FilterProps> = ({
           ))}
         </div>
       </div>
-    </div>
+    </div >
   );
 };

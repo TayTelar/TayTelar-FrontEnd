@@ -13,9 +13,9 @@ import StarHalfIcon from "@mui/icons-material/StarHalf";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import Breadcrumbs from "../../components/breadcrumb/Breadcrumbs";
 import ImageModal from "./ImageModal";
-import axios from "axios";
 import SuccessModal from "../../components/modal/SuccessModal";
 import ErrorModal from "../../components/modal/ErrorModal";
+import axios from "axios";
 
 const ProductInfo = () => {
   const breadcrumbData = [
@@ -189,50 +189,106 @@ const ProductInfo = () => {
     }
   }, [product]);
 
-  const addToCart = async () => {
+  
+  const userId = localStorage.getItem("userId") ?? "";
 
+  const getGuestCart = () => {
+    const cart = localStorage.getItem("guestCart");
+    return cart ? JSON.parse(cart) : [];
+  };
+
+
+  const updateGuestCart = (updatedCart: any) => {
+    localStorage.setItem("guestCart", JSON.stringify(updatedCart));
+  };
+
+  const addToCart = async () => {
     const defaultSize = sizes[0] || "N/A";
     const defaultColor = colors[0]?.color || "N/A";
     const defaultColorCode = colors[0]?.colorCode || "#FFFFFF";
 
     const selectedSize = selectSize || defaultSize;
     const selectedColorCode = selectedColor
-      ? colors.find(c => c.color === selectedColor)?.colorCode
+      ? colors.find((c) => c.color === selectedColor)?.colorCode
       : defaultColorCode;
 
-    const requestbody = {
-      userId: "UID240099",
-      cartItemRequests: [
-        {
-          cartItemId: "",
-          productId: product.productId,
-          productName: product.productName,
-          productSize: selectedSize,
-          productColor: selectedColor || defaultColor,
-          productColorCode: selectedColorCode,
-          quantity: count,
-          price: selectedSizePrice,
+    const cartItem = {
+      cartItemId: "",
+      productId: product.productId,
+      productName: product.productName,
+      productSize: selectedSize,
+      productColor: selectedColor || defaultColor,
+      productColorCode: selectedColorCode,
+      quantity: count,
+      price: selectedSizePrice,
+      productOfferPercentage:product.offerPercent,
+    };
+
+    const guestCartItem = {
+      ...cartItem,
+      isChecked: true,
+      originalPrice,
+      description: product.productDescription,
+      discount: product.offerPercent,
+      image: images[0],
+      cartItemId: Date.now().toString(),
+    };
+
+    if (userId) {
+      const requestBody = {
+        userId,
+        cartItemRequests: [cartItem],
+      };
+
+      try {
+        const response = await axios.post("http://localhost:8085/api/cart/addToCart", requestBody);
+        if (response.data.statusCode === 200) {
+          setIsSuccessModalOpen(true);
+          console.log("Product added to cart successfully", response.data);
+        } else {
+          setIsErrorModalOpen(true);
         }
-      ]
+      } catch (error: any) {
+        setIsErrorModalOpen(true);
+        console.log("Couldn't add the product to cart", error);
+      }
+    } else {
+      const guestCart = getGuestCart();
+      guestCart.push(guestCartItem);
+      updateGuestCart(guestCart);
+      setIsSuccessModalOpen(true);
+      console.log("Product added to guest cart",guestCart);
+    }
+  };
+
+  const mergeCartAfterLogin = async () => {
+    const guestCart = getGuestCart();
+
+    if (guestCart.length === 0) return;
+
+    const requestBody = {
+      userId, 
+      cartItemRequests: guestCart,
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:8085/api/cart/addToCart",
-        requestbody
-      );
+      const response = await axios.post("http://localhost:8085/api/cart/addToCart", requestBody);
       if (response.data.statusCode === 200) {
-        setIsSuccessModalOpen(true);
-        console.log("Product added to cart successfully", response.data);
-      }
-      else {
-        setIsErrorModalOpen(true);
+        console.log("Cart merged successfully");
+        localStorage.removeItem("guestCart");
+      } else {
+        console.log("Failed to merge guest cart");
       }
     } catch (error: any) {
-      setIsErrorModalOpen(true);
-      console.log("Couldn't add the product to cart", error);
+      console.log("Error merging guest cart", error);
     }
   };
+
+  useEffect(() => {
+    if (userId) {
+      mergeCartAfterLogin();
+    }
+  }, [userId]);
 
 
 

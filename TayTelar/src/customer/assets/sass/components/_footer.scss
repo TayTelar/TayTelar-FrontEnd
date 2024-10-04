@@ -13,11 +13,14 @@ footer {
             align-items: self-start;
 
             .footer_section1 {
+                width: 15%;
                 .image_section {
-                    padding: 0 5vw 3vw 0;
+                    padding: 0 0 3vw 0;
 
                     img {
-                        padding: 15px 0;
+                        width: 90%;
+                        height: auto;
+                        object-fit: contain;
                     }
                 }
 
@@ -31,7 +34,7 @@ footer {
                         font-size: 1.7vw;
 
                         &:hover {
-                            color: #ba933e;
+                            color: #999999;
                             cursor: pointer;
                         }
                     }
