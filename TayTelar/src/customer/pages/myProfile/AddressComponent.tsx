@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import AddressForm from "./AddressForm";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useNavigate } from "react-router-dom";
 import EditAddressForm from "./EditAddressForm"; // Import the new EditAddressForm component
 import "../../assets/sass/pages/_addressComponent.scss";
 
@@ -27,7 +26,6 @@ interface AddressComponentProps {
 const AddressComponent = ({
   setIsAddressComponentOpen,
 }: AddressComponentProps) => {
-  const navigate = useNavigate();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);

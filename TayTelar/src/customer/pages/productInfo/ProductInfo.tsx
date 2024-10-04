@@ -231,6 +231,7 @@ const ProductInfo = () => {
       description: product.productDescription,
       discount: product.offerPercent,
       image: images[0],
+      cartItemId: Date.now().toString(),
     };
 
     if (userId) {

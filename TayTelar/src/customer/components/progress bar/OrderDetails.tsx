@@ -17,7 +17,6 @@ import DialogContent from '@mui/material/DialogContent';
 import AddressForm from './AddressForm';
 import '../../assets/sass/pages/_orderdetails.scss';
 import { MouseEventHandler, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 interface Product {
   productID: string;

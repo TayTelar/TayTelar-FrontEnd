@@ -17,7 +17,6 @@ interface CartItem {
   description: string;
   price: number;
   originalPrice: number;
-  discount: string;
   size: string;
   quantity: number;
   isChecked: boolean;
@@ -38,63 +37,36 @@ const CartModal: React.FC = () => {
     if (guestCartItems) {
       try {
         const parsedGuestCart = JSON.parse(guestCartItems);
-        if (Array.isArray(parsedGuestCart) && parsedGuestCart.length > 0) {
-          const items = parsedGuestCart.map((item: any, index: number) => ({
-            cartItemId: item.cartItemId || Date.now() + index,
-            productId: item.productId,
-            name: item.productName,
-            originalPrice: item.price,
-            size: item.productSize.toString(),
-            quantity: item.quantity,
-            image: item.image,
-            productColor: item.productColor,
-            productColorCode: item.productColorCode,
-            isChecked: true,
-            price: Math.ceil(item.price * item.productOfferPercentage) / 100,
-            description: item.description,
-            discount: item.productOfferPercentage,
-            productOfferPercentage: item.productOfferPercentage,
-          }));
-
-          setCartItems(items);
-          console.log("Guest cart items set to cartItems", parsedGuestCart);
-        }
+        const updatedCart = parsedGuestCart.map((item: any) => ({
+          ...item ,
+          name: item.productName,
+          size:item.productSize
+        }));
+  
+        localStorage.setItem("guestCart", JSON.stringify(updatedCart));
+        setCartItems(updatedCart);
       } catch (error) {
         console.error("Error parsing guest cart items from localStorage:", error);
       }
     }
+  }, [guestCartItems]);
 
-    if (userId) {
-      getCartItems();
-    }
-  }, [userId,cartItems]);
-
-
-  const handleQuantityChange = async (cartItemId: number, increment: boolean = true) => {
-    let itemToUpdate = cartItems.find((item) => item.cartItemId === cartItemId);
+  const handleQuantityChange = async (cartItemId: number, increment = true) => {
+    const itemToUpdate = cartItems.find((item) => item.cartItemId === cartItemId);
     if (!itemToUpdate) return;
 
     const newQuantity = increment ? itemToUpdate.quantity + 1 : Math.max(1, itemToUpdate.quantity - 1);
 
     if (!userId) {
-      const guestCartItems = localStorage.getItem("guestCart");
-      if (guestCartItems) {
-        try {
-          const parsedGuestCart = JSON.parse(guestCartItems);
-
-          const updatedCart = parsedGuestCart.map((item: any) => {
-            if (item.cartItemId === cartItemId) {
-              return { ...item, quantity: newQuantity }; 
-            }
-            return item;
-          });
-
-          localStorage.setItem("guestCart", JSON.stringify(updatedCart));
-          setCartItems(updatedCart);
-        } catch (error) {
-          console.error("Error updating guest cart quantity in localStorage:", error);
+      const updatedCartItems = cartItems.map((item) => {
+        if (item.cartItemId === cartItemId) {
+          return { ...item, quantity: newQuantity };
         }
-      }
+        return item;
+      });
+
+      localStorage.setItem("guestCart", JSON.stringify(updatedCartItems));
+      setCartItems(updatedCartItems);
     } else {
       const requestBody = {
         userId: userId,
@@ -108,7 +80,7 @@ const CartModal: React.FC = () => {
             productColorCode: itemToUpdate.productColorCode,
             quantity: newQuantity,
             price: itemToUpdate.price,
-            productOfferPercentage: itemToUpdate.discount,
+            productOfferPercentage: itemToUpdate.productOfferPercentage,
           }
         ]
       };
@@ -140,24 +112,15 @@ const CartModal: React.FC = () => {
     );
   };
 
-  const handleRemoveItem = async (cartItemId: number) => {
+  const handleRemoveItem = async (cartItemId:number) => {
     const itemToRemove = cartItems.find((item) => item.cartItemId === cartItemId);
     if (!itemToRemove) return;
-
+  
     if (!userId) {
-      const guestCartItems = localStorage.getItem("guestCart");
-      if (guestCartItems) {
-        try {
-          const parsedGuestCart = JSON.parse(guestCartItems);
-          const updatedCart = parsedGuestCart.filter((item: any) => item.cartItemId !== cartItemId);
-
-          localStorage.setItem("guestCart", JSON.stringify(updatedCart));
-
-          setCartItems(updatedCart);
-        } catch (error) {
-          console.error("Error removing item from guest cart in localStorage:", error);
-        }
-      }
+      const filteredCartItems = cartItems.filter((item) => item.cartItemId !== cartItemId);
+  
+      localStorage.setItem("guestCart", JSON.stringify(filteredCartItems));
+      setCartItems(filteredCartItems);
     } else {
       const requestBody = {
         userId,
@@ -171,7 +134,7 @@ const CartModal: React.FC = () => {
             productColorCode: itemToRemove.productColorCode,
             quantity: itemToRemove.quantity,
             price: itemToRemove.price,
-            productOfferPercentage: itemToRemove.discount,
+            productOfferPercentage: itemToRemove.productOfferPercentage,
           }
         ]
       };
@@ -241,6 +204,12 @@ const CartModal: React.FC = () => {
   }, []);
 
   const handleCheckout = () => {
+
+    if (!userId) {
+      navigate('/login');
+      return;
+    }
+
     const selectedProducts = cartItems.filter((item) => item.isChecked).map((item) => ({
       productID: item.productId,
       name: item.name,
@@ -328,7 +297,7 @@ const CartModal: React.FC = () => {
                         <span className="original-price">
                           Rs. {(item.originalPrice * item.quantity).toFixed(2)}
                         </span>
-                        <span className="discount">{item.discount}%</span>
+                        <span className="discount">{item.productOfferPercentage}%</span>
                       </div>
                       <div className="cart-item-options">
                         <div className="size-dropdown">
