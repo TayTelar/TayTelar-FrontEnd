@@ -7,10 +7,21 @@ import "../../assets/sass/components/_header.scss";
 import logo from "../../assets/images/logo.png";
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
 import ClearSharpIcon from '@mui/icons-material/ClearSharp';
+import { useState } from "react";
+import AccountCircleIcon  from '@mui/icons-material/AccountCircle';
+
+
 import { useEffect, useState } from "react";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleCartClick = () => {
+    navigate("/cart");
+  };
+  const handleMyProfileClick = () => {
+    navigate('/myProfile'); 
+  };
   const [username, setUsername] = useState<string | null>(null); 
   const location = useLocation();
 
@@ -147,6 +158,9 @@ const Header = () => {
                     >
                     <LocalMallIcon />
                     </NavLink>
+                  </li>
+                  <li>
+                    <AccountCircleIcon  onClick={handleMyProfileClick} className="icon" />
                   </li>
                 </ul>
               </div>

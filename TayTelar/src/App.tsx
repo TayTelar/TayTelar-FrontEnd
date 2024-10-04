@@ -15,6 +15,7 @@ import Shipping from "./customer/pages/productInfo/Shipping";
 import Review from "./customer/pages/productInfo/Review";
 import Shop from "./customer/pages/shop/Shop";
 import CartModal from "./customer/pages/cart/CartModal";
+import MyProfile from "./customer/pages/myProfile/MyProfile";
 import Checkout from "./customer/pages/checkout/Checkout";
 import Orders from "./customer/pages/orders/Orders";
 import Login from "./customer/pages/login/Login";
@@ -33,6 +34,8 @@ import Settings from "./admin/pages/settings/Settings";
 import AddProduct from "./admin/pages/items management/AddProduct";
 import ShowProduct from "./admin/pages/items management/ShowProduct";
 import { OrderProvider } from "./customer/pages/orders/OrderContext";
+import Affiliation from "./admin/pages/affiliate/Affiliation";
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   const location = useLocation();
@@ -41,6 +44,7 @@ const App = () => {
 
   return (
     <>
+     <Toaster position="top-right" />
       {!isAffiliated && !isAdmin && <Header />}
       <Routes>
         {/* Main application routes */}
@@ -49,6 +53,8 @@ const App = () => {
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/cart" element={<CartModal />} />
+      <Route path="/myProfile" element={<MyProfile />} />
+      
         <Route path="/checkout" element={<Checkout />} />
         
         <Route path="/order" element={<OrderProvider><Orders /></OrderProvider>} />
@@ -93,6 +99,7 @@ const App = () => {
           <Route path="settings" element={<Settings />} />
           <Route path="add-product" element={<AddProduct />} />
           <Route path="show-products" element={<ShowProduct />} />
+          <Route path="affiliate" element={<Affiliation />} />
         </Route>
 
         {/* Redirect non-matching routes */}

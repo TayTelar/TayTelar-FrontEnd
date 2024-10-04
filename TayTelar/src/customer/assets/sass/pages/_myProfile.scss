@@ -1,0 +1,284 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+
+body {
+  font: 'Montserrat', sans-serif; 
+}
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--primary-bg);
+  padding: 20px;
+}
+
+.profile-container {
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px; /* Reduced max-width for centering */
+  background-color: var(--profile-bg); /* Grey background for profile */
+
+  border-radius: 8px; /* Rounded corners for the grey background */
+  box-shadow: 0 4px 10px var(--shadow-color); /* Optional: add shadow for better visibility */
+  margin: 0 auto; /* Center the container */
+}
+
+.profile-box {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 20px;
+  border: 1px solid var(--profile-border);
+  border-radius: 8px;
+  background-color: #f3f3f3;
+}
+
+.profile-icon {
+  width: 80px;
+  height: 80px;
+  background-color: #BEBEBE; /* Remove background color */
+  display: flex; /* Center the icon */
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.edit-profile-btn {
+  position: absolute;
+  right: 20px;
+  top: 70px; 
+  padding: 10px 35px;
+  background-color:#3b3b3b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--button-hover-bg); // Darker shade on hover
+  }
+}
+
+.info-box {
+  border: 1px solid var(--profile-border);
+  border-radius: 8px;
+  padding: 20px;
+  background-color: var(--profile-bg);
+}
+
+.info-row {
+  display: flex;
+  gap: 20px; /* Adjust gap between fields */
+  margin-bottom: 15px;
+  align-items: center;
+  justify-content: space-between; /* Ensures fields are spaced evenly */
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%; /* Make input field full-width */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+  }
+}
+
+.loyalty-address-box {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  font-size: 16px; 
+  gap: 20px; /* Adjust gap between boxes */
+  justify-content: center; /* Center the boxes within this container */
+  margin-top: 20px; /* Add margin for spacing */
+
+  .loyalty-points-box,
+  .save-address-box {
+    flex: 1;
+    max-width: 300px; /* Reduced max-width for the boxes */
+    border: 1px solid var(--profile-border);
+    font-size: 16px; 
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    background-color: var(--profile-bg);
+    text-align: center; /* Center text in boxes */
+  }
+
+  .loyalty-points-box h3 {
+    font-size: 16px; // Change size of loyalty points heading
+  }
+
+  .points-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Aligns available and used points on one line */
+  }
+
+  .save-address-box {
+    p {
+      display: flex;
+      flex: 1;
+      gap: 20px; /* Adjust gap between boxes */
+      justify-content: center; /* Center the boxes within this container */
+    }
+
+    .save-address-btn {
+      background-color: #ffffff; /* Change background to pure white */
+      border: none; /* Remove border */
+      cursor: pointer; /* Change cursor to pointer */
+      display: flex;
+      margin-bottom: 10px;
+      align-items: center;
+
+      h3 {
+        margin: 0; /* Remove default margin for the heading */
+        font: size 16px; /* Adjust font size as needed */
+      }
+
+      &:hover {
+        text-decoration: underline; /* Optional: Add hover effect */
+        background-color: #f0f0f0; /* Optional: Slightly change background on hover for better UX */
+      }
+    }
+  }
+}
+
+.address-component-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px; /* Add some margin for spacing */
+  background-color: white; /* White background for the address component */
+  padding: 20px; /* Padding inside the container */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+  width: 80%; /* Width of the address component */
+  max-width: 600px; /* Maximum width for larger screens */
+}
+
+.close-btn {
+  margin-top: 20px; /* Margin to create space from the component above */
+  background-color: var(--button-bg); /* Button background color */
+  color: white; /* Button text color */
+  border: none; /* No border */
+  padding: 10px; /* Padding for the button */
+  border-radius: 5px; /* Rounded corners for the button */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+@media (max-width: 414px) { /* Mobile Size */
+ 
+  .edit-profile-btn {
+
+    padding:2px;
+  }
+  .loyalty-address-box {
+    flex-direction: column; /* Stack boxes vertically */
+    gap: 10px; /* Reduce gap for vertical stacking */
+  }
+
+  .loyalty-points-box,
+  .save-address-box {
+    max-width: none; /* Remove max-width restriction */
+  }
+  .input-field {
+    width: 100%; 
+    margin-bottom: 10px; 
+  }
+
+  .form-actions {
+    flex-direction: column; 
+    align-items: stretch; 
+  }
+
+  .button-row {
+    flex-direction: column; 
+    align-items: flex-end; 
+
+    .cancel, .edit {
+      width: 100%; 
+      margin-left: 0; 
+      margin-top: 10px;
+    }
+  }
+
+  /* For smaller devices, modal should be full-width */
+  .modal-content {
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    position: absolute;
+    z-index: 99999;
+  }
+}
+
+@media (max-width: 768px) { /* iPad Size */
+  .input-field {
+    width: 100%; 
+  }
+
+  .form-actions {
+    flex-direction: column; 
+    align-items: stretch;
+  }
+
+  .button-row {
+    flex-direction: column;
+    align-items: flex-end;
+
+    .cancel, .edit {
+      width: 100%; /* Full width buttons */
+      margin-left: 0;
+      margin-top: 10px;
+    }
+  }
+
+  .modal-content {
+    max-width: 90%; 
+  }
+}
+
+@media (max-width: 1024px) { /* Laptop Size */
+  .input-field {
+    width: 100%; /* Full width on laptop size */
+  }
+
+  .form-actions {
+    flex-direction: row; /* Buttons side by side */
+    justify-content: space-between;
+  }
+
+  .button-row {
+    flex-direction: row; /* Buttons side by side */
+    justify-content: flex-end;
+
+    .cancel, .edit {
+      width: auto; /* Keep button size consistent */
+      margin-left: 10px; /* Space between buttons */
+    }
+  }
+
+  .modal-content {
+    max-width: 80%; /* Adjust modal width for laptop size */
+  }
+}
