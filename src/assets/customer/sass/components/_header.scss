@@ -11,7 +11,8 @@ nav {
         justify-content: space-between;
         align-items: center;
         padding: 15px 0;
-        font-size: 14px;
+        font-size: 13px;
+        white-space: nowrap;
 
         .hamburger {
           cursor: pointer;
@@ -73,7 +74,7 @@ nav {
 
             a {
               text-decoration: none;
-              color: #3B3B3B;
+              color: #3b3b3b;
               display: flex;
               align-items: center;
               padding: 0 10px;
@@ -101,7 +102,7 @@ nav {
         .logo_left {
           width: 20%;
           text-align: center;
-          img{
+          img {
             width: 50%;
             height: auto;
             object-fit: contain;
@@ -121,7 +122,6 @@ nav {
             width: auto;
 
             li {
-
               .x-mark,
               p {
                 display: none;
@@ -143,12 +143,10 @@ nav {
             }
           }
         }
-
       }
     }
   }
 }
-
 
 @keyframes slideInFromLeft {
   from {
@@ -288,8 +286,6 @@ nav {
                 }
               }
             }
-
-
           }
 
           .list_right {
