@@ -51,7 +51,7 @@ interface Address {
 const fetchAddresses = async () => {
   const userId = localStorage.getItem("userId");
   try {
-    const response = await fetch(`http://localhost:8085/api/user/getAddresses?userId=${userId}`);
+    const response = await fetch(`http://backend:8081/api/user/getAddresses?userId=${userId}`);
     if (!response.ok) {
       throw new Error('Failed to fetch addresses');
     }
@@ -66,7 +66,7 @@ const fetchAddresses = async () => {
 const deleteAddress = async (addressId: string): Promise<boolean> => {
   const userId = localStorage.getItem("userId");
   try {
-    const response = await fetch(`http://localhost:8085/api/user/deleteAddress?addressId=${addressId}&userId=${userId}`, {
+    const response = await fetch(`http://backend:8081/api/user/deleteAddress?addressId=${addressId}&userId=${userId}`, {
       method: 'DELETE',
     });
     if (!response.ok) {
@@ -148,8 +148,8 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ products, pricingDetails })
     try {
       const method = newAddress.addressId ? 'PUT' : 'POST';
       const url = newAddress.addressId
-        ? 'http://localhost:8085/api/user/updateAddress'
-        : 'http://localhost:8085/api/user/addAddress';
+        ? 'http://backend:8081/api/user/updateAddress'
+        : 'http://backend:8081/api/user/addAddress';
 
       const userId = localStorage.getItem("userId");
 
@@ -249,7 +249,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ products, pricingDetails })
   });
 
   async function placeOrder(userId: string, totalAmount: number, products: Product[],selectedPaymentMethod:string) {
-    const baseUrl = "http://localhost:8085/api/order/";
+    const baseUrl = "http://backend:8081/api/order/";
 
     console.log(products);
 
@@ -313,7 +313,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ products, pricingDetails })
         paymentMethod: paymentMethod
       };
 
-      const baseUrl = "http://localhost:8085/api/payment/";
+      const baseUrl = "http://backend:8081/api/payment/";
 
       const paymentResponse = await fetch(`${baseUrl}createPayment`, {
         method: "POST",

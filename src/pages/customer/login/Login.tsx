@@ -109,7 +109,7 @@ const Login: React.FC<customerType> = ({ customerType }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8085/api/otp/sendOtp",
+        "http://backend:8081/api/otp/sendOtp",
         requestbody
       );
 
@@ -154,7 +154,7 @@ const Login: React.FC<customerType> = ({ customerType }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8085/api/otp/verifyOtp",
+        "http://backend:8081/api/otp/verifyOtp",
         requestbody
       );
 
@@ -203,7 +203,7 @@ const Login: React.FC<customerType> = ({ customerType }) => {
       try {
         console.log("userType: ", customerType);
         const response = await axios.post(
-          "http://localhost:8085/api/user/register",
+          "http://backend:8081/api/user/register",
           requestbody
         );
 
@@ -257,7 +257,7 @@ const Login: React.FC<customerType> = ({ customerType }) => {
     try {
       console.log("userType: ", customerType);
       const response = await axios.post(
-        "http://localhost:8085/api/user/login",
+        "http://backend:8081/api/user/login",
         requestbody
       );
       if (response.status === 200) {
@@ -314,7 +314,7 @@ const Login: React.FC<customerType> = ({ customerType }) => {
     };
   
     try {
-      const response = await axios.post("http://localhost:8085/api/cart/addToCart", requestBody);
+      const response = await axios.post("http://backend:8081/api/cart/addToCart", requestBody);
       if (response.data.statusCode === 200) {
         console.log("Cart merged successfully");
         localStorage.removeItem("guestCart"); 

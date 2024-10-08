@@ -86,7 +86,7 @@ const CartModal: React.FC = () => {
       };
 
       try {
-        const response = await axios.put("http://localhost:8085/api/cart/updateCartItem", requestBody);
+        const response = await axios.put("http://backend:8081/api/cart/updateCartItem", requestBody);
         if (response.status === 200) {
           setCartItems((prevItems) =>
             prevItems.map((item) =>
@@ -140,7 +140,7 @@ const CartModal: React.FC = () => {
       };
 
       try {
-        const response = await axios.delete("http://localhost:8085/api/cart/deleteCartItem", {
+        const response = await axios.delete("http://backend:8081/api/cart/deleteCartItem", {
           data: requestBody
         });
 
@@ -172,7 +172,7 @@ const CartModal: React.FC = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:8085/api/cart/getCartItems?userId=${userId}`
+        `http://backend:8081/api/cart/getCartItems?userId=${userId}`
       );
 
       const items = response.data.cartItemResponses.map((item: any) => ({

@@ -2,7 +2,7 @@ import axios from "axios";
 import { IAddProductRequest } from "../types/admin/addProduct/request.type";
 import { IUpdateProduct } from "../types/admin/updateProduct/request.type";
 
-const BASE_URL = "http://localHost:8085";
+const BASE_URL = "http://backend:8081";
 
 const http = axios.create({
   baseURL: BASE_URL,
