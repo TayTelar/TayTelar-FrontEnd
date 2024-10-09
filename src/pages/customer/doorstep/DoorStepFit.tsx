@@ -1,21 +1,31 @@
 import "../../../assets/customer/sass/pages/_doorstep.scss";
-import { useState } from "react";
-import SlotAvailable from "./SlotAvailable";
-import AvailableTimeSlots from "./AvailableTimeSlots";
-import HomeAddress from "./HomeAddress";
-import ConfirmationPopup from "./ConfirmationPopup";
+import { useState, useEffect } from "react";
+import SlotAvailable from "../../../components/customer/doorstep/SlotAvailable";
+import AvailableTimeSlots from "../../../components/customer/doorstep/AvailableTimeSlots";
+import HomeAddress from "../../../components/customer/doorstep/HomeAddress";
+import ConfirmationPopup from "../../../components/customer/doorstep/ConfirmationPopup";
 
 const DoorStepFit = () => {
   const [isAvailable, setIsAvailable] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [isSlotSelected, setIsSlotSelected] = useState(false);
-
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [bookedSlotDetails, setBookedSlotDetails] = useState<{
     date: string;
     slot: string;
   } | null>(null);
+
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 450);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 450);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleBookSchedule = () => {
     if (selectedDate && selectedSlot) {
@@ -63,35 +73,49 @@ const DoorStepFit = () => {
     setBookedSlotDetails(null);
   };
 
+  const alternateSteps = [
+    "Your Pincode is confirmed, and our at-home fitting service is available in your area.",
+    "Choose a convenient date and time for your fitting service using our interactive calendar.",
+    "On your selected date, our team will visit your home for precise measurements and to showcase our pant designs.",
+    "Once you finalize your designs, our skilled tailors will create your custom pants and deliver them right to your doorstep!",
+  ];
+
   return (
     <div className="doorstep__container">
       <>
         <p>The Steps to Your Perfect Fit</p>
-        <ol>
-          <li>
-            You’ve successfully entered your Pincode, and we’ve confirmed that
-            our at-home fitting service is available in your area. You’re all
-            set to proceed!
-          </li>
-          <li>
-            Select a convenient date and time for your fitting service. Our
-            interactive calendar will display available time slots based on your
-            selected date, allowing you to choose what works best for you.
-          </li>
-          <li>
-            On your chosen date, our professional team will visit your home to
-            take precise measurements and during this visit you’ll have the
-            chance to explore our exclusive catalog of pant designs and sample
-            fabrics.
-          </li>
-          <li>
-            After taking your measurements and finalizing your design choices,
-            our skilled tailors will create your custom pants. Once your pants
-            are ready, we’ll deliver them directly to your doorstep, so you can
-            enjoy your new look without any hassle!
-          </li>
-        </ol>
-        <button onClick={() => setIsAvailable(true)}>Check Availability</button>
+        {isSmallScreen ? (
+          <ol className="alternate-list visible">
+            {alternateSteps.map((step, index) => (
+              <li key={index}>{step}</li>
+            ))}
+          </ol>
+        ) : (
+          <ol>
+            <li>
+              You’ve successfully entered your Pincode, and we’ve confirmed that
+              our at-home fitting service is available in your area.
+            </li>
+            <li>
+              Select a convenient date and time for your fitting service. Our
+              interactive calendar will display available time slots based on
+              your selected date.
+            </li>
+            <li>
+              On your chosen date, our professional team will visit your home to
+              take precise measurements and explore our catalog of pant designs.
+            </li>
+            <li>
+              After finalizing your design choices, our skilled tailors will
+              create your custom pants, delivered directly to your doorstep!
+            </li>
+          </ol>
+        )}
+        <div className="button-container">
+          <button onClick={() => setIsAvailable(true)}>
+            Check Availability
+          </button>
+        </div>
       </>
       {isAvailable && (
         <SlotAvailable

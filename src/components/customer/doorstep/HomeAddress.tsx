@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../../../assets/customer/sass/components/_homeaddress.scss";
 
 interface HomeAddressProps {
   onBookSchedule: () => void;
@@ -20,22 +21,22 @@ const HomeAddress: React.FC<HomeAddressProps> = ({ onBookSchedule }) => {
       <p>Enter Your Home Address</p>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <div className="input-group">
-            <input
-              type="text"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-            <input
-              type="text"
-              placeholder="Mobile Number"
-              value={mobileNumber}
-              onChange={(e) => setMobileNumber(e.target.value)}
-              required
-            />
-          </div>
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Mobile Number"
+            value={mobileNumber}
+            onChange={(e) => setMobileNumber(e.target.value)}
+            required
+          />
         </div>
         <div className="form-group">
           <input
@@ -55,7 +56,9 @@ const HomeAddress: React.FC<HomeAddressProps> = ({ onBookSchedule }) => {
             required
           />
         </div>
-        <button type="submit">Book Schedule</button>
+        <div className="button-container">
+          <button type="submit">Book Schedule</button>
+        </div>
       </form>
     </div>
   );

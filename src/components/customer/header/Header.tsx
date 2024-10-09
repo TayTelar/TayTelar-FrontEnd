@@ -11,11 +11,13 @@ import ClearSharpIcon from "@mui/icons-material/ClearSharp";
 import { useState } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Popup from "../../../pages/customer/doorstep/Popup";
+import { RiArrowDropDownLine } from "react-icons/ri";
 
 const Header = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleCartClick = () => {
     navigate("/cart");
@@ -26,8 +28,17 @@ const Header = () => {
 
   const handleDoorstepFitClick = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    toggleMenu();
-    setPopupOpen(true);
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleOptionClick = (option: string) => {
+    setDropdownOpen(false);
+    toggleMenu(); 
+    if (option === "Alteration") {
+      navigate("/alteration");
+    } else if (option === "Fit Appointment") {
+      setPopupOpen(true);
+    }
   };
 
   const toggleMenu = () => {
@@ -108,12 +119,28 @@ const Header = () => {
                   </li>
                   <li>
                     <NavLink
-                      to="/fit"
-                      className={({ isActive }) => (isActive ? "active" : "")}
+                      to=""
+                      className={`custom ${dropdownOpen ? "sparkle" : ""}`} // Add sparkle class here
                       onClick={handleDoorstepFitClick}
                     >
-                      Doorstep Fit
+                      Customization{" "}
+                      <RiArrowDropDownLine
+                        className={`icon ${dropdownOpen ? "rotated" : ""}`}
+                      />
                     </NavLink>
+                    {dropdownOpen && (
+                      <div className="dropdown">
+                        <div onClick={() => handleOptionClick("Alteration")}>
+                          Alteration at Doorstep
+                        </div>
+                        <div
+                          onClick={() => handleOptionClick("Fit Appointment")}
+                        >
+                          Fit Appointment
+                        </div>
+                        <div>Smart Measurement Scan</div>
+                      </div>
+                    )}
                   </li>
                 </ul>
               </div>

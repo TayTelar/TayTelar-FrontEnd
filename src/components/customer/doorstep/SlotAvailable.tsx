@@ -1,3 +1,5 @@
+import "../../../assets/customer/sass/components/_slots.scss";
+
 interface SlotAvailableProps {
   datesWithSlots: { [key: string]: string[] };
   onDateClick: (date: string) => void;

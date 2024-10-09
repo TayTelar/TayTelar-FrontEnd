@@ -37,6 +37,7 @@ import { OrderProvider } from "./pages/customer/orders/OrderContext";
 import Affiliation from "./pages/admin/affiliate/Affiliation";
 import { Toaster } from "react-hot-toast";
 import DoorStepFit from "./pages/customer/doorstep/DoorStepFit";
+import Alteration from "./pages/customer/alteration/Alteration";
 
 const App = () => {
   const location = useLocation();
@@ -56,6 +57,7 @@ const App = () => {
         <Route path="/fit" element={<DoorStepFit />} />
         <Route path="/cart" element={<CartModal />} />
         <Route path="/myProfile" element={<MyProfile />} />
+        <Route path="/alteration" element={<Alteration />} />
 
         <Route path="/checkout" element={<Checkout />} />
 

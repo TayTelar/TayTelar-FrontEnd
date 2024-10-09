@@ -1,0 +1,39 @@
+.home__address {
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-top: 18px;
+
+    input {
+      padding: 8px;
+      font-size: 12px;
+      border: 1px solid #ccc;
+      outline: none;
+      width: 50%;
+    }
+  }
+
+  button {
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 450px) {
+  .home__address {
+    .form-group {
+      input {
+        width: 90%;
+      }
+
+      .input-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

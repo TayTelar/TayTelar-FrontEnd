@@ -1,4 +1,6 @@
-interface AvailableTimeSlotsProps {
+import "../../../assets/customer/sass/components/_timeslots.scss";
+
+interface AvailableTimeProps {
   date: string;
   slots: string[];
   bookedSlots: string[];
@@ -6,7 +8,7 @@ interface AvailableTimeSlotsProps {
   onSelectSlot: (slot: string) => void;
 }
 
-const AvailableTimeSlots: React.FC<AvailableTimeSlotsProps> = ({
+const AvailableTime: React.FC<AvailableTimeProps> = ({
   date,
   slots,
   bookedSlots,
@@ -37,4 +39,4 @@ const AvailableTimeSlots: React.FC<AvailableTimeSlotsProps> = ({
   );
 };
 
-export default AvailableTimeSlots;
+export default AvailableTime;
