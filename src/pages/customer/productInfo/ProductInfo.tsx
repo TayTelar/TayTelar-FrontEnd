@@ -241,7 +241,7 @@ const ProductInfo = () => {
       };
 
       try {
-        const response = await axios.post("http://backend:8081/api/cart/addToCart", requestBody);
+        const response = await axios.post("http://a37234b3cd337413b8a915fa7d75044c-1003891062.ap-south-1.elb.amazonaws.com:8081/api/cart/addToCart", requestBody);
         if (response.data.statusCode === 200) {
           setIsSuccessModalOpen(true);
           console.log("Product added to cart successfully", response.data);
@@ -272,7 +272,7 @@ const ProductInfo = () => {
     };
 
     try {
-      const response = await axios.post("http://backend:8081/api/cart/addToCart", requestBody);
+      const response = await axios.post("http://a37234b3cd337413b8a915fa7d75044c-1003891062.ap-south-1.elb.amazonaws.com:8081/api/cart/addToCart", requestBody);
       if (response.data.statusCode === 200) {
         console.log("Cart merged successfully");
         localStorage.removeItem("guestCart");

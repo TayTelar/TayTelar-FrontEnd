@@ -1,13 +1,13 @@
 node_modules
 
 #amplify-do-not-edit-begin
-amplify/\#current-cloud-backend
+amplify/\#current-cloud-a37234b3cd337413b8a915fa7d75044c-1003891062.ap-south-1.elb.amazonaws.com
 amplify/.config/local-*
 amplify/logs
 amplify/mock-data
 amplify/mock-api-resources
-amplify/backend/amplify-meta.json
-amplify/backend/.temp
+amplify/a37234b3cd337413b8a915fa7d75044c-1003891062.ap-south-1.elb.amazonaws.com/amplify-meta.json
+amplify/a37234b3cd337413b8a915fa7d75044c-1003891062.ap-south-1.elb.amazonaws.com/.temp
 build/
 dist/
 node_modules/

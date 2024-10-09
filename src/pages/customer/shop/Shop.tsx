@@ -65,7 +65,7 @@ const Shop: React.FC = () => {
   const getAllProducts = async () => {
     try {
       const response = await axios.get(
-        "http://backend:8081/api/product/getAllProducts"
+        "http://a37234b3cd337413b8a915fa7d75044c-1003891062.ap-south-1.elb.amazonaws.com:8081/api/product/getAllProducts"
       );
 
       const categoryResponses = response.data.categoryResponses;
