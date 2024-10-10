@@ -35,7 +35,9 @@ import AddProduct from "./pages/admin/items management/AddProduct";
 import ShowProduct from "./pages/admin/items management/ShowProduct";
 import { OrderProvider } from "./pages/customer/orders/OrderContext";
 import Affiliation from "./pages/admin/affiliate/Affiliation";
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
+import DoorStepFit from "./pages/customer/doorstep/DoorStepFit";
+import Alteration from "./pages/customer/alteration/Alteration";
 
 const App = () => {
   const location = useLocation();
@@ -44,7 +46,7 @@ const App = () => {
 
   return (
     <>
-     <Toaster position="top-right" />
+      <Toaster position="top-right" />
       {!isAffiliated && !isAdmin && <Header />}
       <Routes>
         {/* Main application routes */}
@@ -52,13 +54,22 @@ const App = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/fit" element={<DoorStepFit />} />
         <Route path="/cart" element={<CartModal />} />
-      <Route path="/myProfile" element={<MyProfile />} />
-      
+        <Route path="/myProfile" element={<MyProfile />} />
+        <Route path="/alteration" element={<Alteration />} />
+
         <Route path="/checkout" element={<Checkout />} />
-        
-        <Route path="/order" element={<OrderProvider><Orders /></OrderProvider>} />
-        
+
+        <Route
+          path="/order"
+          element={
+            <OrderProvider>
+              <Orders />
+            </OrderProvider>
+          }
+        />
+
         <Route
           path="/productinfo"
           element={

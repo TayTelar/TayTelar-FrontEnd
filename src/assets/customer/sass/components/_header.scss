@@ -11,7 +11,8 @@ nav {
         justify-content: space-between;
         align-items: center;
         padding: 15px 0;
-        font-size: 14px;
+        font-size: 13px;
+        white-space: nowrap;
 
         .hamburger {
           cursor: pointer;
@@ -70,14 +71,48 @@ nav {
             align-items: center;
             margin: 0;
             padding: 0;
+            position: relative;
+
+            .dropdown {
+              background-color: #3b3b3b;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              z-index: 1000;
+              position: absolute;
+              top: 100%;
+              left: 0;
+              margin-top: 15px;
+              font-size: 11px;
+              color: white;
+
+              div {
+                padding: 10px;
+                text-align: center;
+                cursor: pointer;
+
+                &:hover {
+                  background-color: #fff;
+                  color: #3b3b3b;
+                }
+              }
+            }
 
             a {
               text-decoration: none;
-              color: #3B3B3B;
+              color: #3b3b3b;
               display: flex;
               align-items: center;
               padding: 0 10px;
               font-weight: 600;
+
+              .icon {
+                transition: transform 0.3s ease;
+                color: #3b3b3b;
+                font-size: 28px;
+
+                &.rotated {
+                  transform: rotate(180deg);
+                }
+              }
 
               &.active {
                 color: #9e9e9e;
@@ -101,7 +136,7 @@ nav {
         .logo_left {
           width: 20%;
           text-align: center;
-          img{
+          img {
             width: 50%;
             height: auto;
             object-fit: contain;
@@ -121,7 +156,6 @@ nav {
             width: auto;
 
             li {
-
               .x-mark,
               p {
                 display: none;
@@ -143,12 +177,10 @@ nav {
             }
           }
         }
-
       }
     }
   }
 }
-
 
 @keyframes slideInFromLeft {
   from {
@@ -262,6 +294,22 @@ nav {
               li {
                 justify-content: flex-start;
 
+                .dropdown {
+                  margin-top: 0;
+                  background-color: #fff;
+                  color: #3b3b3b;
+                  box-shadow: none;
+
+                  div {
+                    text-align: left;
+                    border-bottom: 1px solid #ccc;
+                    &:hover {
+                      background-color: #fff;
+                      color: #3b3b3b;
+                    }
+                  }
+                }
+
                 a {
                   padding: 8px;
                   font-size: 16px;
@@ -288,8 +336,6 @@ nav {
                 }
               }
             }
-
-
           }
 
           .list_right {

@@ -1,0 +1,134 @@
+.review-order {
+  margin-top: 25px;
+
+  button {
+    background-color: #3b3b3b;
+    color: #fff;
+    padding: 8px 15px;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+  }
+
+  p {
+    font-size: 13px;
+    color: #8e8e8e;
+    font-weight: 500;
+  }
+
+  .order {
+    width: 100%;
+    max-width: 600px;
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      font-size: 12px;
+
+      .label {
+        color: #828282;
+        font-weight: 500;
+        margin-right: 10px;
+      }
+
+      span {
+        font-weight: 600;
+      }
+
+      label {
+        font-size: 12px;
+      }
+
+      input[type="checkbox"] {
+        margin-right: 10px;
+      }
+    }
+
+    .order-items {
+      margin-top: 20px;
+    }
+
+    .order-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      position: relative;
+
+      &.selected {
+        border-color: #3b3b3b;
+      }
+
+      .order-item-checkbox {
+        margin-right: 10px;
+      }
+
+      .order-item-image {
+        width: 60px;
+        height: 60px;
+        background-color: #e0e0e0;
+        margin-right: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        color: #999;
+      }
+
+      .order-item-details {
+        flex: 1;
+
+        h3 {
+          color: #3b3b3b;
+          font-size: 13px;
+          font-weight: 600;
+        }
+
+        .label {
+          color: #828282;
+          font-size: 12px;
+          margin-right: 12px;
+        }
+
+        .value {
+          color: #3b3b3b;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .review-order {
+    .order .order-item .order-item-image {
+      width: 80px;
+      height: 100px;
+    }
+    p {
+      margin: 8px;
+      margin-left: 0;
+    }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .order {
+      max-width: 300px;
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+
+      .order-header span {
+        margin: 0 auto;
+      }
+      .order-header label {
+        display: none;
+      }
+    }
+  }
+}
